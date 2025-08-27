@@ -15,8 +15,5 @@ RUN npm i pg-native
 
 COPY . .
 
-# Expose the port that your app will run on
-EXPOSE 3000
-
 # Define the command to start your application
 CMD npm run start:prod
