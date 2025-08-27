@@ -1,0 +1,85 @@
+services:
+  back:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    build: 
+      context: ./back/.
+    container_name: node_app
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      HOST: "0.0.0.0"
+      HOSTNAME: "localhost"
+      # postgres connection information
+      PGUSER: "user"
+      PGHOST: "postgres"
+      PGPASSWORD: "password"
+      PGDATABASE: "db"
+      PGPORT: 5432
+      # password for token signature. Plz use 32 random bytes.
+      # openssl rand -hex 32
+      JWT_SECRET: "aef5secret"
+      ADMIN_PASSWORD: "adminpwd"
+    networks:
+      - app-network
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  nginx:
+    depends_on:
+      - back
+    build:
+      context: ./nginx/.
+    container_name: nginx_server
+    volumes:
+      - ./front:/var/www
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    networks:
+      - app-network
+    volumes:
+      - postgres:/data/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --debug --http-api-update
+    environment:
+      - WATCHTOWER_HTTP_API_TOKEN=mytoken
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres:
+
+networks:
+  app-network:
+    driver: bridge
