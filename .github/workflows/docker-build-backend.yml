@@ -24,7 +24,7 @@ jobs:
       packages: write
     env:
       TITLE: Backend
-      GHCR_SLUG: ghcr.io/SIr-Lorrak/note-backend
+      GHCR_SLUG: ghcr.io/sir-lorrak/note-backend
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
