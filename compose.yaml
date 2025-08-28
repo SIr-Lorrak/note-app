@@ -37,12 +37,13 @@ services:
     volumes:
       - ./front:/var/www
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
     networks:
       - app-network
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx.rule=Host(`app.${DOMAIN}`)"
+      - "traefik.http.routers.nginx.entrypoints=websecure"
 
   postgres:
     container_name: postgres
@@ -67,6 +68,38 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
 
+  traefik:
+    image: traefik:v2
+    command:
+      - --api.dashboard=true
+      - --providers.docker=true
+      - --providers.docker.network=app-network
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web.http.redirections.entryPoint.permanent=true
+      - --entrypoints.websecure.address=:443
+      #- --certificatesResolvers.cloudflare_main.acme.email=${CLOUDFLARE_EMAIL}
+      #- --certificatesResolvers.cloudflare_main.acme.storage=/data/acme/acme.json
+      #- --certificatesResolvers.cloudflare_main.acme.dnsChallenge.provider=cloudflare
+      #- --certificatesResolvers.cloudflare_main.acme.dnsChallenge.propagation.delayBeforeChecks=120
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.justAdummyService.loadbalancer.server.port=1337"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      #- "traefik.http.routers.traefik.tls.certresolver=cloudflare_main"
+      #- "traefik.http.routers.traefik.tls.domains[0].main=*.${DOMAIN}"
+      - "traefik.http.routers.traefik.service=api@internal"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - app-network
+
   watchtower:
     image: containrrr/watchtower
     volumes:
@@ -76,8 +109,9 @@ services:
       - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
-    ports:
-      - 8080:8080
+      - "traefik.enable=true"
+      - "traefik.http.routers.watchtower.rule=Host(`watchtower.${DOMAIN}`)"
+      - "traefik.http.routers.watchtower.entrypoints=websecure"
 
 volumes:
   postgres:
