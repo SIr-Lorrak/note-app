@@ -4,12 +4,9 @@ import jwt from "jsonwebtoken"
 import * as argon2 from "argon2"
 import fastify from "fastify"
 
-// convert secret in hex string to bytes
-const secret = Buffer.from(process.env.JWT_SECRET, "hex")
-
 // helper
 function generateJWTToken(username, role) {
-	const token = jwt.sign({ username, role, sub: username }, secret, {
+	const token = jwt.sign({ username, role, sub: username }, SECRET, {
 		expiresIn: 600,
 	})
 	return token
@@ -25,7 +22,7 @@ function setRequestUser(username, role, request) {
 // Handler used by fastify.auth, decorates fastify instance
 async function verifyJWTToken(request, reply) {
   const token = request.headers.authorization.split(' ')[1] // token sous la forme "bearer token"
-  const payload = jwt.verify(token, secret)
+  const payload = jwt.verify(token, SECRET)
   setRequestUser(payload.username, payload.role, request)
 }
 

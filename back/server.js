@@ -18,7 +18,6 @@ const app = await build({ logger: true })
 // Entry point
 async function startServer() {
   try {
-    await app.listen({ port, host })
     const status = await app.pg.query(
       "SELECT current_catalog , current_user, inet_server_addr(), inet_server_port();",
     )
@@ -51,6 +50,10 @@ async function startServer() {
       satisfaction int);`
     )
 
+    await app.pg.query(`CREATE TABLE IF NOT EXISTS secrets (
+      secret varchar(32) primary key);`
+    ) 
+
     async function createAdmin(username, password) {
       const hashedPassword = await argon2.hash(password)
 
@@ -64,11 +67,26 @@ async function startServer() {
          ON CONFLICT (username) DO NOTHING
          RETURNING *;`,
         [username, hashedPassword],
-  )
+      )
     }
 
     await createAdmin("Chloé", admin_password)
     await createAdmin("Lorrak", admin_password)
+
+    const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
+    const results = await app.pg.query("SELECT * FROM secrets")
+    var s = 0
+    if (!results.rowCount) {
+      app.log.info("no secret found, creating one...")
+      s = genRanHex(32)
+      await app.pg.query(`INSERT INTO secrets(secret) VALUES ($1) ON CONFLICT (secret) DO NOTHING RETURNING *;`, [s])
+    } else {
+      s = results.rows[0].secret
+    }
+
+    global.SECRET = Buffer.from(s, "hex")
+
+    await app.listen({ port, host })
 
   } catch (error) {
     app.log.fatal(error)

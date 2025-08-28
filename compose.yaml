@@ -18,9 +18,7 @@ services:
       PGPASSWORD: ${PGPASSWORD}
       PGDATABASE: ${PGDB}
       PGPORT: ${PGPORT}
-      # password for token signature. Plz use 32 random bytes.
-      # openssl rand -hex 32
-      JWT_SECRET: ${JWT_SECRET}
+      # password for admin user
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     networks:
       - app-network
