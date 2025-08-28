@@ -31,10 +31,8 @@ services:
     depends_on:
       - back
     container_name: nginx_server
-    image: nginx
-    volumes:
-      - ./front:/var/www
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    build: 
+      context: ./front/.
     ports:
       - 80:80
     networks:
