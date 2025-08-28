@@ -5,6 +5,7 @@ services:
         condition: service_healthy
     build: 
       context: ./back/.
+    #image: ghcr.io/sir-lorrak/note-backend:latest
     container_name: node_app
     ports:
       - ${NODEPORT}:${NODEPORT}
