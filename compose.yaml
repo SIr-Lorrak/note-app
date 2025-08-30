@@ -23,6 +23,7 @@ services:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     networks:
       - app-network
+      - traefik
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
@@ -39,6 +40,7 @@ services:
     container_name: nginx_server
     networks:
       - app-network
+      - traefik
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
@@ -71,17 +73,18 @@ services:
   traefik:
     image: traefik:v2
     container_name: traefik
+    environment:
+      - CF_DNS_API_TOKEN=${CLOUDFLARE_API_TOKEN}
     command:
       - --api.dashboard=true
       - --providers.docker=true
-      - --providers.docker.network=app-network
+      - --providers.docker.network=traefik
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.web.http.redirections.entryPoint.permanent=true
       - --entrypoints.websecure.address=:443
-      - --log.level=DEBUG
       #- --certificatesResolvers.cloudflare_main.acme.email=${CLOUDFLARE_EMAIL}
       #- --certificatesResolvers.cloudflare_main.acme.storage=/data/acme/acme.json
       #- --certificatesResolvers.cloudflare_main.acme.dnsChallenge.provider=cloudflare
@@ -100,8 +103,9 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - traefik:/data/
     networks:
-      - app-network
+      - traefik
 
   watchtower:
     image: containrrr/watchtower
@@ -119,7 +123,7 @@ services:
       - "traefik.http.routers.watchtower.entrypoints=websecure"
       #- "traefik.http.routers.watchtower.tls.certresolver=cloudflare_nl"
     networks:
-      - app-network
+      - traefik
 
   ### Used to update containers not updated via http api
   # watchtower-daily:
@@ -139,8 +143,12 @@ services:
 
 volumes:
   postgres:
+  traefik:
 
 networks:
   app-network:
     name: app-network
+    driver: bridge
+  traefik:
+    name: traefik
     driver: bridge
