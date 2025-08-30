@@ -26,7 +26,7 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
 
-  nginx:
+  front:
     depends_on:
       - back
     build:
