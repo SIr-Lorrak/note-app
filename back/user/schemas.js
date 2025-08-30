@@ -1,6 +1,14 @@
+const binary = {
+  type: "object",
+  properties: {
+    type: {type:  "string"},
+    data: {type: "array", items:{type: "number"}}
+  }
+}
+
 const user = {
   type: "object",
-  required: ["username"],
+  required: ["username","role","matiere","color","avatar"],
   properties: {
     username: {
       description: "ton nom, primary key",
@@ -14,21 +22,45 @@ const user = {
       description: "ta matiere préféré",
       type: "number",
     },
-    color: {
-      description: "ta couleur préféré",
+    color: binary,
+    avatar: binary,
+  },
+}
+
+const userPass = {
+  type: "object",
+  required: ["username","password","role","matiere","color","avatar"],
+  properties: {
+    username: {
+      description: "ton nom, primary key",
+      type: "string",
+    },
+    password: {
+      description: "mot de passe hashé",
+      type: "string",
+    },
+    role: {
+      description: "0 pour les élève, 1 pour les profs",
       type: "number",
     },
-    avatar: {
-      description: "un entier représentant ton avatar",
-      type:'number',
+    matiere: {
+      description: "ta matiere préféré",
+      type: "number",
     },
+    color: binary,
+    avatar: binary,
   },
+}
+
+const users = {
+  type: "array",
+  items: userPass,
 }
 
 const getUserSchema = {
   tags: ["user"],
   summary: "User's information",
-  description: "Retreives a user' information.",
+  description: "Retreives a user informations.",
   params: {
     type: "object",
     properties: {
@@ -40,10 +72,19 @@ const getUserSchema = {
   },
 }
 
+const getUsersSchema = {
+  tags: ["user"],
+  summary: "User's information",
+  description: "Retreives all users informations. Administrators only.",
+  response: {
+    "2xx": users,
+  },
+}
+
 const delUserSchema = {
   tags: ["user"],
   summary: "Delete a user",
-  description: "Delete a user. Administrators only.",
+  description: "Deletes a user.",
   params: {
     type: "object",
     properties: {
@@ -58,10 +99,10 @@ const delUserSchema = {
 const postUserSchema = {
   tags: ["user"],
   summary: "Create a new user",
-  description: "Creates a new user. Administrators only.",
+  description: "Creates a new user.",
   body: {
     type: "object",
-    required: ["username"],
+    required: ["username","password"],
     properties: {
       username: { type: "string", minLength: 3 },
       password: { type: "string", minLength: 4 },
@@ -72,4 +113,36 @@ const postUserSchema = {
   },
 }
 
-export { getUserSchema, postUserSchema, delUserSchema }
+const postUsersSchema = {
+  tags: ["user"],
+  summary: "Create a new user",
+  description: "restores users. Administrators only.",
+  body: {
+    type: "object",
+    required: ["users"],
+    properties: {
+      users: users, // with hashed password
+    },
+  },
+  response: {
+    "2xx": users,
+  },
+}
+
+const putUserSchema = {
+  tags: ["user"],
+  summary: "Create a new user",
+  description: "updates a user.",
+  params: {
+    type: "object",
+    properties: {
+      username: { type: "string", minLength: 3 },
+    }
+  },
+  body: userPass,// with non hashed password
+  response: {
+    "2xx": user,
+  },
+}
+
+export { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, delUserSchema }
