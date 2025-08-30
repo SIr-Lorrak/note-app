@@ -7,7 +7,7 @@ import fastify from "fastify"
 // helper
 function generateJWTToken(username, role) {
 	const token = jwt.sign({ username, role, sub: username }, SECRET, {
-		expiresIn: 600,
+		expiresIn: "24h",
 	})
 	return token
 }
