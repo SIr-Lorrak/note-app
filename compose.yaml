@@ -30,13 +30,8 @@ services:
     depends_on:
       - back
     build:
-      context: ./nginx/.
-    container_name: nginx_server
-    build: 
       context: ./front/.
-    volumes:
-      - ./front:/var/www
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    container_name: nginx_server
     ports:
       - 80:80
     networks:
