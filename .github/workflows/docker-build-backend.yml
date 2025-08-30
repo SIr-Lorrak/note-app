@@ -66,3 +66,7 @@ jobs:
             ${{ env.GHCR_SLUG }}:latest
           cache-from: |
             ${{ env.GHCR_SLUG }}:latest
+  warn-watchtower:
+    needs: docker
+    uses: ./.github/workflows/warn-watchtower.yml
+    secrets: inherit
