@@ -1,0 +1,8 @@
+h1 {
+	color: plum;
+}
+
+.tiny-icon>* {
+	width: 1em;
+	height: 1em;
+}

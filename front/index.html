@@ -6,13 +6,44 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<title>NOTE</title>
+  	<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 	
 	<link rel="stylesheet" href="assets/styles/main.css">
-	
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="assets/scripts/utils.js"></script>
+
 </head>
 <body>
+	<div id="body">
+		<h1> hello world <load-file src="assets/images/croix.svg" class="tiny-icon"></load-file>
+		</h1>
 
-	<h1>HELLO WORLD</h1>
+		<nav id="top_nav">
+			<!--pour aller dans les paramêtre retourner a l'accueil ou à la page précédente-->
+		</nav>
+
+		<div id="connection">
+			<!--ici un formulaire pour te connecter-->
+		</div>
+
+		<div id="accueil">
+			<!--ici pour naviguer entre les 8 différentes matière ou général-->
+		</div>
+
+		<div id="matiere" class="general">
+			<!--ici la page matière pour rentrer une note voir l'historique ou les statistiques-->
+			<div id="new_note"></div>
+			<div id="historique"></div>
+			<div id="statistiques"></div>
+		</div>
+
+		<div id="parametre">
+			<!--ici les parametre de ton profil pour changer de nom, d'avatar, de mot de passe...-->
+		</div>
+
+	</div>
+
 	<script src="assets/scripts/main.js"></script>
 
 </body>
