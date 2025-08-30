@@ -28,6 +28,7 @@ import { verifyJWTToken, verifyLoginPassword } from "./auth/handlers.js"
 // App's route
 import authRoutes from "./auth/routes.js"
 import userRoutes from "./user/routes.js"
+import noteRoutes from "./note/routes.js"
 const serverUrl = `http://${process.env.HOSTNAME}:${process.env.PORT}`
 
 const swaggerOptions = {
@@ -130,6 +131,7 @@ function build(options = {}) {
   // Register applicative routes
   app.register(authRoutes, { prefix: "/auth" })
   app.register(userRoutes, { prefix: "/user" })
+  app.register(noteRoutes, { prefix: "/note" })
 
   return app
 }
