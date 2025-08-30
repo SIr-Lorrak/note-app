@@ -59,20 +59,33 @@ services:
       timeout: 60s
       retries: 5
       start_period: 80s
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
 
   watchtower:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --debug --http-api-update
     environment:
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_HTTP_API_UPDATE=true
       - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}
-    labels:
-      - "com.centurylinklabs.watchtower.enable=false"
     ports:
       - 8080:8080
+
+  ### Used to update containers not updated via http api
+  # watchtower-daily:
+  #   container_name: watchtower-daily
+  #   image: containrrr/watchtower
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     TZ: Europe/Paris
+  #     WATCHTOWER_CLEANUP: "true"
+  #     DOCKER_API_VERSION: 1.43
+  #     WATCHTOWER_SCHEDULE: 0 0 5 * * *
+  #     WATCHTOWER_TIMEOUT: 5m
+  #   restart: always
+  #   networks:
+  #     - main
 
 volumes:
   postgres:
