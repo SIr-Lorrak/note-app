@@ -1,5 +1,5 @@
-import { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, delUserSchema } from "./schemas.js"
-import { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, delUserHandler } from "./handlers.js"
+import { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserCartonSchema, delUserSchema } from "./schemas.js"
+import { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserCartonHandler, delUserHandler } from "./handlers.js"
 
 const getUserOptions = {
   method: "GET",
@@ -78,6 +78,7 @@ function usersRoutes(fastify, options, done) {
   fastify.route(postUserOptions)
   fastify.route(postUsersOptions)
   fastify.route(putUserOptions)
+  fastify.route(putUserCartonOptions)
   fastify.route(delUserOptions)
   done()
 }

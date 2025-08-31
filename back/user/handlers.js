@@ -159,4 +159,4 @@ async function delUserHandler(request, reply) {
   return reply.send(results.rows[0])
 }
 
-export { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, delUserHandler }
+export { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserCartonHandler, delUserHandler }
