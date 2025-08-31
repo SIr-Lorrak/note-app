@@ -89,12 +89,13 @@ h1 {
 }
 #toile-moyenne {
 	position: absolute;
-	--size:25em;
+	--size:22em;
 	height: var(--size) !important;
 	width: var(--size) !important;
 	top:50%;
 	left:50%;
 	transform: translate(-50%, -50%);
+	transition-duration: 0.2s;
 }
 
 @media (width < 1200px) {
@@ -102,7 +103,7 @@ h1 {
 	--matiere-spacing: 12em;
   }
   #toile-moyenne {
-  	--size: 18em;
+  	--size: 17em;
   }
 }
 @media (width > 2000px) {

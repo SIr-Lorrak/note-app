@@ -60,7 +60,12 @@ const optionsDefault = {
     scales: {
         r: {
             angleLines: {
-                display: true
+                display: true,
+                color: 'DimGray'
+            },
+            grid: {
+            	color: 'DimGray',
+            	circular:true
             },
             suggestedMin: 0,
             suggestedMax: 100,
