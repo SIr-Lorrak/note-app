@@ -1,3 +1,6 @@
+body {
+	font-size: 1.1em !important;
+}
 h1 {
 	color: plum;
 }
@@ -22,6 +25,7 @@ h1 {
 	width: 7em;
 	height: 7em;
 	--matiere-half-size: -3.5em;
+	--matiere-spacing: 15em;
 	position: absolute;
 	border-radius: 100%;
 	border:0.5em solid;
@@ -76,8 +80,22 @@ h1 {
 	opacity: 0%;
 	transition-duration: 0.2s;
 	--matiere-title-offset: -1em;
+	--matiere-spacing: 15em;
 	z-index: 2;
 	pointer-events: none
+}
+@media (width < 1200px) {
+  .matiere, .matiere-title {
+	--matiere-spacing: 12em;
+  }
+}
+@media (width > 2000px) {
+  .matiere, .matiere-title {
+	--matiere-spacing: 15em;
+  }
+  body {
+  	font-size: 1.5em !important;
+  }
 }
 .matiere:hover+.matiere-title {
 	opacity: 100%;
@@ -95,70 +113,70 @@ h1 {
 }
 #francais {
 	left: calc(var(--matiere-half-size));
-	top: calc(var(--matiere-half-size) - 15em);
+	top: calc(var(--matiere-half-size) - var(--matiere-spacing));
 	border-color: DodgerBlue;
 	color: DodgerBlue;
 	background-color: LightSkyBlue;
 }
 #mathematiques {
-	left: calc(var(--matiere-half-size) + 0.59*15em);
-	top: calc(var(--matiere-half-size) - 0.81*15em);
+	left: calc(var(--matiere-half-size) + 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.81*var(--matiere-spacing));
 	border-color: crimson;
 	color: crimson;
 	background-color: LightCoral;
 }
 #EMC {
-	left: calc(var(--matiere-half-size) + 0.95*15em);
-	top: calc(var(--matiere-half-size) - 0.31*15em);
+	left: calc(var(--matiere-half-size) + 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.31*var(--matiere-spacing));
 	border-color: BurlyWood;
 	color: BurlyWood;
 	background-color: bisque;
 }
 #anglais {
-	left: calc(var(--matiere-half-size) + 0.95*15em);
-	top: calc(var(--matiere-half-size) + 0.31*15em);
+	left: calc(var(--matiere-half-size) + 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.31*var(--matiere-spacing));
 	border-color: DimGray;
 	color: DimGray;
 	background-color: Silver;
 }
 #art {
-	left: calc(var(--matiere-half-size) + 0.59*15em);
-	top: calc(var(--matiere-half-size) + 0.81*15em);
+	left: calc(var(--matiere-half-size) + 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.81*var(--matiere-spacing));
 	border-color: RebeccaPurple;
 	color: RebeccaPurple;
 	background-color: MediumOrchid;
 }
 #musique {
 	left: calc(var(--matiere-half-size));
-	top: calc(var(--matiere-half-size) + 15em);
+	top: calc(var(--matiere-half-size) + var(--matiere-spacing));
 	border-color: DeepPink;
 	color: DeepPink;
 	background-color: HotPink;
 }
 #EPS {
-	left: calc(var(--matiere-half-size) - 0.59*15em);
-	top: calc(var(--matiere-half-size) + 0.81*15em);
+	left: calc(var(--matiere-half-size) - 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.81*var(--matiere-spacing));
 	border-color: sienna;
 	color: sienna;
 	background-color: Peru;
 }
 #histoire {
-	left: calc(var(--matiere-half-size) - 0.95*15em);
-	top: calc(var(--matiere-half-size) + 0.31*15em);
+	left: calc(var(--matiere-half-size) - 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.31*var(--matiere-spacing));
 	border-color: Gold;
 	color: Gold;
 	background-color: Yellow;
 }
 #geographie {
-	left: calc(var(--matiere-half-size) - 0.95*15em);
-	top: calc(var(--matiere-half-size) - 0.31*15em);
+	left: calc(var(--matiere-half-size) - 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.31*var(--matiere-spacing));
 	border-color: Tomato;
 	color: Tomato;
 	background-color: Orange;
 }
 #sciences {
-	left: calc(var(--matiere-half-size) - 0.59*15em);
-	top: calc(var(--matiere-half-size) - 0.81*15em);
+	left: calc(var(--matiere-half-size) - 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.81*var(--matiere-spacing));
 	border-color: Green;
 	color: Green;
 	background-color: LimeGreen;
@@ -222,41 +240,41 @@ h1 {
 }
 #francais+.matiere-title {
 	left: calc(var(--matiere-half-size));
-	top: calc(var(--matiere-half-size) - 15em + var(--matiere-title-offset));
+	top: calc(var(--matiere-half-size) - var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #mathematiques+.matiere-title {
-	left: calc(var(--matiere-half-size) + 0.59*15em);
-	top: calc(var(--matiere-half-size) - 0.81*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) + 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.81*var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #EMC+.matiere-title {
-	left: calc(var(--matiere-half-size) + 0.95*15em);
-	top: calc(var(--matiere-half-size) - 0.31*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) + 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.31*var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #anglais+.matiere-title {
-	left: calc(var(--matiere-half-size) + 0.95*15em);
-	top: calc(var(--matiere-half-size) + 0.31*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) + 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.31*var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #art+.matiere-title {
-	left: calc(var(--matiere-half-size) + 0.59*15em);
-	top: calc(var(--matiere-half-size) + 0.81*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) + 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.81*var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #musique+.matiere-title {
 	left: calc(var(--matiere-half-size));
-	top: calc(var(--matiere-half-size) + 15em + var(--matiere-title-offset));
+	top: calc(var(--matiere-half-size) + var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #EPS+.matiere-title {
-	left: calc(var(--matiere-half-size) - 0.59*15em);
-	top: calc(var(--matiere-half-size) + 0.81*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) - 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.81*var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #histoire+.matiere-title {
-	left: calc(var(--matiere-half-size) - 0.95*15em);
-	top: calc(var(--matiere-half-size) + 0.31*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) - 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) + 0.31*var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #geographie+.matiere-title {
-	left: calc(var(--matiere-half-size) - 0.95*15em);
-	top: calc(var(--matiere-half-size) - 0.31*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) - 0.95*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.31*var(--matiere-spacing) + var(--matiere-title-offset));
 }
 #sciences+.matiere-title {
-	left: calc(var(--matiere-half-size) - 0.59*15em);
-	top: calc(var(--matiere-half-size) - 0.81*15em + var(--matiere-title-offset));
+	left: calc(var(--matiere-half-size) - 0.59*var(--matiere-spacing));
+	top: calc(var(--matiere-half-size) - 0.81*var(--matiere-spacing) + var(--matiere-title-offset));
 }
