@@ -36,6 +36,17 @@ h1 {
 	--matiere-half-size: -4em;
 }
 
+.matiere:active {
+	width: 7em;
+	height: 7em;
+	--matiere-half-size: -3.5em;
+	transition-duration: 0.1s;
+}
+
+.matiere:active+.matiere-title {
+	--matiere-title-offset: -0em;
+}
+
 .matiere>*{
 	display: flex;
 	margin: auto;
@@ -76,6 +87,7 @@ h1 {
 	margin-left: -100%;
 	margin-top: 0px;
 	margin-bottom: 0px;
+	user-select: none;
 }
 #general {
 	top: var(--matiere-half-size);
@@ -114,7 +126,7 @@ h1 {
 	top: calc(var(--matiere-half-size) + 0.81*15em);
 	border-color: RebeccaPurple;
 	color: RebeccaPurple;
-	background-color: DarkOrchid;
+	background-color: MediumOrchid;
 }
 #musique {
 	left: calc(var(--matiere-half-size));
@@ -150,6 +162,58 @@ h1 {
 	border-color: Green;
 	color: Green;
 	background-color: LimeGreen;
+}
+#general:active {
+	background-color: white;
+}
+#francais:active {
+	border-color: DodgerBlue;
+	color: DodgerBlue;
+	background-color: LightCyan;
+}
+#mathematiques:active {
+	border-color: crimson;
+	color: crimson;
+	background-color: MistyRose;
+}
+#EMC:active {
+	border-color: BurlyWood;
+	color: BurlyWood;
+	background-color: Snow;
+}
+#anglais:active {
+	border-color: DimGray;
+	color: DimGray;
+	background-color: Gainsboro;
+}
+#art:active {
+	border-color: RebeccaPurple;
+	color: RebeccaPurple;
+	background-color: Thistle;
+}
+#musique:active {	border-color: DeepPink;
+	color: DeepPink;
+	background-color: Pink;
+}
+#EPS:active {
+	border-color: sienna;
+	color: sienna;
+	background-color: Tan;
+}
+#histoire:active {
+	border-color: Gold;
+	color: Gold;
+	background-color: LemonChiffon;
+}
+#geographie:active {
+	border-color: Tomato;
+	color: Tomato;
+	background-color: PeachPuff;
+}
+#sciences:active {
+	border-color: Green;
+	color: Green;
+	background-color: PaleGreen;
 }
 
 #general+.matiere-title {
