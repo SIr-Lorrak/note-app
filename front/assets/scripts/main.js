@@ -6,3 +6,5 @@ const new_note = document.getElementById("new_note")
 const historique = document.getElementById("historique")
 const statistiques = document.getElementById("statistiques")
 const parametre = document.getElementById("parametre")
+
+accueil.style.background = `rgb(${currentState.currentUser.color.data[0]},${currentState.currentUser.color.data[1]},${currentState.currentUser.color.data[2]})`

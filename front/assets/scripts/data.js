@@ -7,9 +7,7 @@ const currentState = {
 		color : {
 			type : "Buffer",
 			data : [
-				255,
-				0,
-				0
+				250, 235, 215
 			]
 		},
 		avatar : {
