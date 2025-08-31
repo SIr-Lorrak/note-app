@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Define the command to start your application
-CMD npm run start:prod
+CMD ["npm", "run", "start:prod"]
