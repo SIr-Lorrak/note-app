@@ -16,10 +16,12 @@ h1 {
 	background-color: Lavender;
 }
 
+
 .matiere-wheel {
 	position: relative;
 	margin: auto;
-	padding: auto;}
+	padding: auto;
+}
 
 .matiere {
 	width: 7em;
@@ -85,9 +87,22 @@ h1 {
 	z-index: 2;
 	pointer-events: none
 }
+#toile-moyenne {
+	position: absolute;
+	--size:25em;
+	height: var(--size) !important;
+	width: var(--size) !important;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+}
+
 @media (width < 1200px) {
   .matiere, .matiere-title {
 	--matiere-spacing: 12em;
+  }
+  #toile-moyenne {
+  	--size: 18em;
   }
 }
 @media (width > 2000px) {
@@ -98,6 +113,7 @@ h1 {
   	font-size: 1.5em !important;
   }
 }
+
 .matiere:hover+.matiere-title {
 	opacity: 100%;
 }
