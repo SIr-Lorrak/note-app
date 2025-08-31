@@ -9,8 +9,7 @@ COPY package.json .
 
 # Install app dependencies
 RUN npm install
-RUN apk add --update libpq-dev g++ make python3 py3-pip && ln -sf python3 /usr/bin/python
-RUN pip3 install --no-cache --upgrade --break-system-packages pip setuptools
+RUN apk add --no-cache --update libpq-dev g++ make python3 py3-pip && ln -sf python3 /usr/bin/python
 RUN npm i pg-native
 
 COPY . .
