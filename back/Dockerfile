@@ -8,9 +8,8 @@ WORKDIR /usr/app
 COPY package.json .
 
 # Install app dependencies
-RUN npm install
-RUN apk add --no-cache --update libpq-dev g++ make python3 py3-pip && ln -sf python3 /usr/bin/python
-RUN npm i pg-native
+RUN apk add --no-cache --update libpq-dev g++ make python3
+RUN npm install pg-native
 
 COPY . .
 
