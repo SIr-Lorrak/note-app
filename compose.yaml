@@ -34,6 +34,7 @@ services:
       - back
     build:
       context: ./front/.
+    #image: ghcr.io/sir-lorrak/note-frontend:latest
     container_name: nginx_server
     networks:
       - app-network
@@ -82,10 +83,10 @@ services:
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.web.http.redirections.entryPoint.permanent=true
       - --entrypoints.websecure.address=:443
-      #- --certificatesResolvers.cloudflare_main.acme.email=${CLOUDFLARE_EMAIL}
-      #- --certificatesResolvers.cloudflare_main.acme.storage=/data/acme/acme.json
-      #- --certificatesResolvers.cloudflare_main.acme.dnsChallenge.provider=cloudflare
-      #- --certificatesResolvers.cloudflare_main.acme.dnsChallenge.propagation.delayBeforeChecks=120
+      #- --certificatesResolvers.cloudflare_nl.acme.email=${CLOUDFLARE_EMAIL}
+      #- --certificatesResolvers.cloudflare_nl.acme.storage=/data/acme/acme.json
+      #- --certificatesResolvers.cloudflare_nl.acme.dnsChallenge.provider=cloudflare
+      #- --certificatesResolvers.cloudflare_nl.acme.dnsChallenge.propagation.delayBeforeChecks=120
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.justAdummyService.loadbalancer.server.port=1337"
@@ -93,7 +94,8 @@ services:
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.tls=true"
       #- "traefik.http.routers.traefik.tls.certresolver=cloudflare_nl"
-      #- "traefik.http.routers.traefik.tls.domains[0].main=*.${DOMAIN}"
+      #- "traefik.http.routers.traefik.tls.domains[0].main=${DOMAIN}"
+      #- "traefik.http.routers.traefik.tls.domains[0].sans=*.${DOMAIN}"
       - "traefik.http.routers.traefik.service=api@internal"
     ports:
       - "80:80"
