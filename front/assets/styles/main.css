@@ -38,6 +38,7 @@ h1 {
 	width: 8em;
 	height: 8em;
 	--matiere-half-size: -4em;
+	transform: rotateZ(380deg);
 }
 
 .matiere:active {
