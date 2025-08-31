@@ -16,7 +16,7 @@ const note = {
     },
     date: {
       description: "la date de reception de la note",
-      type: "number",
+      type: "string",
     },
     notion: {
       description: "la notion couverte par la note",

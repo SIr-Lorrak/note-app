@@ -24,10 +24,21 @@ const user = {
     },
     color: binary,
     avatar: binary,
+    carton: {
+      description: "carton recu par l'élève",
+      type: "number"
+    },
+    commentaire: {
+      description: "commentaire sur le comportement de l'élève",
+      type: "string"
+    },
+    dateCarton: {
+      description: "date du dernier carton obtenu",
+      type: "string"
+    },
   },
 }
-
-const userPass = {
+const userUp = {
   type: "object",
   required: ["username","password","role","matiere","color","avatar"],
   properties: {
@@ -48,7 +59,63 @@ const userPass = {
       type: "number",
     },
     color: binary,
+    avatar: binary
+  },
+}
+
+const userPass = {
+  type: "object",
+  required: ["username","password","role","matiere","color","avatar","carton","commentaire","dateCarton"],
+  properties: {
+    username: {
+      description: "ton nom, primary key",
+      type: "string",
+    },
+    password: {
+      description: "mot de passe hashé",
+      type: "string",
+    },
+    role: {
+      description: "0 pour les élève, 1 pour les profs",
+      type: "number",
+    },
+    matiere: {
+      description: "ta matiere préféré",
+      type: "number",
+    },
+    color: binary,
     avatar: binary,
+    carton: {
+      description: "carton recu par l'élève",
+      type: "number"
+    },
+    commentaire: {
+      description: "commentaire sur le comportement de l'élève",
+      type: "string"
+    },
+    dateCarton: {
+      description: "date du dernier carton obtenu",
+      type: "string"
+    },
+  },
+}
+
+const carton = {
+  type: "object",
+  required: ["carton","commentaire","dateCarton"],
+  properties: {
+    carton: {
+      description: "carton recu par l'élève",
+      type: "number"
+    },
+    commentaire: {
+      description: "commentaire sur le comportement de l'élève",
+      type: "string"
+    },
+    dateCarton: {
+      description: "date du dernier carton obtenu",
+      type: "string"
+    },
   },
 }
 
@@ -139,10 +206,26 @@ const putUserSchema = {
       username: { type: "string", minLength: 3 },
     }
   },
-  body: userPass,// with non hashed password
+  body: userUp,// with non hashed password
   response: {
     "2xx": user,
   },
 }
 
-export { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, delUserSchema }
+const putUserCartonSchema = {
+  tags: ["user"],
+  summary: "give a carton to a user",
+  description: "give a carton to a user.",
+  params: {
+    type: "object",
+    properties: {
+      username: { type: "string", minLength: 3 },
+    }
+  },
+  body: carton,// with non hashed password
+  response: {
+    "2xx": user,
+  },
+}
+
+export { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserCartonSchema, delUserSchema }

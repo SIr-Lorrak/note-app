@@ -37,17 +37,21 @@ async function startServer() {
       matiere int NOT NULL DEFAULT '0');`
     )
 
+    await app.pg.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS carton int NOT NULL DEFAULT 0;`)
+    await app.pg.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS commentaire varchar(300) NOT NULL DEFAULT '';`)
+    await app.pg.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS dateCarton date NOT NULL DEFAULT '2000-09-26';`)
+
 
     await app.pg.query(`CREATE TABLE IF NOT EXISTS notes (
       id serial primary key,
       name varchar(45) NOT NULL references users(username),
       matiere int NOT NULL,
       date date NOT NULL,
-      notion varchar(200),
+      notion varchar(200) NOT NULL,
       note int NOT NULL,
       note2 int NOT NULL,
-      revision varchar(80),
-      satisfaction int);`
+      revision varchar(80) NOT NULL,
+      satisfaction int NOT NULL);`
     )
 
     await app.pg.query(`CREATE TABLE IF NOT EXISTS secrets (

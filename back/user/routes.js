@@ -51,12 +51,22 @@ const putUserOptions = {
   handler: putUserHandler,
 }
 
+const putUserCartonOptions = {
+  method: "PUT",
+  path: "/:username/carton",
+  schema: putUserCartonSchema,
+  // Authorization logic
+  preHandler: (request, reply, done) => request.user.isAdmin ? done() : reply.status(403).send(),
+  // Business logic
+  handler: putUserCartonHandler,
+}
+
 const delUserOptions = {
   method: "DELETE",
   path: "/:username",
   schema: delUserSchema,
   // Authorization logic
-  preHandler: (request, reply, done) => request.user.isAdmin || (request.user.username === request.params.username) ? done() : reply.status(403).send(),
+  preHandler: (request, reply, done) => request.user.isAdmin ? done() : reply.status(403).send(),
   // Business logic
   handler: delUserHandler,
 }
