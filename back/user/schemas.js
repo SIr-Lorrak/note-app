@@ -32,7 +32,7 @@ const user = {
       description: "commentaire sur le comportement de l'élève",
       type: "string"
     },
-    dateCarton: {
+    datecarton: {
       description: "date du dernier carton obtenu",
       type: "string"
     },
@@ -65,7 +65,7 @@ const userUp = {
 
 const userPass = {
   type: "object",
-  required: ["username","password","role","matiere","color","avatar","carton","commentaire","dateCarton"],
+  required: ["username","password","role","matiere","color","avatar","carton","commentaire","datecarton"],
   properties: {
     username: {
       description: "ton nom, primary key",
@@ -93,7 +93,7 @@ const userPass = {
       description: "commentaire sur le comportement de l'élève",
       type: "string"
     },
-    dateCarton: {
+    datecarton: {
       description: "date du dernier carton obtenu",
       type: "string"
     },
@@ -102,7 +102,7 @@ const userPass = {
 
 const carton = {
   type: "object",
-  required: ["carton","commentaire","dateCarton"],
+  required: ["carton","commentaire","datecarton"],
   properties: {
     carton: {
       description: "carton recu par l'élève",
@@ -112,7 +112,7 @@ const carton = {
       description: "commentaire sur le comportement de l'élève",
       type: "string"
     },
-    dateCarton: {
+    datecarton: {
       description: "date du dernier carton obtenu",
       type: "string"
     },

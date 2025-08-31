@@ -62,10 +62,10 @@ async function postUsersHandler(request, reply) {
 
   for (const user of users) {
     await request.server.pg.query(
-      `INSERT INTO users(username, password, role, color, matiere, avatar, carton, commentaire, dateCarton)
+      `INSERT INTO users(username, password, role, color, matiere, avatar, carton, commentaire, datecarton)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        ON CONFLICT (username) DO UPDATE 
-       SET password = EXCLUDED.password, role = EXCLUDED.role, color = EXCLUDED.color, matiere = EXCLUDED.matiere, avatar = EXCLUDED.avatar, carton = EXCLUDED.carton, commentaire = EXCLUDED.commentaire, dateCarton = EXCLUDED.dateCarton
+       SET password = EXCLUDED.password, role = EXCLUDED.role, color = EXCLUDED.color, matiere = EXCLUDED.matiere, avatar = EXCLUDED.avatar, carton = EXCLUDED.carton, commentaire = EXCLUDED.commentaire, datecarton = EXCLUDED.datecarton
        RETURNING *;`,
 
       [user.username, user.password, user.role,
@@ -118,14 +118,14 @@ async function putUserHandler(request, reply) {
 
 async function putUserCartonHandler(request, reply) {
   const { username } = request.params
-  const { carton, commentaire, dateCarton } = request.body
+  const { carton, commentaire, datecarton } = request.body
   
     const results = await request.server.pg.query(
       `UPDATE users 
-       SET carton = $1, commentaire = $2, dateCarton = $3
+       SET carton = $1, commentaire = $2, datecarton = $3
        WHERE username = $4
        RETURNING *;`,
-      [carton, commentaire, dateCarton, username],
+      [carton, commentaire, datecarton, username],
     )
     if (results.rowCount !== 1) {
       return reply.notFound(`User ${username} not found`)

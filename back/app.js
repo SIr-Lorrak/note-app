@@ -29,24 +29,34 @@ import { verifyJWTToken, verifyLoginPassword } from "./auth/handlers.js"
 import authRoutes from "./auth/routes.js"
 import userRoutes from "./user/routes.js"
 import noteRoutes from "./note/routes.js"
-const serverUrl = `http://${process.env.HOSTNAME}:${process.env.PORT}`
+const port = process.env.PORT ?? 3000
+const host = process.env.HOST ?? "127.0.0.1"
+const serverUrl = `http://${host}:${port}`
 
 const swaggerOptions = {
   // openapi: "3.0.3", generated
   info: {
     title: "notation and authentification App",
     version: "0.1.0",
-    summary: "A sample encryption service",
-    description: "Sample application for authentication lab in TIWFSA",
+    summary: "A sample notation service",
+    description: "Sample application for student notation",
     contact: {
-      name: "TIWFSA",
+      name: "NEXT LEVEL",
       url: serverUrl,
     },
   },
 
   servers: [
     {
-      url: serverUrl,
+      url: "https://backend.next-level.somehow.wtf",
+      description: "prod server",
+    },
+    {
+      url: "https://backend.next-level.localhost",
+      description: "dev server",
+    },
+    {
+      url: `http://localhost:${port}`,
       description: "Local server",
     },
   ],
