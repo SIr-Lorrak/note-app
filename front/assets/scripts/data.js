@@ -1,4 +1,23 @@
 //here we'll fetch our data from the api but for now data are mocked
+const top_nav = document.getElementById("top_nav")
+const connexion = document.getElementById("connexion")
+const deconnexion = document.getElementById("deconnexion")
+const accueil = document.getElementById("accueil")
+const matiere = document.getElementById("matiere")
+const new_note = document.getElementById("new_note")
+const historique = document.getElementById("historique")
+const statistiques = document.getElementById("statistiques")
+const exercices = document.getElementById("exercices")
+const parametre = document.getElementById("parametre")
+const after_nav = document.getElementById("after-nav")
+
+const matieres = document.getElementsByClassName("matiere")
+const go_home = document.getElementById("go-home")
+const go_back = document.getElementById("go-back")
+const go_disconnect = document.getElementById("go-disconnect")
+const go_parametre = document.getElementById("go-parametre")
+
+const matiereList = ["general", "mathematiques", "francais", "EMC", "anglais", "art", "musique", "EPS", "histoire", "geographie", "sciences"]
 
 const currentState = {
 	currentUser : {

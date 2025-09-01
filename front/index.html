@@ -13,22 +13,29 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="assets/scripts/utils.js"></script>
-	<script src="assets/scripts/data.js"></script>
 
 </head>
 <body>
 	<div id="body">
 
-		<nav id="top_nav">
-			<!--pour aller dans les paramêtre retourner a l'accueil ou à la page précédente-->
+		<nav id="top-nav">
+			<!--pour retourner a l'accueil ou à la page précédente-->
+			<div id="after-nav">
+				<div id="go-back" class="tiny-button hidden"><load-file src="assets/images/retour.svg" class="tiny-icon"></load-file></div>
+				<div id="go-home" class="tiny-button hidden"><load-file src="assets/images/maison3.svg" class="tiny-icon"></load-file></div>
+			</div>
+			<div id="go-disconnect" class="tiny-button"><load-file src="assets/images/croix.svg" class="tiny-icon"></div>
 		</nav>
 
-		<div id="connection">
+		<div id="connexion" class="hidden content">
 			<!--ici un formulaire pour te connecter-->
 		</div>
 
-		<div id="accueil">	
+		<div id="deconnexion" class="hidden content">
+			<!--ici un avertissement pour s'assurer que l'élève veut bien se déconnecter-->
+		</div>
+
+		<div id="accueil" class="content">	
 			<canvas id="toile-moyenne"></canvas>
 			<div class="matiere-wheel">
 
@@ -55,13 +62,10 @@
 				<div class="matiere-title"><h3>Géographie</h3></div>
 				<div id="sciences" class="matiere"><load-file src="assets/images/microscope.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Sciences</h3></div>
-
-
-
 			</div>
 		</div>
 
-		<div id="matiere" class="general">
+		<div id="matiere" class="general hidden content">
 			<!--ici la page matière pour rentrer une note voir l'historique ou les statistiques-->
 			<div id="new_note"></div>
 			<div id="historique"></div>
@@ -69,16 +73,24 @@
 			<div id="exercices"></div>
 		</div>
 
-		<div id="eleves">
+		<div id="eleves" class="hidden content">
 			<!--ici les admins pourrons voir la liste des élèves et leur notes-->
 		</div>
 
-		<div id="parametre">
+		<div id="parametre" class="hidden content">
 			<!--ici les parametre de ton profil pour changer de nom, d'avatar, de mot de passe...-->
 		</div>
 
+
+		<nav id="bottom-nav">
+			<!--pour aller dans les paramêtre-->
+			<div id="go-parametre" class="tiny-button"><load-file src="assets/images/parametre.svg" class="tiny-icon"></div>
+		</nav>
+
 	</div>
 
+	<script src="assets/scripts/data.js"></script>
+	<script src="assets/scripts/utils.js"></script>
 	<script src="assets/scripts/main.js"></script>
 
 </body>

@@ -1,6 +1,60 @@
 body {
 	font-size: 1.1em !important;
 }
+html, #body, body, .content {
+	min-height: 100vh !important;
+	min-width: 100% !important;
+	background-attachment: fixed;
+}
+*{
+  transition-duration: 0.2s;
+}
+.hidden {
+  transition-duration: 0.2s;
+  opacity: 0;
+	pointer-events: none;
+	visibility: collapse;
+	position: fixed;
+}
+.tiny-button.hidden {
+	position: static;
+}
+nav {
+	position: absolute;
+	padding: 1em;
+	z-index: 8;
+	display: flex;
+	width: 100%;
+  justify-content: space-between;
+  overflow: hidden;
+}
+#top-nav {
+	top:0;
+}
+#bottom-nav {
+	bottom:0;
+}
+#after-nav{
+	display: flex;
+	width: 10em;
+  justify-content: space-between;
+}
+.tiny-button {
+	height: 4em;
+	width: 4em;
+}
+.tiny-button>.tiny-icon>* {
+	width: 100%;
+	height: 100%;
+	transition-duration: 0.2s;
+}
+.tiny-button:hover>.tiny-icon>* {
+	transform: scale(1.2) rotateZ(380deg);
+}
+
+.tiny-button:active>.tiny-icon>* {
+	transform: scale(0.8) rotateZ(0deg);
+}
 h1 {
 	color: plum;
 }
@@ -8,14 +62,13 @@ h1 {
 	position: fixed;
 	display: flex;
 	top:0;
-    left:0;
+  left:0;
 	margin: auto;
 	padding: auto;
 	width: 100%;
 	height: 100%;
 	background-color: Lavender;
 }
-
 
 .matiere-wheel {
 	position: relative;
@@ -67,6 +120,11 @@ h1 {
 	width: 75%;
 	height: 75%;
 }
+
+.tiny-button>.tiny-icon {
+	width: 100%;
+	height: 100%;
+}
 #geographie>.tiny-icon>* {
 	width: 90%;
 	height: 90%;
@@ -85,7 +143,7 @@ h1 {
 	--matiere-title-offset: -1em;
 	--matiere-spacing: 15em;
 	z-index: 2;
-	pointer-events: none
+	pointer-events: none;
 }
 #toile-moyenne {
 	position: absolute;
@@ -295,4 +353,38 @@ h1 {
 #sciences+.matiere-title {
 	left: calc(var(--matiere-half-size) - 0.59*var(--matiere-spacing));
 	top: calc(var(--matiere-half-size) - 0.81*var(--matiere-spacing) + var(--matiere-title-offset));
+}
+
+.general {
+	background-color: white;
+}
+.francais {
+	background-color: PaleTurquoise;
+}
+.mathematiques {
+	background-color: MistyRose;
+}
+.EMC {
+	background-color: bisque;
+}
+.anglais {
+	background-color: Gainsboro;
+}
+.art {
+	background-color: Thistle;
+}
+.musique {
+	background-color: Pink;
+}
+.EPS {
+	background-color: Tan;
+}
+.histoire {
+	background-color: LemonChiffon;
+}
+.geographie {
+	background-color: PeachPuff;
+}
+.sciences {
+	background-color: PaleGreen;
 }
