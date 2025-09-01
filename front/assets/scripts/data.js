@@ -42,8 +42,7 @@ const currentState = {
 	},
 	token : "Bearer test",
 	currentPage : "accueil", //current page to show 
-	currentMatiere : "general", // matiere to display on matiere page (0 for general)
-	prec : [], //all the precedent page for the return button (can be a matiere)
+	currentMatiere : "general" // matiere to display on matiere page (0 for general)
 }
 
 const students = [ // student list used for admin

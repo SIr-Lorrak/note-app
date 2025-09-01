@@ -1,4 +1,4 @@
-
+reloadPage()
 for (const m of matieres) {
 	m.onclick = (e) => {
     changePage("matiere")
@@ -11,7 +11,7 @@ go_home.onclick = (e) => {
 }
 
 go_back.onclick = (e) => {
-  precPage()
+  history.back();
 }
 
 go_disconnect.onclick = (e) => {
@@ -22,6 +22,9 @@ go_parametre.onclick = (e) => {
   changePage("parametre")
 }
 
+window.onpopstate = (e) => {
+  reloadPage()
+}
 accueil.style.background = `rgb(${currentState.currentUser.color.data[0]},${currentState.currentUser.color.data[1]},${currentState.currentUser.color.data[2]})`
 
 const ctx = document.getElementById('toile-moyenne');

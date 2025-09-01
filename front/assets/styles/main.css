@@ -19,7 +19,7 @@ html, #body, body, .content {
 .tiny-button.hidden {
 	position: static;
 }
-nav {
+.page-nav {
 	position: absolute;
 	padding: 1em;
 	z-index: 8;

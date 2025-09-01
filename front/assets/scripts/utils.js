@@ -19,16 +19,16 @@ function changePage(page, prec = true) {
   const newPage = document.getElementById(page)
 
   if (prec) {
-    currentState.prec.push(currentState.currentPage)
+    history.pushState({}, null, page)
   }
 
   oldPage.classList.toggle("hidden")
   newPage.classList.toggle("hidden")
 
-  if (currentState.prec.length >= 1) {
-    go_back.classList.remove("hidden")
-  } else {
+  if (window.location.pathname.replace(/\//g,'') === '') {
     go_back.classList.add("hidden")
+  } else {
+    go_back.classList.remove("hidden")
   }
 
   if (page === "accueil") {
@@ -52,25 +52,22 @@ function changePage(page, prec = true) {
     go_disconnect.classList.remove("hidden")
   }
 
-
   currentState.currentPage = page
 }
 
-function precPage() {
-  var oldPM = currentState.prec.pop()
-  if (matiereList.includes(oldPM)) {
-    changeMatiere(oldPM, false)
-    oldPM = currentState.prec.pop()
+function reloadPage() {
+  const path = window.location.pathname.replace(/\//g,'')
+  if (matiereList.includes(path)) {
+    changePage("matiere", false)
+    changeMatiere(path)
+  } else {
+    changePage(path === ''?"accueil":path, false)
   }
-  changePage(oldPM, false)
-
 }
 
-function changeMatiere(newMatiere, prec=true) {
+function changeMatiere(newMatiere) {
   console.log(`matiere ${newMatiere}`)
-  if (prec) {
-    currentState.prec.push(currentState.currentMatiere)
-  }
+  window.history.replaceState({}, null, newMatiere)
 
   matiere.classList.remove(currentState.currentMatiere)
   matiere.classList.add(newMatiere)
