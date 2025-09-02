@@ -28,6 +28,7 @@ services:
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls=true"
       #- "traefik.http.routers.backend.tls.certresolver=cloudflare_nl"
+      - "com.centurylinklabs.watchtower.scope=httpapi"
 
   front:
     depends_on:
@@ -46,6 +47,7 @@ services:
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls=true"
       #- "traefik.http.routers.frontend.tls.certresolver=cloudflare_nl"
+      - "com.centurylinklabs.watchtower.scope=httpapi"
 
   postgres:
     container_name: postgres
@@ -66,11 +68,12 @@ services:
       interval: 30s
       timeout: 60s
       retries: 5
-      start_period: 80s
+      start_period: 20s
 
   traefik:
-    image: traefik:v2
+    image: traefik:v3.5
     container_name: traefik
+    restart: unless-stopped
     environment:
       - CF_DNS_API_TOKEN=${CLOUDFLARE_API_TOKEN}
     command:
@@ -83,6 +86,8 @@ services:
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.web.http.redirections.entryPoint.permanent=true
       - --entrypoints.websecure.address=:443
+      #- --entrypoints.websecure.http.tls.domains[0].main=${DOMAIN}
+      #- --entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN}
       #- --certificatesResolvers.cloudflare_nl.acme.email=${CLOUDFLARE_EMAIL}
       #- --certificatesResolvers.cloudflare_nl.acme.storage=/data/acme/acme.json
       #- --certificatesResolvers.cloudflare_nl.acme.dnsChallenge.provider=cloudflare
@@ -94,8 +99,6 @@ services:
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.tls=true"
       #- "traefik.http.routers.traefik.tls.certresolver=cloudflare_nl"
-      #- "traefik.http.routers.traefik.tls.domains[0].main=${DOMAIN}"
-      #- "traefik.http.routers.traefik.tls.domains[0].sans=*.${DOMAIN}"
       - "traefik.http.routers.traefik.service=api@internal"
     ports:
       - "80:80"
@@ -106,23 +109,29 @@ services:
     networks:
       - traefik
 
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_LABEL_ENABLE=true
-      - WATCHTOWER_HTTP_API_UPDATE=true
-      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}
-    labels:
-      - "com.centurylinklabs.watchtower.enable=false"
-      - "traefik.enable=true"
-      - "traefik.http.routers.watchtower.rule=Host(`watchtower.${DOMAIN}`)"
-      - "traefik.http.routers.watchtower.entrypoints=websecure"
-      #- "traefik.http.routers.watchtower.tls.certresolver=cloudflare_nl"
-    networks:
-      - traefik
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: watchtower
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     - WATCHTOWER_HTTP_API_UPDATE=true
+  #     - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}
+  #     - TZ=Europe/Paris
+  #     - WATCHTOWER_CLEANUP=true
+  #     - DOCKER_API_VERSION=1.43
+  #     - WATCHTOWER_SCHEDULE=0 0 5 * * *
+  #     - WATCHTOWER_TIMEOUT=5m
+  #     - WATCHTOWER_SCOPE=httpapi
+  #     - WATCHTOWER_DEBUG=true
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.watchtower.rule=Host(`watchtower.${DOMAIN}`)"
+  #     - "traefik.http.routers.watchtower.entrypoints=websecure"
+  #     - "traefik.http.routers.watchtower.tls.certresolver=cloudflare_nl"
+  #     - "com.centurylinklabs.watchtower.scope=httpapi"
+  #   networks:
+  #     - traefik
 
   ### Used to update containers not updated via http api
   # watchtower-daily:
@@ -131,11 +140,12 @@ services:
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock
   #   environment:
-  #     TZ: Europe/Paris
-  #     WATCHTOWER_CLEANUP: "true"
-  #     DOCKER_API_VERSION: 1.43
-  #     WATCHTOWER_SCHEDULE: 0 0 5 * * *
-  #     WATCHTOWER_TIMEOUT: 5m
+  #   - TZ=Europe/Paris
+  #   - WATCHTOWER_CLEANUP=true
+  #   - DOCKER_API_VERSION=1.43
+  #   - WATCHTOWER_SCHEDULE=0 0 5 * * *
+  #   - WATCHTOWER_TIMEOUT=5m
+  #   - WATCHTOWER_SCOPE=none
   #   restart: always
   #   networks:
   #     - main
