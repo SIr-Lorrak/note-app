@@ -126,7 +126,6 @@ function build(options = {}) {
     connectionTimeoutMillis: 3000,
   })
 
-
   // Decorate fastify with authentication and authorization logic
   app.register(fastifyAuth)
   // TODO : compléter la fonction verifyJWTToken
@@ -136,6 +135,11 @@ function build(options = {}) {
     // TODO : compléter la fonction verifyLoginPassword
     validate: verifyLoginPassword,
     authenticate: false, 
+  })
+
+  app.addHook("onRequest", (request, reply, done) => {
+    reply.header('Cache-Control', 'private')
+    done()
   })
 
   // Register applicative routes

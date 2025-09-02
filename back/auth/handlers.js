@@ -3,11 +3,12 @@ import jwt from "jsonwebtoken"
 
 import * as argon2 from "argon2"
 import fastify from "fastify"
+import fastifyCookie from '@fastify/cookie';
 
 // helper
 function generateJWTToken(username, role) {
 	const token = jwt.sign({ username, role, sub: username }, SECRET, {
-		expiresIn: "24h",
+		expiresIn: "400d",
 	})
 	return token
 }
@@ -21,9 +22,25 @@ function setRequestUser(username, role, request) {
 
 // Handler used by fastify.auth, decorates fastify instance
 async function verifyJWTToken(request, reply) {
-  const token = request.headers.authorization.split(' ')[1] // token sous la forme "bearer token"
-  const payload = jwt.verify(token, SECRET)
-  setRequestUser(payload.username, payload.role, request)
+  const token = request.cookies.Authorization.split(' ')[1] // token sous la forme "bearer token"
+  const connected = request.cookies.Connected // TODO : deco le user si ce cookie n'existe pas ou s'il vaut "disconnect"
+  if (connected === undefined || connected === 'disconnect') {
+    reply
+      .clearCookie('Authorization', {
+        maxAge: 34560000,
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: true
+      })
+      .clearCookie('Connected', {
+        maxAge: 34560000,
+        sameSite: 'strict',
+        secure: true
+      })
+  } else {
+    const payload = jwt.verify(token, SECRET)
+    setRequestUser(payload.username, payload.role, request)
+  }
 }
 
 // intermediate function : DO NOT reply JWT. Used by postAuthLoginHandler and "@fastify/basic-auth"
@@ -54,29 +71,28 @@ async function verifyLoginPassword(username, password, request, reply, done = ()
     }
 }
 
-// Get user's information from Gitlab
-async function fetchGitlabUserProfile(glAccessToken) {
-  const options = {
-    method: "GET",
-    headers: new Headers({
-      Accept: "application/json",
-      Authorization: `Bearer ${glAccessToken}`,
-    }),
-  }
-
-  const resultProfile = await fetch(`https://forge.univ-lyon1.fr/api/v4/user`, options)
-  return await resultProfile.json()
-}
-
 // Route handler for login/password
 async function postAuthLoginHandler(request, reply) {
   if (!request.body.username || !request.body.password) {
     reply.status(400).send()
   }
+  const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
   const user = await verifyLoginPassword(request.body.username, request.body.password, request, reply)
   if (user) {
     const token = generateJWTToken(user.username, user.role)
-    reply.header('Content-Type', 'text/plain; charset=utf-8').send(token)
+    reply
+      .setCookie('Authorization', token, {
+        maxAge: 34560000,
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: true
+      })
+      .setCookie('Connected', genRanHex, {
+        maxAge: 34560000,
+        sameSite: 'strict',
+        secure: true
+      })
+      .send('')
   } else { 
     reply.header('Content-Type', 'application/json; charset=utf-8').status(401).send('Bad credentials')
   }
