@@ -42,6 +42,7 @@ html, #body, body, .content {
 .tiny-button {
 	height: 4em;
 	width: 4em;
+	cursor: pointer;
 }
 .tiny-button>.tiny-icon>* {
 	width: 100%;
