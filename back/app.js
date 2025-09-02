@@ -48,11 +48,11 @@ const swaggerOptions = {
 
   servers: [
     {
-      url: "https://backend.next-level.somehow.wtf",
+      url: "https://next-level.somehow.wtf",
       description: "prod server",
     },
     {
-      url: "https://backend.next-level.localhost",
+      url: "https://next-level.localhost",
       description: "dev server",
     },
     {
