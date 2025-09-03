@@ -45,14 +45,13 @@ html, #body, body, .content {
 	width: 4em;
 	cursor: pointer;
 }
-.tiny-logo {
+.tiny-logo>* {
 	height: 1em;
 	width: 1em;
 }
 .tiny-button>.tiny-icon>* {
 	width: 100%;
 	height: 100%;
-	transition-duration: 0.2s;
 }
 .tiny-button:hover>.tiny-icon>* {
 	transform: scale(1.2) rotateZ(380deg);
