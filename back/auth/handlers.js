@@ -77,6 +77,7 @@ async function postAuthLoginHandler(request, reply) {
     reply.status(400).send()
   }
   const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
+  const s = 'Bearer '+genRanHex(32)
   const user = await verifyLoginPassword(request.body.username, request.body.password, request, reply)
   if (user) {
     const token = generateJWTToken(user.username, user.role)
@@ -87,7 +88,7 @@ async function postAuthLoginHandler(request, reply) {
         sameSite: 'strict',
         secure: true
       })
-      .setCookie('Connected', genRanHex, {
+      .setCookie('Connected', s, {
         maxAge: 34560000,
         sameSite: 'strict',
         secure: true
