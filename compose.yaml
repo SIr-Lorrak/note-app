@@ -27,8 +27,10 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`${DOMAIN}`) && ( PathPrefix(`/api`) || PathPrefix(`/docs`) )"
+      - "traefik.http.routers.backend.middlewares=stripapi"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls=true"
+      - "traefik.http.middlewares.stripapi.stripprefix.prefixes=/api"
       #- "traefik.http.routers.backend.tls.certresolver=cloudflare_nl"
       - "com.centurylinklabs.watchtower.scope=httpapi"
 
