@@ -6,6 +6,13 @@ for (const m of matieres) {
 	}
 }
 
+for (const o of onglet) {
+  o.onclick = (e) => {
+    Array.from(onglet).map((x) => x.classList.remove('selected'))
+    o.classList.add('selected')
+  }
+}
+
 go_home.onclick = (e) => {
   changePage("accueil")
 }

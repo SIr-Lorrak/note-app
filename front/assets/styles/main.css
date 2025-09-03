@@ -1,5 +1,6 @@
 body {
 	font-size: 1.1em !important;
+	overflow: hidden;
 }
 html, #body, body, .content {
 	min-height: 100vh !important;
@@ -20,7 +21,7 @@ html, #body, body, .content {
 	position: static;
 }
 .page-nav {
-	position: absolute;
+	position: fixed;
 	padding: 1em;
 	z-index: 8;
 	display: flex;
@@ -43,6 +44,10 @@ html, #body, body, .content {
 	height: 4em;
 	width: 4em;
 	cursor: pointer;
+}
+.tiny-logo {
+	height: 1em;
+	width: 1em;
 }
 .tiny-button>.tiny-icon>* {
 	width: 100%;
@@ -388,4 +393,112 @@ h1 {
 }
 .sciences {
 	background-color: PaleGreen;
+}
+
+
+.general .onglet, .general .onglet-content-wrapper {
+}
+.francais .onglet, .francais .onglet-content-wrapper {
+	border-color: DodgerBlue;
+	background-color: LightSkyBlue;
+}
+.mathematiques .onglet, .mathematiques .onglet-content-wrapper {
+	border-color: crimson;
+	background-color: LightCoral;
+}
+.EMC .onglet, .EMC .onglet-content-wrapper {
+	border-color: BurlyWood;
+	background-color: bisque;
+}
+.anglais .onglet, .anglais .onglet-content-wrapper {
+	border-color: DimGray;
+	background-color: Silver;
+}
+.art .onglet, .art .onglet-content-wrapper {
+	border-color: RebeccaPurple;
+	background-color: MediumOrchid;
+}
+.musique .onglet, .musique .onglet-content-wrapper {
+	border-color: DeepPink;
+	background-color: HotPink;
+}
+.EPS .onglet, .EPS .onglet-content-wrapper {
+	border-color: sienna;
+	background-color: Peru;
+}
+.histoire .onglet, .histoire .onglet-content-wrapper {
+	border-color: Gold;
+	background-color: Yellow;
+}
+.geographie .onglet, .geographie .onglet-content-wrapper {
+	border-color: Tomato;
+	background-color: Orange;
+}
+.sciences .onglet, .sciences .onglet-content-wrapper {
+	border-color: Green;
+	background-color: LimeGreen;
+}
+
+.onglet-wrapper {
+	padding-top:6em;
+	padding-bottom: 4em;
+	padding-right: 5em;
+	padding-left: 5em;
+	max-height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.onglet-nav {
+	display: flex;
+	margin-bottom: -0.5em;
+}
+
+.onglet {
+	border-radius: 0.6em 0.6em 0em 0em;
+	padding-right: 1em;
+	padding-left: 1em;
+	padding-bottom: 0.5em;
+	border:0.5em solid;
+	border-bottom: none;
+	z-index: 1;
+	cursor: pointer;
+	user-select: none;
+	bottom: 0;
+}
+
+.fake .onglet {
+	opacity: 0;
+}
+
+.myshadow {
+	opacity: 100;
+}
+.onglet:hover {
+	transform: translateY(-0.4em);
+}
+
+.onglet.selected {
+	z-index: 6;
+	cursor: auto;
+	pointer-events: none;
+	transform: translateY(-0em);
+	transition-duration: 0s;
+}
+
+.onglet-content-wrapper {
+	display: flex;
+	max-height: 100%;
+	border-radius: 0em 2em 2em 2em;
+	padding: 1em;
+	overflow: hidden;
+	border:0.5em solid;
+	z-index: 3;
+	box-shadow: 0em 0em 0.5em 0.5em #00000022;
+}
+.onglet-content {
+	max-height: 100%;
+	overflow-y: auto;
+	padding: 1em;
 }
