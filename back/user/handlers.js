@@ -80,18 +80,16 @@ async function postUsersHandler(request, reply) {
 
 async function putUserHandler(request, reply) {
   const oldname = request.params.username
-  const { username, password, color, matiere, avatar } = request.body
-  const hexColor = toBytea(color)
+  const { username, color, matiere, avatar } = request.body
   const hexAvatar = toBytea(avatar)
   
-  const hashedPassword = await argon2.hash(password)
   try {
     const results = await request.server.pg.query(
       `UPDATE users 
-       SET username = $1, password = $2, color = $3, matiere = $4, avatar = $5
-       WHERE username = $6
+       SET username = $1, color = $2, matiere = $3, avatar = $4
+       WHERE username = $5
        RETURNING *;`,
-      [username, hashedPassword, hexColor, matiere, hexAvatar, oldname],
+      [username, color, matiere, hexAvatar, oldname],
     )
     if (results.rowCount !== 1) {
       return reply.notFound(`User ${oldname} not found`)
@@ -112,8 +110,43 @@ async function putUserHandler(request, reply) {
 
     reply.status(201).send(results.rows[0])
   } catch {
-    return reply.conflict(`User ${username} already exists`)
+    return reply.conflict(`User ${username} already exists other changement where kept`)
   }
+}
+
+async function putUserPassHandler(request, reply) {
+  const username = request.params.username
+  const { oldPassword, newPassword } = request.body
+  const result = await request.server.pg.query("SELECT * FROM users WHERE username = $1;", [username,])
+    if (result.rows.length === 0) {
+      reply.header('Content-Type', 'application/json; charset=utf-8').status(401).send('Bad credentials')
+      return
+    }
+
+    const user = result.rows[0]
+    
+    try{
+      const match = await argon2.verify(user.password, oldPassword) 
+      if (match) {
+        const hashedPassword = await argon2.hash(newPassword)
+        const results = await request.server.pg.query(
+          `UPDATE users 
+           SET password = $2
+           WHERE username = $1
+           RETURNING *;`,
+          [username, hashedPassword],
+        )
+        reply.status(201).send(results.rows[0])
+      }
+      else {
+        reply.header('Content-Type', 'application/json; charset=utf-8').status(401).send('Bad credentials')
+        return
+      }
+    } catch (e) {
+        request.server.log.error(e)
+        reply.header('Content-Type', 'application/json; charset=utf-8').status(401).send('Bad credentials')
+        return
+    }
 }
 
 async function putUserCartonHandler(request, reply) {
@@ -138,6 +171,27 @@ async function putUserCartonHandler(request, reply) {
     reply.status(201).send(results.rows[0])
 }
 
+async function putUserTimeHandler(request, reply) {
+  const { username } = request.params
+  const { activeTime } = request.body
+  
+    const results = await request.server.pg.query(
+      `UPDATE users 
+       SET activetime = activetime + $1
+       WHERE username = $2
+       RETURNING *;`,
+      [activeTime, username],
+    )
+    if (results.rowCount !== 1) {
+      return reply.notFound(`User ${username} not found`)
+    }
+
+    request.server.log.info(
+      `active time updated for ${username}`,
+    )
+
+    reply.status(201).send(results.rows[0])
+}
 
 async function delUserHandler(request, reply) {
   const { username } = request.params
@@ -159,4 +213,4 @@ async function delUserHandler(request, reply) {
   return reply.send(results.rows[0])
 }
 
-export { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserCartonHandler, delUserHandler }
+export { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserPassHandler, putUserCartonHandler, putUserTimeHandler, delUserHandler }

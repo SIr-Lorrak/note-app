@@ -26,7 +26,7 @@ async function startServer() {
       `Connected to postgres://${current_user}@${inet_server_addr}:${inet_server_port}/${current_catalog}`,
     )
 
-    await populate(app, 1) 
+    await populate(app, 69) 
 
     app.register(fastifyCookie, {
       secret: SECRET, // for cookies signature

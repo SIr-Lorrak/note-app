@@ -1,5 +1,5 @@
-import { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserCartonSchema, delUserSchema } from "./schemas.js"
-import { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserCartonHandler, delUserHandler } from "./handlers.js"
+import { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserPassSchema, putUserCartonSchema, putUserTimeSchema, delUserSchema } from "./schemas.js"
+import { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserPassHandler, putUserCartonHandler, putUserTimeHandler, delUserHandler } from "./handlers.js"
 
 const getUserOptions = {
   method: "GET",
@@ -51,6 +51,16 @@ const putUserOptions = {
   handler: putUserHandler,
 }
 
+const putUserPassOptions = {
+  method: "PUT",
+  path: "/:username/password",
+  schema: putUserPassSchema,
+  // Authorization logic
+  preHandler: (request, reply, done) => request.user.isAdmin || (request.user.username === request.params.username) ? done() : reply.status(403).send(),
+  // Business logic
+  handler: putUserPassHandler,
+}
+
 const putUserCartonOptions = {
   method: "PUT",
   path: "/:username/carton",
@@ -59,6 +69,16 @@ const putUserCartonOptions = {
   preHandler: (request, reply, done) => request.user.isAdmin ? done() : reply.status(403).send(),
   // Business logic
   handler: putUserCartonHandler,
+}
+
+const putUserTimeOptions = {
+  method: "PUT",
+  path: "/:username/time",
+  schema: putUserTimeSchema,
+  // Authorization logic
+  preHandler: (request, reply, done) => (request.user.username === request.params.username) ? done() : reply.status(403).send(),
+  // Business logic
+  handler: putUserTimeHandler,
 }
 
 const delUserOptions = {
@@ -78,7 +98,9 @@ function usersRoutes(fastify, options, done) {
   fastify.route(postUserOptions)
   fastify.route(postUsersOptions)
   fastify.route(putUserOptions)
+  fastify.route(putUserPassOptions)
   fastify.route(putUserCartonOptions)
+  fastify.route(putUserTimeOptions)
   fastify.route(delUserOptions)
   done()
 }

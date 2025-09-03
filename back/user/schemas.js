@@ -8,7 +8,7 @@ const binary = {
 
 const user = {
   type: "object",
-  required: ["username","role","matiere","color","avatar"],
+  required: ["username","role","matiere","color","avatar", "carton", "commentaire", "datecarton", "created", "activetime"],
   properties: {
     username: {
       description: "ton nom, primary key",
@@ -22,7 +22,10 @@ const user = {
       description: "ta matiere préféré",
       type: "number",
     },
-    color: binary,
+    color: {
+      description: "ta couleur préféré",
+      type: "string"
+    },
     avatar: binary,
     carton: {
       description: "carton recu par l'élève",
@@ -36,36 +39,39 @@ const user = {
       description: "date du dernier carton obtenu",
       type: "string"
     },
+    created: {
+      description: "date de l'inscription de l'élève",
+      type: "string"
+    },
+    activetime: {
+      description: "temps actif sur le site en seconde",
+      type: "number"
+    },
   },
 }
 const userUp = {
   type: "object",
-  required: ["username","password","role","matiere","color","avatar"],
+  required: ["username","matiere","color","avatar"],
   properties: {
     username: {
       description: "ton nom, primary key",
       type: "string",
     },
-    password: {
-      description: "mot de passe hashé",
-      type: "string",
-    },
-    role: {
-      description: "0 pour les élève, 1 pour les profs",
-      type: "number",
-    },
     matiere: {
       description: "ta matiere préféré",
       type: "number",
     },
-    color: binary,
+    color: {
+      description: "ta couleur préféré",
+      type: "string"
+    },
     avatar: binary
   },
 }
 
 const userPass = {
   type: "object",
-  required: ["username","password","role","matiere","color","avatar","carton","commentaire","datecarton"],
+  required: ["username","password","role","matiere","color","avatar","carton","commentaire","datecarton", "created", "activetime"],
   properties: {
     username: {
       description: "ton nom, primary key",
@@ -96,6 +102,14 @@ const userPass = {
     datecarton: {
       description: "date du dernier carton obtenu",
       type: "string"
+    },
+    created: {
+      description: "date de l'inscription de l'élève",
+      type: "string"
+    },
+    activetime: {
+      description: "temps actif sur le site en seconde",
+      type: "number"
     },
   },
 }
@@ -206,11 +220,35 @@ const putUserSchema = {
       username: { type: "string", minLength: 3 },
     }
   },
-  body: userUp,// with non hashed password
+  body: userUp,
   response: {
     "2xx": user,
   },
 }
+
+const putUserPassSchema = {
+  tags: ["user"],
+  summary: "Create a new user",
+  description: "updates a user.",
+  params: {
+    type: "object",
+    properties: {
+      username: { type: "string", minLength: 3 },
+    }
+  },
+  body: {
+    type: "object",
+    required: ["username","password"],
+    properties: {
+      oldPassword: { type: "string", minLength: 4 },
+      newPassword: { type: "string", minLength: 4 },
+    },
+  },
+  response: {
+    "2xx": user,
+  },
+}
+
 
 const putUserCartonSchema = {
   tags: ["user"],
@@ -228,4 +266,26 @@ const putUserCartonSchema = {
   },
 }
 
-export { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserCartonSchema, delUserSchema }
+const putUserTimeSchema = {
+  tags: ["user"],
+  summary: "give a carton to a user",
+  description: "give a carton to a user.",
+  params: {
+    type: "object",
+    properties: {
+      username: { type: "string", minLength: 3 },
+    }
+  },
+  body: {
+    type: "object",
+    required: ["activeTime"],
+    properties: {
+      activeTime: { type: "number" },
+    },
+  },
+  response: {
+    "2xx": user,
+  },
+}
+
+export { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserPassSchema, putUserCartonSchema, putUserTimeSchema, delUserSchema }

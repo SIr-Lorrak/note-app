@@ -30,7 +30,7 @@ export default async function populate(app, version) {
 		commentaire varchar(300) NOT NULL DEFAULT '',
 		dateCarton date NOT NULL DEFAULT '2000-09-26',
 		created date NOT NULL DEFAULT CURRENT_DATE,
-		activeTime int NOT NULL DEFAULT '0');`
+		activetime int NOT NULL DEFAULT '0');`
   )
 
   await app.pg.query(`CREATE TABLE IF NOT EXISTS notes (
