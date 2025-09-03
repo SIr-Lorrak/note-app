@@ -21,6 +21,8 @@ services:
     networks:
       - app-network
       - traefik
+    volumes:
+      - fastify:/usr/app/data
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
@@ -40,6 +42,8 @@ services:
     networks:
       - app-network
       - traefik
+    volumes:
+      - fastify:/var/www/assets/file
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
@@ -153,6 +157,7 @@ services:
 volumes:
   postgres:
   traefik:
+  fastify:
 
 networks:
   app-network:
