@@ -22,8 +22,8 @@ function setRequestUser(username, role, request) {
 
 // Handler used by fastify.auth, decorates fastify instance
 async function verifyJWTToken(request, reply) {
-  const token = request.cookies.Authorization.split(' ')[1] // token sous la forme "bearer token"
-  const connected = request.cookies.Connected // TODO : deco le user si ce cookie n'existe pas ou s'il vaut "disconnect"
+  const token = request.cookies.Authorization
+  const connected = request.cookies.Connected
   if (connected === undefined || connected === 'disconnect') {
     reply
       .clearCookie('Authorization', {
