@@ -1,21 +1,25 @@
 body {
 	font-size: 1.1em !important;
-	overflow: hidden;
 }
 html, #body, body, .content {
-	min-height: 100vh !important;
-	min-width: 100% !important;
+	height: 100% !important;
+	width: 100% !important;
 	background-attachment: fixed;
+}
+.content{
+	position: fixed;
+	display: flex;
+	top:0;
+  left:0;
+  bottom: 0;
+  right: 0;
 }
 *{
   transition-duration: 0.2s;
 }
 .hidden {
-  transition-duration: 0.2s;
   opacity: 0;
 	pointer-events: none;
-	visibility: collapse;
-	position: fixed;
 }
 .tiny-button.hidden {
 	position: static;
@@ -27,7 +31,6 @@ html, #body, body, .content {
 	display: flex;
 	width: 100%;
   justify-content: space-between;
-  overflow: hidden;
 }
 #top-nav {
 	top:0;
@@ -49,6 +52,28 @@ html, #body, body, .content {
 	height: 1em;
 	width: 1em;
 }
+.tiny-logo.bigger {
+	display: inline-block;
+	max-height: 1em;
+	max-width: 1em;
+	overflow: visible;
+}
+.tiny-logo.crayon {
+	display: inline-block;
+	max-height: 1em;
+	max-width: 1em;
+	overflow: visible;
+}
+.tiny-logo.crayon>* {
+	width: 1.2em;
+	height: 1.2em;
+	margin-bottom: 0.4em;
+}
+.tiny-logo.bigger>* {
+	width: 1.5em;
+	height: 1.5em;
+	margin-bottom: 0.4em;
+}
 .tiny-button>.tiny-icon>* {
 	width: 100%;
 	height: 100%;
@@ -62,17 +87,6 @@ html, #body, body, .content {
 }
 h1 {
 	color: plum;
-}
-#accueil {
-	position: fixed;
-	display: flex;
-	top:0;
-  left:0;
-	margin: auto;
-	padding: auto;
-	width: 100%;
-	height: 100%;
-	background-color: Lavender;
 }
 
 .matiere-wheel {
@@ -379,6 +393,7 @@ h1 {
 
 
 .general .onglet, .general .onglet-content-wrapper {
+	background-color: white;
 }
 .francais .onglet, .francais .onglet-content-wrapper {
 	border-color: DodgerBlue;
@@ -421,13 +436,44 @@ h1 {
 	background-color: LimeGreen;
 }
 
+
+.francais .onglet-content {
+	scrollbar-color: DodgerBlue LightSkyBlue;
+}
+.mathematiques  .onglet-content {
+	scrollbar-color: crimson LightCoral;
+}
+.EMC .onglet-content{
+	scrollbar-color: BurlyWood bisque;
+}
+.anglais  .onglet-content {
+	scrollbar-color: DimGray Silver;
+}
+.art  .onglet-content {
+	scrollbar-color: RebeccaPurple MediumOrchid;
+}
+.musique  .onglet-content {
+	scrollbar-color: DeepPink HotPink;
+}
+.EPS  .onglet-content {
+	scrollbar-color: sienna Peru;
+}
+.histoire  .onglet-content {
+	scrollbar-color: Gold Yellow;
+}
+.geographie  .onglet-content {
+	scrollbar-color: Tomato Orange;
+}
+.sciences  .onglet-content {
+	scrollbar-color: Green LimeGreen;
+}
+
 .onglet-wrapper {
 	padding-top:6em;
 	padding-bottom: 4em;
 	padding-right: 5em;
 	padding-left: 5em;
 	max-height: 100vh;
-	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 }
@@ -514,6 +560,18 @@ h1 {
 		order:2;
 		flex: 1 0 100%;
 		border-radius: 0em 0.6em 0em 0em;
+	}
+	#exercices span {
+		display: none;
+	}
+	#exercices:after {
+		content: ' Exos';
+	}
+	#statistiques span {
+		display: none;
+	}
+	#statistiques:after {
+		content: ' Stats';
 	}
 }
 @media (width > 2000px) {
