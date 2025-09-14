@@ -6,9 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=0.9" />
 	
 	<title>Next Level</title>
-  	<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 	
-	<link rel="stylesheet" href="assets/styles/main.css">
+	<link rel="stylesheet" href="/assets/styles/main.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -21,10 +21,10 @@
 		<nav id="top-nav" class="page-nav">
 			<!--pour retourner a l'accueil ou à la page précédente-->
 			<div id="after-nav">
-				<div id="go-back" class="tiny-button hidden"><load-file src="assets/images/retour.svg" class="tiny-icon"></load-file></div>
-				<div id="go-home" class="tiny-button hidden"><load-file src="assets/images/maison3.svg" class="tiny-icon"></load-file></div>
+				<div id="go-back" class="tiny-button hidden"><load-file src="/assets/images/retour.svg" class="tiny-icon"></load-file></div>
+				<div id="go-home" class="tiny-button hidden"><load-file src="/assets/images/maison3.svg" class="tiny-icon"></load-file></div>
 			</div>
-			<div id="go-disconnect" class="tiny-button"><load-file src="assets/images/croix.svg" class="tiny-icon"></div>
+			<div id="go-disconnect" class="tiny-button"><load-file src="/assets/images/croix.svg" class="tiny-icon"></div>
 		</nav>
 
 		<div id="connexion" class="hidden content">
@@ -40,27 +40,27 @@
 			<div class="matiere-wheel">
 
 				<!--ici pour naviguer entre les 8 différentes matière ou général-->
-				<div id="general" class="matiere"><load-file src="assets/images/maison2.svg" class="tiny-icon"></load-file></div>
+				<div id="general" class="matiere"><load-file src="/assets/images/maison2.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Général</h3></div>
-				<div id="mathematiques" class="matiere"><load-file src="assets/images/calcule.svg" class="tiny-icon"></load-file></div>
+				<div id="mathematiques" class="matiere"><load-file src="/assets/images/calcule.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Mathématiques</h3></div>
-				<div id="francais" class="matiere"><load-file src="assets/images/livre.svg" class="tiny-icon"></load-file></div>
+				<div id="francais" class="matiere"><load-file src="/assets/images/livre.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Français</h3></div>
-				<div id="EMC" class="matiere"><load-file src="assets/images/franceflag2.svg" class="tiny-icon"></load-file></div>
+				<div id="EMC" class="matiere"><load-file src="/assets/images/franceflag2.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>EMC</h3></div>
-				<div id="anglais" class="matiere"><load-file src="assets/images/bigben.svg" class="tiny-icon"></load-file></div>
+				<div id="anglais" class="matiere"><load-file src="/assets/images/bigben.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Anglais</h3></div>
-				<div id="art" class="matiere"><load-file src="assets/images/peinceau.svg" class="tiny-icon"></load-file></div>
+				<div id="art" class="matiere"><load-file src="/assets/images/peinceau.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Art Plastique</h3></div>
-				<div id="musique" class="matiere"><load-file src="assets/images/guitare.svg" class="tiny-icon"></load-file></div>
+				<div id="musique" class="matiere"><load-file src="/assets/images/guitare.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Musique</h3></div>
-				<div id="EPS" class="matiere"><load-file src="assets/images/rugby.svg" class="tiny-icon"></load-file></div>
+				<div id="EPS" class="matiere"><load-file src="/assets/images/rugby.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>EPS</h3></div>
-				<div id="histoire" class="matiere"><load-file src="assets/images/couronne.svg" class="tiny-icon"></load-file></div>
+				<div id="histoire" class="matiere"><load-file src="/assets/images/couronne.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Histoire</h3></div>
-				<div id="geographie" class="matiere"><load-file src="assets/images/globe.svg" class="tiny-icon"></load-file></div>
+				<div id="geographie" class="matiere"><load-file src="/assets/images/globe.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Géographie</h3></div>
-				<div id="sciences" class="matiere"><load-file src="assets/images/microscope.svg" class="tiny-icon"></load-file></div>
+				<div id="sciences" class="matiere"><load-file src="/assets/images/microscope.svg" class="tiny-icon"></load-file></div>
 				<div class="matiere-title"><h3>Sciences</h3></div>
 			</div>
 		</div>
@@ -69,21 +69,30 @@
 			<!--ici la page matière pour rentrer une note voir l'historique ou les statistiques-->
 			<div class="onglet-wrapper">
 				<div class="onglet-nav">
-					<div id="new_note" class="onglet"><load-file src="assets/images/crayon.svg" class="tiny-logo crayon"></load-file><span> Note</span></div>
-					<div id="historique" class="onglet selected"><load-file src="assets/images/oeil.svg" class="tiny-logo bigger"></load-file><span> Historique</span></div>
-					<div id="statistiques" class="onglet"><load-file src="assets/images/stat.svg" class="tiny-logo"></load-file><span> Statistiques</span></div>
-					<div id="exercices" class="onglet"><load-file src="assets/images/livre.svg" class="tiny-logo"></load-file><span> Exercices</span></div>
+					<div id="note" class="onglet"><load-file src="/assets/images/crayon.svg" class="tiny-logo crayon"></load-file><span> Note</span></div>
+					<div id="historique" class="onglet"><load-file src="/assets/images/oeil.svg" class="tiny-logo bigger"></load-file><span> Historique</span></div>
+					<div id="statistiques" class="onglet"><load-file src="/assets/images/stat.svg" class="tiny-logo"></load-file><span> Statistiques</span></div>
+					<div id="exercices" class="onglet"><load-file src="/assets/images/livre.svg" class="tiny-logo"></load-file><span> Exercices</span></div>
+					<div id="avertissement" class="onglet"><load-file src="/assets/images/attention.svg" class="tiny-logo"></load-file><span></span></div>
 				</div>
-				<div id="matiere-content" class="onglet-content-wrapper"><div class='onglet-content'>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ornare fermentum sodales. Ut sed hendrerit risus, quis lacinia leo. Morbi ac orci porta, pretium arcu hendrerit, porta diam. Praesent rutrum eros ac pulvinar imperdiet. Mauris consectetur ante tristique mi sagittis fermentum. Fusce eu odio ac lectus elementum bibendum. Suspendisse potenti. Cras quis sapien porta eros feugiat hendrerit porttitor sit amet felis. Vestibulum consectetur, mauris vel porta vehicula, sem lectus mollis massa, non lacinia justo ante sed nisl. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent non consectetur lacus. Aenean ut dapibus purus.<br><br>
+				<div id="matiere-content" class="onglet-content-wrapper">
+					<div id="note-content" class='onglet-content none'>
+						<form id="note-form">
+						</form>
+					</div>
+					<div id="historique-content" class='onglet-content none'></div>
+					<div id="statistiques-content" class='onglet-content none'></div>
+					<div id="exercices-content" class='onglet-content none'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quam neque, suscipit id dolor sagittis, dapibus convallis est. Cras eget enim ac magna commodo pharetra. In eget bibendum diam. Duis hendrerit, metus ut luctus blandit, leo augue euismod turpis, nec volutpat quam risus sit amet urna. Praesent luctus nulla at sapien tincidunt venenatis. Integer varius congue sem, eu accumsan velit luctus non. Morbi eget erat tristique, volutpat urna sit amet, vestibulum lectus. Curabitur semper nulla ut dapibus rhoncus. Nullam ac diam id est vulputate suscipit quis nec erat. Praesent viverra nisi ex, eget iaculis nibh hendrerit eu. Nam consectetur lacus eget urna luctus interdum. Phasellus eros arcu, molestie at magna sit amet, scelerisque scelerisque elit. Donec pharetra ornare lacus id lacinia. Donec dictum vel nisi id condimentum.<br/><br/>
 
-Nam volutpat nunc eget quam convallis dictum. Cras cursus, dui a dictum dictum, lectus ante tristique metus, nec molestie augue nisl ut risus. Morbi urna augue, pharetra non massa pretium, feugiat dictum mi. Suspendisse potenti. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed elit erat, sodales pretium lorem et, feugiat dignissim nunc. Suspendisse tempus nibh eget massa molestie cursus. Ut commodo semper auctor.<br><br>
+Etiam venenatis diam orci, vel tristique orci ultricies sodales. In sit amet nisi feugiat est elementum congue id eget nunc. Sed laoreet condimentum congue. Aliquam ipsum eros, cursus volutpat vestibulum ac, interdum non augue. Nulla imperdiet lorem vel magna pharetra, at ornare dolor porta. Phasellus nec arcu varius, vulputate tortor ut, dignissim mauris. Proin mollis maximus ex in viverra. Donec eleifend turpis quis urna feugiat lobortis. Etiam fringilla mollis massa, vitae eleifend diam.<br/><br/>
 
-Etiam consequat sed nunc a commodo. Pellentesque sit amet eros id arcu accumsan hendrerit vitae eu eros. Donec ultricies felis at diam tristique feugiat. Curabitur libero eros, commodo ac lectus id, rhoncus tempus justo. In hac habitasse platea dictumst. Morbi tincidunt, orci a convallis rutrum, elit eros sollicitudin velit, eget placerat sapien nulla in sem. Nulla dictum, velit in fringilla efficitur, nisi velit dignissim ante, ut varius nisl nisi non est. Donec sit amet tempus sapien, vel pellentesque lectus. Duis ultricies fringilla nulla. Aenean blandit pharetra erat eu vehicula. Morbi ut arcu egestas, volutpat diam eget, pharetra lacus. Nam quis nunc et neque mattis hendrerit. Nulla at augue vel felis commodo condimentum quis volutpat lacus. In at pharetra quam. Nullam congue gravida metus, vitae semper est vulputate eu.<br><br>
+Pellentesque mauris turpis, posuere auctor faucibus ut, ornare nec sem. Cras vitae ornare augue. Vivamus eget tincidunt nisi, a tempor felis. Cras euismod mi non blandit ornare. In tincidunt orci mauris. Sed quis eros sed eros faucibus bibendum non ac mauris. Sed molestie magna eget fermentum convallis. Fusce sagittis augue sed tristique faucibus. Sed viverra augue id purus viverra blandit. Phasellus lorem elit, molestie eu elit mollis, sodales congue justo. Vivamus euismod mi nibh, ac tempus augue tempus ut. Duis convallis porttitor mi ut facilisis. Duis porta felis non mi hendrerit tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas congue dolor at pulvinar tristique. Suspendisse potenti.<br/><br/>
 
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc a enim pellentesque, congue lorem vulputate, feugiat quam. Curabitur ac consectetur tellus. Nunc euismod ex quis dapibus eleifend. Pellentesque sit amet quam in risus placerat interdum. Integer tortor enim, lobortis ac porttitor finibus, faucibus in risus. Sed tortor erat, suscipit varius mi eu, imperdiet elementum nibh.<br><br>
+Praesent mollis lectus tempus massa fermentum imperdiet. Praesent condimentum est vel justo iaculis, in rhoncus diam pretium. Suspendisse efficitur efficitur dapibus. Morbi tincidunt eget nibh tincidunt sollicitudin. Ut urna enim, fermentum non porttitor sit amet, mattis sed nisl. Nullam consequat ex eget ex pharetra, in dapibus elit efficitur. Maecenas pellentesque vestibulum risus ut viverra.<br/><br/>
 
-In in varius orci. Fusce hendrerit hendrerit odio. Maecenas congue, turpis nec dapibus lobortis, nulla ligula vehicula ante, id sagittis risus diam varius est. Suspendisse vitae leo sit amet ligula rutrum pulvinar nec ut erat. Nullam tempor mi ac sapien rutrum bibendum. Quisque euismod lectus purus, id mattis tortor porta nec. Nullam ac condimentum sem. Pellentesque condimentum id magna sit amet convallis. Proin sed tellus turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer at commodo purus. Sed ut elit vitae quam commodo faucibus. In iaculis rhoncus leo ac volutpat. Morbi semper rhoncus neque ac dictum.</div></div>
+Donec rhoncus magna neque, ut convallis tortor euismod sed. Cras ut nunc ullamcorper, varius lorem sed, tincidunt arcu. Pellentesque ultricies, quam a accumsan cursus, purus tellus vestibulum eros, ut lacinia quam eros sed libero. Etiam finibus tincidunt sem, ut consequat urna mattis sit amet. Donec fermentum purus eget turpis luctus laoreet. Cras viverra congue justo a convallis. Duis et ultrices metus. Aenean a justo molestie, cursus libero sagittis, placerat massa. Nullam vel dictum tortor. Morbi sagittis eleifend leo, commodo laoreet mi vestibulum eget. Suspendisse rutrum faucibus rhoncus. Nullam congue, neque euismod euismod malesuada, eros purus sagittis quam, a dignissim ipsum augue et justo. Mauris consectetur ac augue ac congue. Vivamus lorem risus, fermentum sed ipsum eu, faucibus tincidunt libero. Fusce varius nisi sit amet purus egestas, vel rhoncus magna eleifend. Etiam auctor consectetur mauris, non ornare purus facilisis ut.</div>
+					<div id="avertissement-content" class='onglet-content none'></div>
+				</div>
 			</div>
 		</div>
 
@@ -93,19 +102,25 @@ In in varius orci. Fusce hendrerit hendrerit odio. Maecenas congue, turpis nec d
 
 		<div id="parametre" class="hidden content">
 			<!--ici les parametre de ton profil pour changer de nom, d'avatar, de mot de passe...-->
+			<form id="parametre-form">
+			</form>
 		</div>
 
-
+		<div id="feedback">
+			<!--ici on afficher les feedback de chaques requêtes-->
+		</div>
+		
 		<nav id="bottom-nav" class="page-nav">
 			<!--pour aller dans les paramêtre-->
-			<div id="go-parametre" class="tiny-button"><load-file src="assets/images/parametre.svg" class="tiny-icon"></div>
+			<div id="go-parametre" class="tiny-button"><load-file src="/assets/images/parametre.svg" class="tiny-icon">
+			</div>
 		</nav>
 
 	</div>
 
-	<script src="assets/scripts/data.js"></script>
-	<script src="assets/scripts/utils.js"></script>
-	<script src="assets/scripts/main.js"></script>
+	<script src="/assets/scripts/data.js"></script>
+	<script src="/assets/scripts/utils.js"></script>
+	<script src="/assets/scripts/main.js"></script>
 
 </body>
 </html>

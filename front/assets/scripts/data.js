@@ -10,6 +10,7 @@ const statistiques = document.getElementById("statistiques")
 const exercices = document.getElementById("exercices")
 const parametre = document.getElementById("parametre")
 const after_nav = document.getElementById("after-nav")
+const feedback = document.getElementById("feedback")
 
 const matieres = document.getElementsByClassName("matiere")
 const has_shadow = document.getElementsByClassName("has-shadow")
@@ -45,6 +46,7 @@ const currentState = {
 	},
 	token : "Bearer test",
 	currentPage : "accueil", //current page to show 
+	currentOnglet : "note",
 	currentMatiere : "general" // matiere to display on matiere page (0 for general)
 }
 

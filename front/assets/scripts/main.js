@@ -2,14 +2,14 @@ reloadPage()
 for (const m of matieres) {
 	m.onclick = (e) => {
     changePage("matiere")
+    changeOnglet("note", false)
     changeMatiere(m.id)
 	}
 }
 
 for (const o of onglet) {
   o.onclick = (e) => {
-    Array.from(onglet).map((x) => x.classList.remove('selected'))
-    o.classList.add('selected')
+    changeOnglet(o.id)
   }
 }
 
@@ -103,4 +103,3 @@ const config = {
 const toile = document.getElementById('toile-moyenne');
 
 new Chart(toile, config)
-

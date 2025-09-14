@@ -5,9 +5,10 @@ html, #body, body, .content {
 	height: 100dvh !important;
 	width: 100% !important;
 	background-attachment: fixed;
+	overflow: hidden;
 }
 .content{
-	position: fixed;
+	position: absolute;
 	display: flex;
 	top:0;
   left:0;
@@ -27,7 +28,7 @@ html, #body, body, .content {
 .page-nav {
 	position: fixed;
 	padding: 1em;
-	z-index: 8;
+	z-index: 50;
 	display: flex;
 	width: 100%;
   justify-content: space-between;
@@ -38,6 +39,46 @@ html, #body, body, .content {
 #bottom-nav {
 	bottom:0;
 }
+#feedback {
+	position: fixed;
+	flex-direction: column;
+	bottom: 0;
+	right: 0;
+	max-width: 100%;
+	width: 25em;
+	z-index: 15;
+}
+#feedback div {
+	text-align: center;
+	padding: 0.5em;
+	margin: 0.5em;
+	border:0.5em solid;
+	border-radius: 1em;
+	box-shadow: 0em 0em 0.1em 0.1em #00000012;
+	transition-duration: 1s;
+	transition-property: opacity;
+}
+.error {
+	border-color: crimson;
+	color: crimson;
+	background-color: LightCoral;
+}
+.success {
+	border-color: Green;
+	color: Green;
+	background-color: LimeGreen;
+}
+.info {
+	border-color: DodgerBlue;
+	color: DodgerBlue;
+	background-color: LightSkyBlue;
+}
+.warning {
+	border-color: Tomato;
+	color: Tomato;
+	background-color: Orange;
+}
+
 #after-nav{
 	display: flex;
 	width: 10em;
@@ -85,6 +126,13 @@ html, #body, body, .content {
 .tiny-button:active>.tiny-icon>* {
 	transform: scale(0.8) rotateZ(0deg);
 }
+
+.tiny-alarm>* {
+	height: 2em;
+	width: 2em;
+	margin-right: 1em;
+}
+
 h1 {
 	color: plum;
 }
@@ -93,6 +141,7 @@ h1 {
 	position: relative;
 	margin: auto;
 	padding: auto;
+	z-index: 4;
 }
 
 .matiere {
@@ -473,9 +522,13 @@ h1 {
 	padding-bottom: 4em;
 	padding-right: 5em;
 	padding-left: 5em;
-	max-height: 100vh;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+
+}
+.none {
+	display: none;
 }
 
 .onglet-nav {
@@ -518,7 +571,7 @@ h1 {
 
 .onglet-content-wrapper {
 	display: flex;
-	max-height: 100%;
+	width: 100%;
 	border-radius: 0em 2em 2em 2em;
 	padding: 1em;
 	overflow: hidden;
@@ -527,10 +580,19 @@ h1 {
 	box-shadow: 0em 0em 0.5em 0.5em #00000022;
 }
 .onglet-content {
-	max-height: 100%;
 	overflow-y: auto;
 	padding: 1em;
 }
+
+
+#avertissement {
+	display: none;
+}
+
+.EMC #avertissement {
+	display: block;
+}
+
 
 @media (width < 1200px) {
   .matiere, .matiere-title {
@@ -573,7 +635,17 @@ h1 {
 	#statistiques:after {
 		content: ' Stats';
 	}
+	#historique span {
+		display: none;
+	}
+	#historique:after {
+		content: ' Histo';
+	}
 }
+
+
+
+
 @media (width > 2000px) {
   .matiere, .matiere-title {
 	--matiere-spacing: 15em;
@@ -582,3 +654,4 @@ h1 {
   	font-size: 1.5em !important;
   }
 }
+

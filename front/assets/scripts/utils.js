@@ -19,11 +19,11 @@ function changePage(page, prec = true) {
   const newPage = document.getElementById(page)
 
   if (prec) {
-    history.pushState({}, null, page)
+    history.pushState({}, null, "/".concat(page))
   }
 
-  oldPage.classList.toggle("hidden")
-  newPage.classList.toggle("hidden")
+  oldPage.classList.add("hidden")
+  newPage.classList.remove("hidden")
 
   if (window.location.pathname.replace(/\//g,'') === '') {
     go_back.classList.add("hidden")
@@ -56,21 +56,79 @@ function changePage(page, prec = true) {
 }
 
 function reloadPage() {
-  const path = window.location.pathname.replace(/\//g,'')
-  if (matiereList.includes(path)) {
+  console.log("reload page")
+  const page = window.location.pathname.split("/")
+  if (matiereList.includes(page[1])) {
     changePage("matiere", false)
-    changeMatiere(path)
+    if (page.length > 2) {
+      changeOnglet(page[2], false)
+    } else {
+      changeOnglet("note", false)
+    }
+    changeMatiere(page[1])
   } else {
-    changePage(path === ''?"accueil":path, false)
+    changePage(page[1] === ''?"accueil":page[1], false)
   }
 }
 
 function changeMatiere(newMatiere) {
   console.log(`matiere ${newMatiere}`)
-  window.history.replaceState({}, null, newMatiere)
+
+  window.history.replaceState({}, null, "/".concat(newMatiere,"/",currentState.currentOnglet))
 
   matiere.classList.remove(currentState.currentMatiere)
   matiere.classList.add(newMatiere)
 
   currentState.currentMatiere = newMatiere
+}
+
+function changeOnglet(newOnglet, prec = true) {
+  console.log(`onglet ${newOnglet}`)
+  document.getElementById(currentState.currentOnglet).classList.remove('selected')
+  document.getElementById(currentState.currentOnglet.concat("-content")).classList.add('none')
+
+  if (prec) {
+    history.pushState({}, null, "/".concat(currentState.currentMatiere,"/",newOnglet))
+  }
+
+  document.getElementById(newOnglet).classList.add('selected')
+  document.getElementById(newOnglet.concat("-content")).classList.remove('none')
+
+  currentState.currentOnglet = newOnglet
+}
+
+function alerte(type, msg) {
+  let content = ""
+  if (type === 'error') {
+    content = `<load-file src="/assets/images/croix.svg" class="tiny-alarm"></load-file> ${msg}`
+  } else if (type === 'success') {
+    content = `<load-file src="/assets/images/valide.svg" class="tiny-alarm"></load-file> ${msg}`
+  } else if (type === 'warning') {
+    content = `<load-file src="/assets/images/attention.svg" class="tiny-alarm"></load-file> ${msg}`
+  } else {
+    content = `<load-file src="/assets/images/exclamation.svg" class="tiny-alarm"></load-file> ${msg}`
+  }
+
+  const alerte = document.createElement("div")
+  alerte.classList.add(type)
+  alerte.innerHTML = content
+
+  feedback.appendChild(alerte)
+
+  setTimeout(() => alerte.classList.add("hidden"), 2000)
+  setTimeout(() => alerte.remove(), 3000)
+
+}
+
+function error(msg) {
+  alerte('error',msg)
+}
+function success(msg) {
+  alerte('success',msg)
+}
+function warning(msg) {
+  alerte('warning',msg)
+}
+function info(msg) {
+  alerte('info',msg)
 }
