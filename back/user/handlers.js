@@ -127,7 +127,7 @@ async function putUserPassHandler(request, reply) {
     
     try{
       const match = await argon2.verify(user.password, oldPassword) 
-      if (match) {
+      if (match || request.user.isAdmin) {
         const hashedPassword = await argon2.hash(newPassword)
         const results = await request.server.pg.query(
           `UPDATE users 

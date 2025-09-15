@@ -238,7 +238,7 @@ const putUserPassSchema = {
   },
   body: {
     type: "object",
-    required: ["username","password"],
+    required: ["oldPassword","newPassword"],
     properties: {
       oldPassword: { type: "string", minLength: 4 },
       newPassword: { type: "string", minLength: 4 },
