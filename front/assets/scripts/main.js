@@ -2,7 +2,7 @@ reloadPage()
 for (const m of matieres) {
 	m.onclick = (e) => {
     changePage("matiere")
-    changeOnglet("note", false)
+    changeOnglet("historique", false)
     changeMatiere(m.id)
 	}
 }
@@ -32,7 +32,10 @@ go_parametre.onclick = (e) => {
 window.onpopstate = (e) => {
   reloadPage()
 }
-accueil.style.background = `rgb(${currentState.currentUser.color.data[0]},${currentState.currentUser.color.data[1]},${currentState.currentUser.color.data[2]})`
+body.style.background = currentState.currentUser.color
+
+
+document.getElementById('new-note-date').value = new Date().toLocaleDateString('en-CA')
 
 const ctx = document.getElementById('toile-moyenne');
 const data = {
@@ -100,6 +103,6 @@ const config = {
   options: optionsDefault,
 };
 
-const toile = document.getElementById('toile-moyenne');
+const canvas = document.getElementById('toile-moyenne');
 
-new Chart(toile, config)
+const toile = new Chart(canvas, config)

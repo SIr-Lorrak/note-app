@@ -29,13 +29,75 @@
 
 		<div id="connexion" class="hidden content">
 			<!--ici un formulaire pour te connecter-->
+			<form id="connexion-form">
+				<label for="username">Nom :</label>
+				<input 
+					type="text" 
+					name="username"
+					required
+					minlength="3"
+					maxlength="45" 
+  				/>
+  				<br/>
+				<label for="password">Mot de passe :</label>
+				<input 
+					type="password"
+					name="password"
+					required
+					minlength="4"
+  				/>
+  				<br/>
+  				<input class="btn btn-primary" type="submit" name="connect" value="se connecter">
+  				<span> pas de compte ? ➔ <a href="inscription">s'inscrire</a>
+			</form>
+		</div>
+
+		<div id="inscription" class="hidden content">
+			<!--ici un formulaire pour te connecter-->
+			<form id="inscription-form">
+				<label for="new-login">Nom :</label>
+				<input 
+					type="text" 
+					id="new-login" 
+					name="new-login"
+					required
+					minlength="3"
+					maxlength="45" 
+  				/>
+  				<br/>
+				<label for="new-password">Mot de passe :</label>
+				<input 
+					type="new-password" 
+					id="new-password" 
+					name="new-password"
+					required
+					minlength="4"
+  				/><br/>
+				<label for="confirm-password">Confirmer le mot de passe :</label>
+  				<input 
+					type="password" 
+					id="confirm-password" 
+					name="confirm-password"
+					required
+					minlength="4"
+  				/>
+  				<br/>
+  				<input class="btn btn-primary" type="submit" name="signin" value="s'inscrire">
+  				<span> déjà un compte ? ➔ <a href="connexion">se connecter</a>
+			</form>
 		</div>
 
 		<div id="deconnexion" class="hidden content">
-			<!--ici un avertissement pour s'assurer que l'élève veut bien se déconnecter-->
+			<form id="deconnexion-form">
+				<!--ici un avertissement pour s'assurer que l'élève veut bien se déconnecter-->
+				<h2>Es-tu sûr de vouloir de déconnecter ?</h2>
+				<button type="button" class="btn btn-success">oui</button>
+				<button type="button" class="btn btn-danger" onclick="history.back()">non</button>
+			</form>
 		</div>
 
-		<div id="accueil" class="content">	
+		<div id="accueil" class="content">
+			<h1 class="global"></h1>
 			<canvas id="toile-moyenne"></canvas>
 			<div class="matiere-wheel">
 
@@ -67,30 +129,26 @@
 
 		<div id="matiere" class="general hidden content">
 			<!--ici la page matière pour rentrer une note voir l'historique ou les statistiques-->
+			<h1 class="global"></h1>
 			<div class="onglet-wrapper">
 				<div class="onglet-nav">
-					<div id="note" class="onglet"><load-file src="/assets/images/crayon.svg" class="tiny-logo crayon"></load-file><span> Note</span></div>
-					<div id="historique" class="onglet"><load-file src="/assets/images/oeil.svg" class="tiny-logo bigger"></load-file><span> Historique</span></div>
+					<div id="historique" class="onglet"><load-file src="/assets/images/oeil.svg" class="tiny-logo bigger"></load-file><span> Tes notes</span></div>
 					<div id="statistiques" class="onglet"><load-file src="/assets/images/stat.svg" class="tiny-logo"></load-file><span> Statistiques</span></div>
 					<div id="exercices" class="onglet"><load-file src="/assets/images/livre.svg" class="tiny-logo"></load-file><span> Exercices</span></div>
 					<div id="avertissement" class="onglet"><load-file src="/assets/images/attention.svg" class="tiny-logo"></load-file><span></span></div>
 				</div>
 				<div id="matiere-content" class="onglet-content-wrapper">
-					<div id="note-content" class='onglet-content none'>
-						<form id="note-form">
-						</form>
+					<div id="historique-content" class='onglet-content none'>
+						<div class="centered">
+							<span class="button center" data-bs-toggle="modal" data-bs-target="#add-note-modal">
+							  <load-file src="/assets/images/plus.svg" class="tiny-action"></load-file>
+							</span>
+						</div>
+						
+						<div id="historique-tab"></div>
 					</div>
-					<div id="historique-content" class='onglet-content none'></div>
-					<div id="statistiques-content" class='onglet-content none'></div>
-					<div id="exercices-content" class='onglet-content none'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quam neque, suscipit id dolor sagittis, dapibus convallis est. Cras eget enim ac magna commodo pharetra. In eget bibendum diam. Duis hendrerit, metus ut luctus blandit, leo augue euismod turpis, nec volutpat quam risus sit amet urna. Praesent luctus nulla at sapien tincidunt venenatis. Integer varius congue sem, eu accumsan velit luctus non. Morbi eget erat tristique, volutpat urna sit amet, vestibulum lectus. Curabitur semper nulla ut dapibus rhoncus. Nullam ac diam id est vulputate suscipit quis nec erat. Praesent viverra nisi ex, eget iaculis nibh hendrerit eu. Nam consectetur lacus eget urna luctus interdum. Phasellus eros arcu, molestie at magna sit amet, scelerisque scelerisque elit. Donec pharetra ornare lacus id lacinia. Donec dictum vel nisi id condimentum.<br/><br/>
-
-Etiam venenatis diam orci, vel tristique orci ultricies sodales. In sit amet nisi feugiat est elementum congue id eget nunc. Sed laoreet condimentum congue. Aliquam ipsum eros, cursus volutpat vestibulum ac, interdum non augue. Nulla imperdiet lorem vel magna pharetra, at ornare dolor porta. Phasellus nec arcu varius, vulputate tortor ut, dignissim mauris. Proin mollis maximus ex in viverra. Donec eleifend turpis quis urna feugiat lobortis. Etiam fringilla mollis massa, vitae eleifend diam.<br/><br/>
-
-Pellentesque mauris turpis, posuere auctor faucibus ut, ornare nec sem. Cras vitae ornare augue. Vivamus eget tincidunt nisi, a tempor felis. Cras euismod mi non blandit ornare. In tincidunt orci mauris. Sed quis eros sed eros faucibus bibendum non ac mauris. Sed molestie magna eget fermentum convallis. Fusce sagittis augue sed tristique faucibus. Sed viverra augue id purus viverra blandit. Phasellus lorem elit, molestie eu elit mollis, sodales congue justo. Vivamus euismod mi nibh, ac tempus augue tempus ut. Duis convallis porttitor mi ut facilisis. Duis porta felis non mi hendrerit tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas congue dolor at pulvinar tristique. Suspendisse potenti.<br/><br/>
-
-Praesent mollis lectus tempus massa fermentum imperdiet. Praesent condimentum est vel justo iaculis, in rhoncus diam pretium. Suspendisse efficitur efficitur dapibus. Morbi tincidunt eget nibh tincidunt sollicitudin. Ut urna enim, fermentum non porttitor sit amet, mattis sed nisl. Nullam consequat ex eget ex pharetra, in dapibus elit efficitur. Maecenas pellentesque vestibulum risus ut viverra.<br/><br/>
-
-Donec rhoncus magna neque, ut convallis tortor euismod sed. Cras ut nunc ullamcorper, varius lorem sed, tincidunt arcu. Pellentesque ultricies, quam a accumsan cursus, purus tellus vestibulum eros, ut lacinia quam eros sed libero. Etiam finibus tincidunt sem, ut consequat urna mattis sit amet. Donec fermentum purus eget turpis luctus laoreet. Cras viverra congue justo a convallis. Duis et ultrices metus. Aenean a justo molestie, cursus libero sagittis, placerat massa. Nullam vel dictum tortor. Morbi sagittis eleifend leo, commodo laoreet mi vestibulum eget. Suspendisse rutrum faucibus rhoncus. Nullam congue, neque euismod euismod malesuada, eros purus sagittis quam, a dignissim ipsum augue et justo. Mauris consectetur ac augue ac congue. Vivamus lorem risus, fermentum sed ipsum eu, faucibus tincidunt libero. Fusce varius nisi sit amet purus egestas, vel rhoncus magna eleifend. Etiam auctor consectetur mauris, non ornare purus facilisis ut.</div>
+					<div id="statistiques-content" class='onglet-content none'>Les statistiques arrives très bientôt !</div>
+					<div id="exercices-content" class='onglet-content none'>Les exercices viendront plus tard !</div>
 					<div id="avertissement-content" class='onglet-content none'></div>
 				</div>
 			</div>
@@ -98,12 +156,66 @@ Donec rhoncus magna neque, ut convallis tortor euismod sed. Cras ut nunc ullamco
 
 		<div id="eleves" class="hidden content">
 			<!--ici les admins pourrons voir la liste des élèves et leur notes-->
+			<h1>Voici tes élèves : </h1>
+			<div id="eleves-tab"></div>
+		</div>
+
+		<div id="backup" class="hidden content">
+			<!--ici les admins pourrons importé des backups de la base de données et les exporté au cas où-->
 		</div>
 
 		<div id="parametre" class="hidden content">
 			<!--ici les parametre de ton profil pour changer de nom, d'avatar, de mot de passe...-->
-			<form id="parametre-form">
-			</form>
+			<div id="parametre-form" class="center">
+				<form id="change-login-form">
+					<label for="change-login">Changer de nom :</label><br/>
+					<input 
+						type="text" 
+						id="change-login" 
+						name="change-login"
+						required
+						minlength="3"
+						maxlength="45" 
+						placeholder="nouveau nom" 
+	  				/><br/>
+	  				<button class="btn btn-primary">Appliquer</button><br/>
+	  			</form>
+  				<br/>
+  				<form id="change-password-form">
+				<label for="change-password">Changer de mot de passe :</label><br/>
+				<input 
+					type="password" 
+					id="change-password" 
+					name="change-password"
+					required
+					minlength="4"
+					placeholder="nouveau mot de passe" 
+  				/><br/>
+  				<input 
+					type="password" 
+					id="confirm-change-password" 
+					name="confirm-change-password"
+					required
+					minlength="4"
+					placeholder="confirmer le mot de passe" 
+  				/>
+  				<br/>
+  				<input 
+					type="password" 
+					id="old-password" 
+					name="old-password"
+					required
+					minlength="4"
+					placeholder="ancien mot de passe" 
+  				/><br/>
+  				<button class="btn btn-primary">Appliquer</button><br/>
+  			</form><br/>
+  			<form id="change-color-form">
+  				<label for="change-color">Changer ta couleur préférée :</label>
+  				<input type="color" name="change-color" id="change-color" value="#faebd7"><br/>
+  				<button class="btn btn-primary">Appliquer</button><br/>
+  			</form>
+			</div>
 		</div>
 
 		<div id="feedback">
@@ -117,9 +229,203 @@ Donec rhoncus magna neque, ut convallis tortor euismod sed. Cras ut nunc ullamco
 		</nav>
 
 	</div>
+	<!-- ici on met les fenetre modal car elles doivent être devant le reste -->
+	<div class="modal fade" id="add-note-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="add-note-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="add-note-modal">Quelle est ta note du jour ?</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+
+		       <form id="new-note-form">
+		      <div class="modal-body">
+					<label for="new-note-date">Quand a tu obtenu ta note ?</label><br/>
+					<input type="date" name="new-note-date" id="new-note-date"/><br/><br/>
+					<label>Sur quelle notion portait le contrôle ?</label><br/>
+					<input type="text" name="new-note-notion" placeholder="notion"/><br/><br/>
+					<label>Quelle note as-tu obtenu ?</label><br/>
+					<input type="number" name="new-note-note" min="0" max="100" placeholder="note"/><label>%</label>
+					<br/>
+					<input type="radio" name="new-note-note2" value="A+"/><label>A+</label>
+					<input type="radio" name="new-note-note2" value="A"/><label>A</label>
+					<input type="radio" name="new-note-note2" value="A-"/><label>A-</label>
+					<input type="radio" name="new-note-note2" value="PA+" checked/><label>PA+</label>
+					<input type="radio" name="new-note-note2" value="PA"/><label>PA</label>
+					<input type="radio" name="new-note-note2" value="PA-"/><label>PA-</label>
+					<input type="radio" name="new-note-note2" value="NA"/><label>NA</label>
+					<br/><br/>
+					<label>Avec qui as-tu révisé ?</label><br/>
+					<input type="checkbox" name="papa"/><label>Papa </label>
+					<input type="checkbox" name="maman"/><label>Maman </label>
+					<input type="checkbox" name="frère et/ou soeur" /><label>Frère/Soeur </label>
+					<input type="checkbox" name="APC"/><label>APC </label>
+					<input type="checkbox" name="étude"/><label>Étude </label>
+					<input type="text" name="autres" placeholder="autre(s)"><br/>
+					<br/>
+					<label>Es-tu satisafait ? </label>
+					<input type="radio" name="new-note-satisfaction" value="1">
+					<input type="radio" name="new-note-satisfaction" value="PA">
+					<input type="radio" name="new-note-satisfaction" value="NA" checked>
+					<input type="radio" name="new-note-satisfaction" value="CA">
+					<input type="radio" name="new-note-satisfaction" value="WA"><br/><br/>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		        <button type="submit" class="btn btn-primary" id="send-new-note">Ajouter</button>
+		      </div>
+		  	  </form>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="change-note-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="change-note-form">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="change-note-modal">Que dois-tu corriger sur cette note ?</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        TODO formulaire pour modifier la note
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		        <button type="submit" class="btn btn-primary" id="send-change-note">Modifier</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="delete-note-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="delete-note-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="delete-note-modal">Es-tu sur de vouloir supprimer cette note ?</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        Une fois supprimer tu ne pourras pas revenir en arrière !
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		        <button type="button" class="btn btn-primary">Supprimer</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="change-user-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="change-user-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="change-user-modal">Modal title</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        TODO formulaire pour modifier les données d'un utilisateur
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Understood</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="delete-user-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="delete-user-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="delete-user-modal">Es-tu sûr de vouloir supprimer cet élève ?</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        Les informations de l'élève seront perdu y compris toutes ses notes !
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		        <button type="button" class="btn btn-primary">Supprimer</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="carton-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="carton-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="carton-modal">Modal title</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        TODO formulaire pour donner un carton à un élève turbulent
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Understood</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="create-exos-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="create-exos-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="create-exos-modal">Modal title</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        TODO formulaire pour créer un exercice
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Understood</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="change-exos-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="change-exos-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="change-exos-modal">Modal title</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        TODO formulaire pour modifier un exercice
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Understood</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="suppr-exos-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="suppr-exos-modal">
+		 	<div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="suppr-exos-modal">Modal title</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        TODO formulaire pour supprimer un exercice
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Understood</button>
+		      </div>
+		    </div>
+		</div>
+	</div>
 
 	<script src="/assets/scripts/data.js"></script>
 	<script src="/assets/scripts/utils.js"></script>
+	<script src="/assets/scripts/callback.js"></script>
 	<script src="/assets/scripts/main.js"></script>
 
 </body>

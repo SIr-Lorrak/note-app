@@ -1,5 +1,6 @@
 //here we'll fetch our data from the api but for now data are mocked
 const top_nav = document.getElementById("top_nav")
+const body = document.getElementById("body")
 const connexion = document.getElementById("connexion")
 const deconnexion = document.getElementById("deconnexion")
 const accueil = document.getElementById("accueil")
@@ -24,15 +25,11 @@ const go_parametre = document.getElementById("go-parametre")
 const matiereList = ["general", "mathematiques", "francais", "EMC", "anglais", "art", "musique", "EPS", "histoire", "geographie", "sciences"]
 
 const currentState = {
+	currentEleve : "Titouan Sèchepine", // les notes de cette eleve seront afficher laisser vide pour afficher tt le monde
 	currentUser : {
 		username : "Lorrak",
 		role : 1, // 1 for admin display
-		color : {
-			type : "Buffer",
-			data : [
-				250, 235, 215
-			]
-		},
+		color : "rgb(250, 235, 215)",
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -46,22 +43,14 @@ const currentState = {
 	},
 	token : "Bearer test",
 	currentPage : "accueil", //current page to show 
-	currentOnglet : "note",
+	currentOnglet : "historique",
 	currentMatiere : "general" // matiere to display on matiere page (0 for general)
 }
 
 const students = [ // student list used for admin
 	{
-		username : "Lorrak",
+		username : "Léontine Robinson",
 		role : 1, // 1 for admin display
-		color : {
-			type : "Buffer",
-			data : [
-				255,
-				0,
-				0
-			]
-		},
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -76,14 +65,6 @@ const students = [ // student list used for admin
 	{
 		username : "Titouan Sèchepine",
 		role : 0, // 1 for admin display
-		color : {
-			type : "Buffer",
-			data : [
-				255,
-				255,
-				0
-			]
-		},
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -98,14 +79,6 @@ const students = [ // student list used for admin
 	{
 		username : "Martine Du Calpié",
 		role : 0, // 1 for admin display
-		color : {
-			type : "Buffer",
-			data : [
-				128,
-				255,
-				75
-			]
-		},
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -120,14 +93,6 @@ const students = [ // student list used for admin
 	{
 		username : "Joséphine Pélouze",
 		role : 0, // 1 for admin display
-		color : {
-			type : "Buffer",
-			data : [
-				128,
-				0,
-				255
-			]
-		},
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -136,20 +101,12 @@ const students = [ // student list used for admin
 		},
 		matiere : 2,
 		carton : 2,
-		commentaire : "attention",
+		commentaire : "Passe trop de temps sur Minecraft",
 		datecarton : "2025-09-01"
 	},
 	{
 		username : "Léon Duku",
 		role : 0, // 1 for admin display
-		color : {
-			type : "Buffer",
-			data : [
-				0,
-				0,
-				0
-			]
-		},
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -163,13 +120,13 @@ const students = [ // student list used for admin
 	},
 ]
 
-const note = [ // note list 
+const notes = [ // note list 
 	{
 		id : 1,
 		name : "Titouan Sèchepine",
-		matiere : 1,
+		matiere : 2,
 		date : "2025-12-25",
-		notion : "skibidi toilet",
+		notion : "Madame Bovary",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
 		révision : "Maman",
@@ -178,11 +135,11 @@ const note = [ // note list
 	{
 		id : 2,
 		name : "Titouan Sèchepine",
-		matiere : 5,
+		matiere : 8,
 		date : "2025-09-11",
-		notion : "les attentats du 11 septembre",
+		notion : "époque féodal",
 		note : 99, // en pourcentage
-		note2 : 7, // de NA a A+
+		note2 : 6, // de NA a A+
 		révision : "Etude",
 		statisfaction : 4
 	},{
@@ -202,13 +159,13 @@ const note = [ // note list
 		date : "2025-12-25",
 		notion : "statistiques",
 		note : 100, // en pourcentage
-		note2 : 7, // de NA a A+
+		note2 : 6, // de NA a A+
 		révision : "Maman",
 		statisfaction : 5
 	},{
 		id : 5,
 		name : "Titouan Sèchepine",
-		matiere : 1,
+		matiere : 5,
 		date : "2025-12-25",
 		notion : "skibidi toilet",
 		note : 76, // en pourcentage
@@ -218,9 +175,9 @@ const note = [ // note list
 	},{
 		id : 6,
 		name : "Titouan Sèchepine",
-		matiere : 5 ,
+		matiere : 4,
 		date : "2025-12-25",
-		notion : "skibidi toilet",
+		notion : "les couleurs",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
 		révision : "Etude",
@@ -228,9 +185,9 @@ const note = [ // note list
 	},{
 		id : 7,
 		name : "Titouan Sèchepine",
-		matiere : 1,
+		matiere : 10,
 		date : "2025-12-25",
-		notion : "skibidi toilet",
+		notion : "thermodynamique",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
 		révision : "Maman",
