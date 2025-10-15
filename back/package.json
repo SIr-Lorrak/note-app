@@ -19,8 +19,6 @@
   "author": "SIr-Lorrak",
   "license": "ISC",
   "dependencies": {
-    "@fastify/auth": "^5.0.2",
-    "@fastify/basic-auth": "^6.2.0",
     "@fastify/cookie": "^11.0.2",
     "@fastify/helmet": "^13.0.1",
     "@fastify/postgres": "^6.0.2",

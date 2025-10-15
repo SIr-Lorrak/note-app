@@ -123,7 +123,7 @@ cartonForm.onsubmit = (e) => {// admin only
 	e.preventDefault()
 	const data = new FormData(cartonForm)
 	cartone(data.get("username"), Number(data.get("carton")), data.get("carton-commentaire"), data.get("carton-date")).then( r => {
-			console.log(r)
+			// console.log(r)
 			if (r.ok) {
 				modalHide("carton-modal")
 			} else {
@@ -156,7 +156,7 @@ sendBackup.onsubmit = (e) => {
 	e.preventDefault()
 	const data = new FormData(sendBackup) // read the file and send jsons
 	file = data.get("backup-file")
-	console.log(file)
+	// console.log(file)
 	var reader = new FileReader();
 
 	reader.onload = () => {
@@ -233,6 +233,7 @@ fetch(
 		return res
 	}
 	getNotes()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -258,6 +259,7 @@ fetch(
 		return res
 	}
 	getNotes()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -283,6 +285,7 @@ fetch(
 		return res
 	}
 	getNotes()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -307,6 +310,7 @@ fetch(
 		return res
 	}
 	getNotes()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -360,6 +364,7 @@ fetch(
 		return res
 	}
 	getUsers()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -386,6 +391,7 @@ fetch(
 	}
 	whoami()
 	getEverything()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -414,6 +420,7 @@ fetch(
 		return res
 	}
 	whoami()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -438,6 +445,7 @@ fetch(
 		return res
 	}
 	whoami()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	
@@ -467,6 +475,7 @@ fetch(
 		return res
 	}
 	getEverything()
+	return res
 })
 .catch(e => {
 	if (e.status === 403) {	

@@ -452,15 +452,15 @@
 		    	<label for="carton-date">Quelle est la date du carton ?</label><br/>
 				<input type="date" name="carton-date" id="carton-date" required/><br/><br/>
 		    	<label for="carton">Quelle gravité ?</label><br/>
-				<input type="radio" name="carton" id="carton-blanc" value=1 /><label>⬜</label>
-				<input type="radio" name="carton" id="carton-jaune" value=2 checked/><label>🟨</label>
-				<input type="radio" name="carton" id="change-rouge" value=3/><label>🟥</label><br/><br/>
+				<input type="radio" name="carton" id="carton-blanc" value="1" /><label>⬜</label>
+				<input type="radio" name="carton" id="carton-jaune" value="2" checked/><label>🟨</label>
+				<input type="radio" name="carton" id="change-rouge" value="3" /><label>🟥</label><br/><br/>
 				<textarea id="carton-commentaire" name="carton-commentaire" placeholder="commentaire"></textarea>
 		      	<input type="hidden" name="username" id="carton-user-id">
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-primary">Understood</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		        <button type="submit" class="btn btn-primary">Cartonner !</button>
 		      </div>
 		  	  </form>
 		    </div>
