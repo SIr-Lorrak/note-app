@@ -4,8 +4,6 @@ import "dotenv/config"
 import build from "./app.js"
 import populate from "./postgres/populate.js"
 
-import fastifyCookie from "@fastify/cookie"
-
 // HTTP config from dotenv
 const port = process.env.PORT ?? 3000
 const host = process.env.HOST ?? "127.0.0.1"
@@ -27,12 +25,6 @@ async function startServer() {
     )
 
     await populate(app, 69) 
-
-    app.register(fastifyCookie, {
-      secret: SECRET, // for cookies signature
-      hook: 'onRequest', // set to false to disable cookie autoparsing or set autoparsing on any of the following hooks: 'onRequest', 'preParsing', 'preHandler', 'preValidation'. default: 'onRequest'
-      parseOptions: {}  // options for parsing cookies
-    })
 
     await app.listen({ port, host })
 

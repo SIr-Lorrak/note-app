@@ -62,7 +62,7 @@ const delNoteOptions = {
 }
 
 function noteRoutes(fastify, options, done) {
-  fastify.addHook("onRequest", fastify.auth([fastify.verifyJWTToken, fastify.basicAuth]))
+  fastify.addHook("onRequest", fastify.verifyJWTToken)
   fastify.route(getNotesOptions)
   fastify.route(getAllNotesOptions)
   fastify.route(postNoteOptions)

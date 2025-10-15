@@ -1,5 +1,15 @@
-import { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserPassSchema, putUserCartonSchema, putUserTimeSchema, delUserSchema } from "./schemas.js"
-import { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserPassHandler, putUserCartonHandler, putUserTimeHandler, delUserHandler } from "./handlers.js"
+import { getUserSchema, getMeSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserPassSchema, putUserCartonSchema, putUserTimeSchema, delUserSchema } from "./schemas.js"
+import { getUserHandler, getMeHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserPassHandler, putUserCartonHandler, putUserTimeHandler, delUserHandler } from "./handlers.js"
+
+const getMeOptions = {
+  method: "GET",
+  path: "/me",
+  schema: getMeSchema,
+  // Authorization logic
+  preHandler: (request, reply, done) => request.user !== undefined ? done() : reply.status(403).send(),
+  // Business logic
+  handler: getMeHandler,
+}
 
 const getUserOptions = {
   method: "GET",
@@ -92,8 +102,9 @@ const delUserOptions = {
 }
 
 function usersRoutes(fastify, options, done) {
-  fastify.addHook("onRequest", fastify.auth([fastify.verifyJWTToken, fastify.basicAuth]))
+  fastify.addHook("onRequest", fastify.verifyJWTToken)
   fastify.route(getUserOptions)
+  fastify.route(getMeOptions)
   fastify.route(getUsersOptions)
   fastify.route(postUserOptions)
   fastify.route(postUsersOptions)

@@ -24,6 +24,20 @@ async function getUserHandler(request, reply) {
   return reply.send(results.rows[0])
 }
 
+async function getMeHandler(request, reply) {
+  const { username } = request.user
+
+  const results = await request.server.pg.query("SELECT * FROM users WHERE username = $1;", [
+    username,
+  ])
+
+  if (!results.rowCount) {
+    return reply.notFound(`User '${username}' not found`)
+  }
+
+  return reply.send(results.rows[0])
+}
+
 async function getUsersHandler(request, reply) {
   const results = await request.server.pg.query("SELECT * FROM users;")
   return reply.send(results.rows)
@@ -213,4 +227,4 @@ async function delUserHandler(request, reply) {
   return reply.send(results.rows[0])
 }
 
-export { getUserHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserPassHandler, putUserCartonHandler, putUserTimeHandler, delUserHandler }
+export { getUserHandler, getMeHandler, getUsersHandler, postUserHandler, postUsersHandler, putUserHandler, putUserPassHandler, putUserCartonHandler, putUserTimeHandler, delUserHandler }

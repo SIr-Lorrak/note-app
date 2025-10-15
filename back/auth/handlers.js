@@ -23,19 +23,23 @@ function setRequestUser(username, role, request) {
 // Handler used by fastify.auth, decorates fastify instance
 async function verifyJWTToken(request, reply) {
   const token = request.cookies.Authorization
+  request.server.log.info("token d'autorisation : " + token)
   const connected = request.cookies.Connected
+  request.server.log.info("token de connexion : " + connected)
   if (connected === undefined || connected === 'disconnect') {
     reply
       .clearCookie('Authorization', {
         maxAge: 34560000,
         httpOnly: true,
         sameSite: 'strict',
-        secure: true
+        secure: true,
+        path: '/'
       })
       .clearCookie('Connected', {
         maxAge: 34560000,
         sameSite: 'strict',
-        secure: true
+        secure: true,
+        path: '/'
       })
   } else {
     const payload = jwt.verify(token, SECRET)
@@ -86,12 +90,14 @@ async function postAuthLoginHandler(request, reply) {
         maxAge: 34560000,
         httpOnly: true,
         sameSite: 'strict',
-        secure: true
+        secure: true,
+        path: '/'
       })
       .setCookie('Connected', s, {
         maxAge: 34560000,
         sameSite: 'strict',
-        secure: true
+        secure: true,
+        path: '/'
       })
       .send('')
   } else { 

@@ -138,6 +138,15 @@ const users = {
   items: userPass,
 }
 
+const getMeSchema = {
+  tags: ["user"],
+  summary: "User's information",
+  description: "Retreives your informations.",
+  response: {
+    "2xx": user,
+  },
+}
+
 const getUserSchema = {
   tags: ["user"],
   summary: "User's information",
@@ -145,7 +154,7 @@ const getUserSchema = {
   params: {
     type: "object",
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
     }
   },
   response: {
@@ -169,7 +178,7 @@ const delUserSchema = {
   params: {
     type: "object",
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
     }
   },
   response: {
@@ -185,7 +194,7 @@ const postUserSchema = {
     type: "object",
     required: ["username","password"],
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
       password: { type: "string", minLength: 4 },
     },
   },
@@ -217,7 +226,7 @@ const putUserSchema = {
   params: {
     type: "object",
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
     }
   },
   body: userUp,
@@ -233,7 +242,7 @@ const putUserPassSchema = {
   params: {
     type: "object",
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
     }
   },
   body: {
@@ -257,7 +266,7 @@ const putUserCartonSchema = {
   params: {
     type: "object",
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
     }
   },
   body: carton,// with non hashed password
@@ -273,7 +282,7 @@ const putUserTimeSchema = {
   params: {
     type: "object",
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
     }
   },
   body: {
@@ -288,4 +297,4 @@ const putUserTimeSchema = {
   },
 }
 
-export { getUserSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserPassSchema, putUserCartonSchema, putUserTimeSchema, delUserSchema }
+export { getUserSchema, getMeSchema, getUsersSchema, postUserSchema, postUsersSchema, putUserSchema, putUserPassSchema, putUserCartonSchema, putUserTimeSchema, delUserSchema }

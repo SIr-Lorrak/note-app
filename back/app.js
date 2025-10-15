@@ -9,13 +9,11 @@ import fastify from "fastify"
 import fastifySensible from "@fastify/sensible"
 // Wrapper for node-postgres <https://github.com/fastify/fastify-postgres> https://node-postgres.com/
 import pg from "@fastify/postgres"
-// Authentication wrapper <https://github.com/fastify/fastify-auth>
-import fastifyAuth from "@fastify/auth"
-// HTTP Basic Auth, <https://github.com/fastify/fastify-basic-auth>
-import fastifyBasicAuth from "@fastify/basic-auth"
-// Swagger generator <https://github.com/fastify/fastify-swagger
+// Cookie plugin <https://github.com/fastify/fastify-cookie>
+import fastifyCookie from "@fastify/cookie"
+// Swagger generator <https://github.com/fastify/fastify-swagger>
 import fastifySwagger from "@fastify/swagger"
-// Swagger UI <https://github.com/fastify/fastify-swagger-ui
+// Swagger UI <https://github.com/fastify/fastify-swagger-ui>
 import fastifySwaggerUI from "@fastify/swagger-ui"
 
 // Print all routes, for dev <https://github.com/ShogunPanda/fastify-print-routes>
@@ -126,16 +124,13 @@ function build(options = {}) {
     connectionTimeoutMillis: 3000,
   })
 
-  // Decorate fastify with authentication and authorization logic
-  app.register(fastifyAuth)
+  app.register(fastifyCookie, {
+    hook: 'onRequest', // set to false to disable cookie autoparsing or set autoparsing on any of the following hooks: 'onRequest', 'preParsing', 'preHandler', 'preValidation'. default: 'onRequest'
+    parseOptions: {}  // options for parsing cookies
+  })
+
   // TODO : compléter la fonction verifyJWTToken
   app.decorate("verifyJWTToken", verifyJWTToken)
-
-  app.register(fastifyBasicAuth, {
-    // TODO : compléter la fonction verifyLoginPassword
-    validate: verifyLoginPassword,
-    authenticate: false, 
-  })
 
   app.addHook("onRequest", (request, reply, done) => {
     reply.header('Cache-Control', 'private')

@@ -24,7 +24,7 @@
 				<div id="go-back" class="tiny-button hidden"><load-file src="/assets/images/retour.svg" class="tiny-icon"></load-file></div>
 				<div id="go-home" class="tiny-button hidden"><load-file src="/assets/images/maison3.svg" class="tiny-icon"></load-file></div>
 			</div>
-			<div id="go-disconnect" class="tiny-button"><load-file src="/assets/images/croix.svg" class="tiny-icon"></div>
+			<div id="go-disconnect" class="tiny-button hidden"><load-file src="/assets/images/croix.svg" class="tiny-icon"></div>
 		</nav>
 
 		<div id="connexion" class="hidden content">
@@ -35,7 +35,7 @@
 					type="text" 
 					name="username"
 					required
-					minlength="3"
+					minlength="4"
 					maxlength="45" 
   				/>
   				<br/>
@@ -48,7 +48,7 @@
   				/>
   				<br/>
   				<input class="btn btn-primary" type="submit" name="connect" value="se connecter">
-  				<span> pas de compte ? ➔ <a href="inscription">s'inscrire</a>
+  				<span> pas de compte ? ➔ <span class="lien" onclick="changePage('inscription')">s'inscrire</span>
 			</form>
 		</div>
 
@@ -61,13 +61,13 @@
 					id="new-login" 
 					name="new-login"
 					required
-					minlength="3"
+					minlength="4"
 					maxlength="45" 
   				/>
   				<br/>
 				<label for="new-password">Mot de passe :</label>
 				<input 
-					type="new-password" 
+					type="password" 
 					id="new-password" 
 					name="new-password"
 					required
@@ -83,7 +83,7 @@
   				/>
   				<br/>
   				<input class="btn btn-primary" type="submit" name="signin" value="s'inscrire">
-  				<span> déjà un compte ? ➔ <a href="connexion">se connecter</a>
+  				<span> déjà un compte ? ➔ <span class="lien" onclick="changePage('connexion')">se connecter</span>
 			</form>
 		</div>
 
@@ -91,12 +91,12 @@
 			<form id="deconnexion-form">
 				<!--ici un avertissement pour s'assurer que l'élève veut bien se déconnecter-->
 				<h2>Es-tu sûr de vouloir de déconnecter ?</h2>
-				<button type="button" class="btn btn-success">oui</button>
+				<button type="button" class="btn btn-success" onclick="disconnect()">oui</button>
 				<button type="button" class="btn btn-danger" onclick="history.back()">non</button>
 			</form>
 		</div>
 
-		<div id="accueil" class="content">
+		<div id="accueil" class="hidden content">
 			<h1 class="global"></h1>
 			<canvas id="toile-moyenne"></canvas>
 			<div class="matiere-wheel">
@@ -139,7 +139,7 @@
 				</div>
 				<div id="matiere-content" class="onglet-content-wrapper">
 					<div id="historique-content" class='onglet-content none'>
-						<div class="centered">
+						<div class="centered new-note-button">
 							<span class="button center" data-bs-toggle="modal" data-bs-target="#add-note-modal">
 							  <load-file src="/assets/images/plus.svg" class="tiny-action"></load-file>
 							</span>
@@ -147,9 +147,10 @@
 						
 						<div id="historique-tab"></div>
 					</div>
-					<div id="statistiques-content" class='onglet-content none'>Les statistiques arrives très bientôt !</div>
+					<div id="statistiques-content" class='onglet-content none'>Les statistiques arrivent très bientôt !</div>
 					<div id="exercices-content" class='onglet-content none'>Les exercices viendront plus tard !</div>
-					<div id="avertissement-content" class='onglet-content none'></div>
+					<div id="avertissement-content" class='onglet-content none'>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -162,6 +163,22 @@
 
 		<div id="backup" class="hidden content">
 			<!--ici les admins pourrons importé des backups de la base de données et les exporté au cas où-->
+			<div class="center">
+				<span class="center">
+					<h1>En cas de problème avec la base de données tu peux faire des backup ici</h1>
+					Il est conseillé de faire une sauvegarde toutes les semaines.<br>
+					<strong>Attention !</strong> Importer une sauvegarde écrasera TOUTES les données actuellement présentes dans la base de données il ne faut s'en servir qu'en cas de perte des données
+				</span><br/><br/>
+				<form id="get-backup">
+					<h2>faire une sauvegarde des données : </h2>
+					<button type="submit" class="btn btn-primary">backup !</button>
+				</form><br/>
+				<form id="send-backup">
+					<h2>Importer une sauvegarde : </h2>
+					<input type="file" ACCEPT=".save" name="backup-file" id="backup-file" /><br/>
+					<button type="submit" class="btn btn-primary">backup !</button>
+				</form>
+			</div>
 		</div>
 
 		<div id="parametre" class="hidden content">
@@ -174,7 +191,7 @@
 						id="change-login" 
 						name="change-login"
 						required
-						minlength="3"
+						minlength="4"
 						maxlength="45" 
 						placeholder="nouveau nom" 
 	  				/><br/>
@@ -212,7 +229,7 @@
   			</form><br/>
   			<form id="change-color-form">
   				<label for="change-color">Changer ta couleur préférée :</label>
-  				<input type="color" name="change-color" id="change-color" value="#faebd7"><br/>
+  				<input required type="color" name="change-color" id="change-color" value="#faebd7"><br/>
   				<button class="btn btn-primary">Appliquer</button><br/>
   			</form>
 			</div>
@@ -221,31 +238,37 @@
 		<div id="feedback">
 			<!--ici on afficher les feedback de chaques requêtes-->
 		</div>
+
+		<div id="loading" class="content">
+			<div class="center responsive">
+				<img src="/assets/images/loading.gif">
+			</div>
+		</div>
 		
 		<nav id="bottom-nav" class="page-nav">
 			<!--pour aller dans les paramêtre-->
-			<div id="go-parametre" class="tiny-button"><load-file src="/assets/images/parametre.svg" class="tiny-icon">
+			<div id="go-parametre" class="tiny-button hidden"><load-file src="/assets/images/parametre.svg" class="tiny-icon">
 			</div>
 		</nav>
 
 	</div>
 	<!-- ici on met les fenetre modal car elles doivent être devant le reste -->
-	<div class="modal fade" id="add-note-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="add-note-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="add-note-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
 		        <h1 class="modal-title fs-5" id="add-note-modal">Quelle est ta note du jour ?</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <button id="add-note-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 
 		       <form id="new-note-form">
 		      <div class="modal-body">
 					<label for="new-note-date">Quand a tu obtenu ta note ?</label><br/>
-					<input type="date" name="new-note-date" id="new-note-date"/><br/><br/>
+					<input type="date" name="new-note-date" id="new-note-date" required/><br/><br/>
 					<label>Sur quelle notion portait le contrôle ?</label><br/>
-					<input type="text" name="new-note-notion" placeholder="notion"/><br/><br/>
+					<input type="text" name="new-note-notion" placeholder="notion" required/><br/><br/>
 					<label>Quelle note as-tu obtenu ?</label><br/>
-					<input type="number" name="new-note-note" min="0" max="100" placeholder="note"/><label>%</label>
+					<input type="number" name="new-note-note" min="0" max="100" placeholder="note" required/><label>%</label>
 					<br/>
 					<input type="radio" name="new-note-note2" value="A+"/><label>A+</label>
 					<input type="radio" name="new-note-note2" value="A"/><label>A</label>
@@ -256,19 +279,31 @@
 					<input type="radio" name="new-note-note2" value="NA"/><label>NA</label>
 					<br/><br/>
 					<label>Avec qui as-tu révisé ?</label><br/>
-					<input type="checkbox" name="papa"/><label>Papa </label>
-					<input type="checkbox" name="maman"/><label>Maman </label>
-					<input type="checkbox" name="frère et/ou soeur" /><label>Frère/Soeur </label>
+					<input type="checkbox" name="Papa"/><label>Papa </label>
+					<input type="checkbox" name="Maman"/><label>Maman </label>
+					<input type="checkbox" name="Frère/Soeur" /><label>Frère/Soeur </label>
 					<input type="checkbox" name="APC"/><label>APC </label>
-					<input type="checkbox" name="étude"/><label>Étude </label>
+					<input type="checkbox" name="Étude"/><label>Étude </label>
 					<input type="text" name="autres" placeholder="autre(s)"><br/>
 					<br/>
-					<label>Es-tu satisafait ? </label>
-					<input type="radio" name="new-note-satisfaction" value="1">
-					<input type="radio" name="new-note-satisfaction" value="PA">
-					<input type="radio" name="new-note-satisfaction" value="NA" checked>
-					<input type="radio" name="new-note-satisfaction" value="CA">
-					<input type="radio" name="new-note-satisfaction" value="WA"><br/><br/>
+					<label>Es-tu satisafait.e ? </label>
+					<div class="rating">
+						<input id="star5" type="radio" name="new-note-satisfaction" value="5">
+  						<label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+
+						<input id="star4" type="radio" name="new-note-satisfaction" value="4">
+  						<label class="star" for="star4" title="Great" aria-hidden="true"></label>
+
+						<input id="star3" type="radio" name="new-note-satisfaction" value="3" checked>
+  						<label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+
+						<input id="star2" type="radio" name="new-note-satisfaction" value="2">
+  						<label class="star" for="star2" title="Good" aria-hidden="true"></label>
+
+						<input id="star1" type="radio" name="new-note-satisfaction" value="1">
+ 						<label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+ 						<br/><br/>
+					</div>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -279,102 +314,165 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="change-note-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="change-note-form">
+	<div class="modal fade" id="change-note-modal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 		 	<div class="modal-content">
 		      <div class="modal-header">
 		        <h1 class="modal-title fs-5" id="change-note-modal">Que dois-tu corriger sur cette note ?</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <button id="change-note-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
-		        TODO formulaire pour modifier la note
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-		        <button type="submit" class="btn btn-primary" id="send-change-note">Modifier</button>
-		      </div>
+		      <form id="change-note-form">
+		    	<div class="modal-body">
+		    	  	<label for="change-note-date">Quand a tu obtenu ta note ?</label><br/>
+					<input type="date" name="change-note-date" id="change-note-date"/><br/><br/>
+					<label>Sur quelle notion portait le contrôle ?</label><br/>
+					<input type="text" name="change-note-notion" placeholder="notion" id="change-note-notion"/><br/><br/>
+					<label>Quelle note as-tu obtenu ?</label><br/>
+					<input type="number" name="change-note-note" id="change-note-note" min="0" max="100" placeholder="note"/><label>%</label>
+					<br/>
+					<input type="radio" name="change-note-note2" id="change-note-A+" value="A+"/><label>A+</label>
+					<input type="radio" name="change-note-note2" id="change-note-A" value="A"/><label>A</label>
+					<input type="radio" name="change-note-note2" id="change-note-A-" value="A-"/><label>A-</label>
+					<input type="radio" name="change-note-note2" id="change-note-PA+" value="PA+" checked/><label>PA+</label>
+					<input type="radio" name="change-note-note2" id="change-note-PA" value="PA"/><label>PA</label>
+					<input type="radio" name="change-note-note2" id="change-note-PA-" value="PA-"/><label>PA-</label>
+					<input type="radio" name="change-note-note2" id="change-note-NA" value="NA"/><label>NA</label>
+					<br/><br/>
+					<label>Avec qui as-tu révisé ?</label><br/>
+					<input type="checkbox" id="change-note-papa" name="Papa"/><label>Papa </label>
+					<input type="checkbox" id="change-note-maman" name="Maman"/><label>Maman </label>
+					<input type="checkbox" id="change-note-frère/soeur" name="Frère/Soeur" /><label>Frère/Soeur </label>
+					<input type="checkbox" id="change-note-apc" name="APC"/><label>APC </label>
+					<input type="checkbox" id="change-note-étude" name="Étude"/><label>Étude </label>
+					<input type="text" id="change-note-autres" name="autres" placeholder="autre(s)"><br/>
+					<br/>
+					<label>Es-tu satisafait.e ? </label>
+					<div class="rating">
+						<input id="change-star5" type="radio" name="change-note-satisfaction" value="5">
+  						<label class="star" for="change-star5" title="Awesome" aria-hidden="true"></label>
+
+						<input id="change-star4" type="radio" name="change-note-satisfaction" value="4">
+  						<label class="star" for="change-star4" title="Great" aria-hidden="true"></label>
+
+						<input id="change-star3" type="radio" name="change-note-satisfaction" value="3" checked>
+  						<label class="star" for="change-star3" title="Very good" aria-hidden="true"></label>
+
+						<input id="change-star2" type="radio" name="change-note-satisfaction" value="2">
+  						<label class="star" for="change-star2" title="Good" aria-hidden="true"></label>
+
+						<input id="change-star1" type="radio" name="change-note-satisfaction" value="1">
+ 						<label class="star" for="change-star1" title="Bad" aria-hidden="true"></label>
+ 						<br/><br/>
+					</div>
+					<input type="hidden" name="change-note-id" id="change-note-id">
+		    	</div>
+		    	<div class="modal-footer">
+		    	  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		    	  <button type="submit" class="btn btn-primary" id="send-change-note">Modifier</button>
+		    	</div>
+		  	  </form>
 		    </div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="delete-note-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="delete-note-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="delete-note-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
 		        <h1 class="modal-title fs-5" id="delete-note-modal">Es-tu sur de vouloir supprimer cette note ?</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <button id="delete-note-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
-		        Une fois supprimer tu ne pourras pas revenir en arrière !
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-		        <button type="button" class="btn btn-primary">Supprimer</button>
-		      </div>
+		      <form id="suppr-note-form">
+		    	<div class="modal-body">
+		    	  Une fois supprimer tu ne pourras pas revenir en arrière !
+		    	  <input type="hidden" name="suppr-note-id" id="suppr-note-id">
+		    	</div>
+		    	<div class="modal-footer">
+		    	  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		    	  <button type="submit" class="btn btn-primary">Supprimer</button>
+		    	</div>
+		  	  </form>
 		    </div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="change-user-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="change-user-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="change-user-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="change-user-modal">Modal title</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <h1 class="modal-title fs-5" id="change-user-modal">Réinitialiser le mot de passe de <span id="change-user-name"></span> ?</h1>
+		        <button id="change-user-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
-		        TODO formulaire pour modifier les données d'un utilisateur
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Understood</button>
-		      </div>
+		      <form id="change-user-form">
+		    	<div class="modal-body">
+		    	  Quelle est son nouveau mot de passe ?
+		    	  <input type="password" name="change-user-password" placeholder="nouveau mot de passe" required/>
+		    	  <input type="hidden" name="change-user-id" id="change-user-id"/>
+		    	</div>
+		    	<div class="modal-footer">
+		    	  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		    	  <button type="submit" class="btn btn-primary">Modifier</button>
+		    	</div>
+		  	  </form>
 		    </div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="delete-user-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="delete-user-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="delete-user-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="delete-user-modal">Es-tu sûr de vouloir supprimer cet élève ?</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <h1 class="modal-title fs-5">Es-tu sûr de vouloir supprimer <span id="suppr-user-name"></span> ?</h1>
+		        <button id="delete-user-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
-		        Les informations de l'élève seront perdu y compris toutes ses notes !
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-		        <button type="button" class="btn btn-primary">Supprimer</button>
-		      </div>
+		      <form id="suppr-user-form">
+		    	<div class="modal-body">
+		    		<input type="hidden" name="username" id="suppr-user-id" />
+		    	  Les informations de l'élève seront perdu y compris toutes ses notes !
+		    	</div>
+		    	<div class="modal-footer">
+		    	  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+		    	  <button type="submit" class="btn btn-primary">Supprimer</button>
+		    	</div>
+		      </form>
 		    </div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="carton-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="carton-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="carton-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="carton-modal">Modal title</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <h1 class="modal-title fs-5" id="carton-modal">Donner un carton a <span id="carton-user-name"></span> ?</h1>
+		        <button id="carton-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
+		      <form id="carton-form">
 		      <div class="modal-body">
-		        TODO formulaire pour donner un carton à un élève turbulent
+
+		    	<label for="carton-date">Quelle est la date du carton ?</label><br/>
+				<input type="date" name="carton-date" id="carton-date" required/><br/><br/>
+		    	<label for="carton">Quelle gravité ?</label><br/>
+				<input type="radio" name="carton" id="carton-blanc" value=1 /><label>⬜</label>
+				<input type="radio" name="carton" id="carton-jaune" value=2 checked/><label>🟨</label>
+				<input type="radio" name="carton" id="change-rouge" value=3/><label>🟥</label><br/><br/>
+				<textarea id="carton-commentaire" name="carton-commentaire" placeholder="commentaire"></textarea>
+		      	<input type="hidden" name="username" id="carton-user-id">
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Understood</button>
+		        <button type="submit" class="btn btn-primary">Understood</button>
 		      </div>
+		  	  </form>
 		    </div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="create-exos-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="create-exos-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="create-exos-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
 		        <h1 class="modal-title fs-5" id="create-exos-modal">Modal title</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <button id="create-exos-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
 		        TODO formulaire pour créer un exercice
@@ -387,12 +485,12 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="change-exos-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="change-exos-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="change-exos-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
 		        <h1 class="modal-title fs-5" id="change-exos-modal">Modal title</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <button id="change-exos-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
 		        TODO formulaire pour modifier un exercice
@@ -405,12 +503,12 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="suppr-exos-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal fade" id="suppr-exos-modal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="suppr-exos-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
 		        <h1 class="modal-title fs-5" id="suppr-exos-modal">Modal title</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		        <button id="suppr-exos-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
 		        TODO formulaire pour supprimer un exercice

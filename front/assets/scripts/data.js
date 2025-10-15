@@ -21,14 +21,30 @@ const go_home = document.getElementById("go-home")
 const go_back = document.getElementById("go-back")
 const go_disconnect = document.getElementById("go-disconnect")
 const go_parametre = document.getElementById("go-parametre")
+const today = new Date().toLocaleDateString('en-CA')
+
+const connexionForm = document.getElementById("connexion-form")
+const inscriptionForm = document.getElementById("inscription-form")
+const changeLoginForm = document.getElementById("change-login-form")
+const changePasswordForm = document.getElementById("change-password-form")
+const changeColorForm = document.getElementById("change-color-form")
+const newNoteForm = document.getElementById("new-note-form")
+const changeNoteForm = document.getElementById("change-note-form")
+const supprNoteForm = document.getElementById("suppr-note-form")
+const changeUserForm = document.getElementById("change-user-form")
+const supprUserForm = document.getElementById("suppr-user-form")
+const cartonForm = document.getElementById("carton-form")
+const getBackup = document.getElementById("get-backup")
+const sendBackup = document.getElementById("send-backup")
 
 const matiereList = ["general", "mathematiques", "francais", "EMC", "anglais", "art", "musique", "EPS", "histoire", "geographie", "sciences"]
 
 const currentState = {
-	currentEleve : "Titouan Sèchepine", // les notes de cette eleve seront afficher laisser vide pour afficher tt le monde
+	currentEleve : "all", // les notes de cette eleve seront afficher laisser vide pour afficher tt le monde
+	connected : false,
 	currentUser : {
 		username : "Lorrak",
-		role : 1, // 1 for admin display
+		role : 0, // 1 for admin display
 		color : "rgb(250, 235, 215)",
 		avatar : {
 			type : "Buffer",
@@ -41,13 +57,12 @@ const currentState = {
 		commentaire : "élève très sage",
 		datecarton : "2000-09-26"
 	},
-	token : "Bearer test",
-	currentPage : "accueil", //current page to show 
+	currentPage : "loading", //current page to show 
 	currentOnglet : "historique",
 	currentMatiere : "general" // matiere to display on matiere page (0 for general)
 }
 
-const students = [ // student list used for admin
+var students = [ // student list used for admin
 	{
 		username : "Léontine Robinson",
 		role : 1, // 1 for admin display
@@ -74,7 +89,7 @@ const students = [ // student list used for admin
 		matiere : 1,
 		carton : 1,
 		commentaire : "un peu trop fan de Daniel Balavoine",
-		datecarton : "2025-09-01"
+		datecarton : today
 	},
 	{
 		username : "Martine Du Calpié",
@@ -120,17 +135,17 @@ const students = [ // student list used for admin
 	},
 ]
 
-const notes = [ // note list 
+var notes = [ // note list 
 	{
 		id : 1,
 		name : "Titouan Sèchepine",
-		matiere : 2,
+		matiere : 1,
 		date : "2025-12-25",
 		notion : "Madame Bovary",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
-		révision : "Maman",
-		statisfaction : 3
+		revision : "Maman",
+		satisfaction : 3
 	},
 	{
 		id : 2,
@@ -140,28 +155,28 @@ const notes = [ // note list
 		notion : "époque féodal",
 		note : 99, // en pourcentage
 		note2 : 6, // de NA a A+
-		révision : "Etude",
-		statisfaction : 4
+		revision : "Etude",
+		satisfaction : 4
 	},{
 		id : 3,
 		name : "Titouan Sèchepine",
-		matiere : 1,
+		matiere : 2,
 		date : "2025-11-11",
 		notion : "pythagore",
 		note : 45, // en pourcentage
 		note2 : 2, // de NA a A+
-		révision : "Papa",
-		statisfaction : 2
+		revision : "Papa",
+		satisfaction : 2
 	},{
 		id : 4,
 		name : "Titouan Sèchepine",
-		matiere : 1,
+		matiere : 2,
 		date : "2025-12-25",
 		notion : "statistiques",
 		note : 100, // en pourcentage
 		note2 : 6, // de NA a A+
-		révision : "Maman",
-		statisfaction : 5
+		revision : "Maman,Papa,APC,Tim,Youtube",
+		satisfaction : 5
 	},{
 		id : 5,
 		name : "Titouan Sèchepine",
@@ -170,18 +185,18 @@ const notes = [ // note list
 		notion : "skibidi toilet",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
-		révision : "Maman",
-		statisfaction : 3
+		revision : "Maman",
+		satisfaction : 3
 	},{
 		id : 6,
 		name : "Titouan Sèchepine",
 		matiere : 4,
 		date : "2025-12-25",
-		notion : "les couleurs",
+		notion : "colorfull colors",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
-		révision : "Etude",
-		statisfaction : 3
+		revision : "Etude",
+		satisfaction : 3
 	},{
 		id : 7,
 		name : "Titouan Sèchepine",
@@ -190,7 +205,19 @@ const notes = [ // note list
 		notion : "thermodynamique",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
-		révision : "Maman",
-		statisfaction : 3
-	},
+		revision : "Maman",
+		satisfaction : 3
+	},{
+		id : 8,
+		name : "Titouan Sèchepine",
+		matiere : 6,
+		date : "2025-12-25",
+		notion : "JEAN SEBSALUT BACH",
+		note : 13, // en pourcentage
+		note2 : 0, // de NA a A+
+		revision : "Maman",
+		satisfaction : 1
+	}
 ]
+
+var exos = []

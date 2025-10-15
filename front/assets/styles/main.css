@@ -1,11 +1,19 @@
 body {
 	font-size: 1.1em !important;
+	background-color: Cornsilk !important;
 }
 html, #body, body, .content {
 	height: 100dvh !important;
 	width: 100% !important;
 	background-attachment: fixed;
 	overflow: hidden;
+}
+.responsive {
+	max-width: 90%;
+}
+.responsive * {
+	width: 100%;
+	height: auto;
 }
 .content{
 	position: absolute;
@@ -22,6 +30,14 @@ html, #body, body, .content {
 #eleves-tab {
 	margin: auto;
 }
+.lien {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.lien:hover {
+	color: DodgerBlue;
+}
 h1{
 	width: 100%;
 	margin-top: 0.5em !important;
@@ -29,6 +45,9 @@ h1{
 }
 h1.global{
 	position: absolute;
+}
+.general .new-note-button {
+	display: none;
 }
 *{
   transition-duration: 0.2s;
@@ -100,9 +119,9 @@ label {
 	right: 0;
 	max-width: 75%;
 	width: 25em;
-	z-index: 69;
+	z-index: 6969;
 }
-#feedback div {
+#feedback div, .carton {
 	text-align: center;
 	padding: 0.5em;
 	margin: 0.5em;
@@ -112,12 +131,12 @@ label {
 	transition-duration: 1s;
 	transition-property: opacity;
 }
-.error, .bad {
+.error, .bad, .carton3 {
 	border-color: crimson;
 	color: crimson;
 	background-color: LightCoral;
 }
-.success, .good {
+.success, .good, {
 	border-color: Green;
 	color: Green;
 	background-color: LimeGreen;
@@ -127,10 +146,16 @@ label {
 	color: DodgerBlue;
 	background-color: LightSkyBlue;
 }
-.warning {
+.warning, .carton2 {
 	border-color: Tomato;
 	color: Tomato;
 	background-color: Orange;
+}
+
+.carton1 {
+	border-color: Gainsboro;
+	color: Gray;
+	background-color: Snow;
 }
 
 #after-nav{
@@ -497,6 +522,41 @@ label {
 	background-color: PaleGreen;
 }
 
+.rating {
+  border: none;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.rating > label {
+  color: Silver;
+  margin: 0em;
+  padding: 0em;
+}
+
+.rating > label:before {
+  font-size: 2em;
+  font-family: FontAwesome;
+  content: "★";
+}
+
+.rating > input {
+  display: none;
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: Orange;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+  color: Gold;
+}
 
 .general .onglet, .general .onglet-content-wrapper {
 	background-color: white;
