@@ -450,7 +450,7 @@ const cartone = (username, carton, commentaire, date) =>
 fetch(
 	`/api/user/${username}/carton`, 
 	{
-		method: "POST",
+		method: "PUT",
 		mode: "same-origin",
   		credentials: "same-origin",
 		headers: headers,
