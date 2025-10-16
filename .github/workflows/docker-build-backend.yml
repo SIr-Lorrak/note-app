@@ -73,6 +73,6 @@ jobs:
     secrets: inherit
 
   purge-cloudflare-cache:
-    needs: docker
+    needs: warn-watchtower
     uses: ./.github/workflows/purge-cloudflare-cache.yml
     secrets: inherit
