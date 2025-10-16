@@ -592,10 +592,12 @@ fetch(
 })
 
 
-const observeUser = user => { // function only used by admin
+const observeUser = (user, byclick = true) => { // function only used by admin
 	// console.log(`eleve ${user}`)
 	currentState.currentEleve = user
-	changePage('accueil')
+	if (byclick) {
+		changePage('accueil')
+	}
 	const titles = document.getElementsByClassName('global')
 	for (t of titles) {
 		t.innerHTML = user === 'all' ? "Tous les élèves" : `Elève ${user}`

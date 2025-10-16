@@ -97,7 +97,7 @@ function reloadPage() {
   document.getElementById("change-color").value = currentState.currentUser.color
   
   if (currentState.currentUser.role === 1) {
-    observeUser(currentState.currentEleve)
+    observeUser(currentState.currentEleve, false)
   } else {
     const titles = document.getElementsByClassName('global')
     for (t of titles) {
