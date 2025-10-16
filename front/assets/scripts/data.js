@@ -45,7 +45,7 @@ const currentState = {
 	currentUser : {
 		username : "Lorrak",
 		role : 0, // 1 for admin display
-		color : "rgb(250, 235, 215)",
+		color : "#faebd7",
 		avatar : {
 			type : "Buffer",
 			data : [
