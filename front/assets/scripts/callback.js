@@ -301,7 +301,6 @@ fetch(
 		method: "DELETE",
 		mode: "same-origin",
   		credentials: "same-origin",
-		headers: headers,
 	},
 )
 .then(res => {
@@ -436,7 +435,6 @@ fetch(
 		method: "DELETE",
 		mode: "same-origin",
   		credentials: "same-origin",
-		headers: headers,
 	},
 )
 .then(res => {

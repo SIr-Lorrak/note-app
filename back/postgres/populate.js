@@ -81,7 +81,7 @@ export default async function populate(app, version) {
   }
 
   await createAdmin("Chloé", admin_password)
-  await createAdmin("Lorrak", admin_password)
+  await createAdmin("Jonathan", admin_password)
 
   const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
   const sresults = await app.pg.query("SELECT * FROM secrets")

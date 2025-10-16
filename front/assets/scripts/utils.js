@@ -94,6 +94,7 @@ function changePage(tryPage, prec = true) {
 
 function reloadPage() {
   body.style.background = currentState.currentUser.color
+  document.getElementById("change-color").value = currentState.currentUser.color
   // console.log("reload page")
   const page = window.location.pathname.split("/")
   if (matiereList.includes(page[1])) {
