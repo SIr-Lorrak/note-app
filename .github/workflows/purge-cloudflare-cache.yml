@@ -1,0 +1,23 @@
+on:
+    workflow_call:
+        secrets:
+            CLOUDFLARE_ZONE_ID:
+                required: true
+            CLOUDFLARE_TOKEN:
+                required: true
+            CLOUDFLARE_DOMAIN:
+                required: true
+jobs:
+    warn:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Purge Cloudflare cache
+              run: |
+                curl https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache \
+                    -H 'Content-Type: application/json' \
+                    -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}" \
+                    -d '{
+                        "hosts": [
+                            "${{ secrets.CLOUDFLARE_DOMAIN }}"
+                        ]
+                        }'
