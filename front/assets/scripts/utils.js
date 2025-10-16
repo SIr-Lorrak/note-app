@@ -95,6 +95,15 @@ function changePage(tryPage, prec = true) {
 function reloadPage() {
   body.style.background = currentState.currentUser.color
   document.getElementById("change-color").value = currentState.currentUser.color
+  
+  if (currentState.currentUser.role === 1) {
+    observeUser(currentState.currentEleve)
+  } else {
+    const titles = document.getElementsByClassName('global')
+    for (t of titles) {
+      t.innerHTML = ''
+    }
+  }
   // console.log("reload page")
   const page = window.location.pathname.split("/")
   if (matiereList.includes(page[1])) {

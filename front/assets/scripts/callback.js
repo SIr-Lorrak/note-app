@@ -396,6 +396,9 @@ fetch(
 	if (e.status === 403) {	
 		disconnect()
 	}
+	if (e.status === 409) {
+		error("Ce nom est déjà utilisé")
+	}
 	return e
 })
 
@@ -518,6 +521,7 @@ fetch(
 	if (e.status === 403) {	
 		disconnect()
 	}
+	error("Mauvais Nom ou Mot de passe")
 	return e
 });
 
@@ -548,6 +552,9 @@ fetch(
 .catch(e => {
 	if (e.status === 403) {	
 		disconnect()
+	}
+	if (e.status === 409) {
+		error("Ce nom est déjà utilisé")
 	}
 	return e
 })
