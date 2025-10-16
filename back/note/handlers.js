@@ -5,10 +5,6 @@ async function getNotesHandler(request, reply) {
     username,
   ])
 
-  if (!results.rowCount) {
-    return reply.notFound(`User '${username}' not found or doesn't have any notes`)
-  }
-
   return reply.send(results.rows)
 }
 

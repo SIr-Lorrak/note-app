@@ -188,7 +188,7 @@ const disconnect = (first = true) => {
 const getNotes = () => {
 	const name = currentState.currentUser.role === 1? "all" : currentState.currentUser.username 
 	return fetch(
-		`/api/note/${name}`,
+		`/api/note/${encodeURIComponent(name)}`,
 		{
 			method: "GET",
 			mode: "same-origin",
@@ -270,7 +270,7 @@ fetch(
 
 const putNote = (id, note) => 
 fetch(
-	`/api/note/${id}`, 
+	`/api/note/${encodeURIComponent(id)}`, 
 	{
 		method: "PUT",
 		mode: "same-origin",
@@ -296,7 +296,7 @@ fetch(
 
 const delNote = (id) => 
 fetch(
-	`/api/note/${id}`, 
+	`/api/note/${encodeURIComponent(id)}`, 
 	{
 		method: "DELETE",
 		mode: "same-origin",
@@ -374,7 +374,7 @@ fetch(
 
 const putUser = (username, user) => 
 fetch(
-	`/api/user/${username}`, 
+	`/api/user/${encodeURIComponent(username)}`, 
 	{
 		method: "PUT",
 		mode: "same-origin",
@@ -401,7 +401,7 @@ fetch(
 
 const putUserPassword = (username, oldPass, newPass) => 
 fetch(
-	`/api/user/${username}/password`, 
+	`/api/user/${encodeURIComponent(username)}/password`, 
 	{
 		method: "PUT",
 		mode: "same-origin",
@@ -430,7 +430,7 @@ fetch(
 
 const delUser = (username) => 
 fetch(
-	`/api/user/${username}`, 
+	`/api/user/${encodeURIComponent(username)}`, 
 	{
 		method: "DELETE",
 		mode: "same-origin",
@@ -454,7 +454,7 @@ fetch(
 
 const cartone = (username, carton, commentaire, date) => 
 fetch(
-	`/api/user/${username}/carton`, 
+	`/api/user/${encodeURIComponent(username)}/carton`, 
 	{
 		method: "PUT",
 		mode: "same-origin",
