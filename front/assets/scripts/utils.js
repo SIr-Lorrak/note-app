@@ -341,7 +341,7 @@ function upToiles(notes, eleve) {
     currentState.toile.destroy()
   }
 
-  notes = notes.filter(e => e.id === eleve || eleve === 'all')
+  notes = notes.filter(e => e.name === eleve || eleve === 'all')
 
   const moyennes = []
   for (const m of matieresTable) {
