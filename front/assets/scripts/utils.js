@@ -256,11 +256,11 @@ function moyenneG(notes, eleve) {
   if (eleve === 'all') {
     return moyenneClasse(notes, students)
   }
-  const total = 0
-  const nbMat = 0
+  var total = 0
+  var nbMat = 0
   const ne = notes.filter(e => e.name === eleve)
   for (const i = 1; i <= 10; i++) {
-    const n = notes.filter(e => e.matiere === i)
+    const n = ne.filter(e => e.matiere === i)
     if (n.length !== 0) {
       total += n.reduce((a,b) => a + b.note, 0)
       nbMat++
@@ -270,8 +270,8 @@ function moyenneG(notes, eleve) {
 }
 
 function moyenneClasse(notes, eleves, matiere=0) {
-  const total = 0
-  const nbEle = 0
+  var total = 0
+  var nbEle = 0
   for (const eleve of eleves) {
     const m = matiere === 0 ? moyenneG(notes, eleve) : moyenne(notes, matiere, eleve)
     if (m !== "pas de note") {
