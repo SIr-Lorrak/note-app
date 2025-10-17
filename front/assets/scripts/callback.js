@@ -487,12 +487,14 @@ fetch(
 
 
 const getEverything = () => {
-	getNotes()
-	if (currentState.currentUser.role === 1) {
+	getNotes().then (() => {
+		if (currentState.currentUser.role === 1) {
 		getUsers().then(() => upCarton(students.find(e => e.username === currentState.currentEleve)))
-	} else {
-		upCarton(currentState.currentUser)
-	}
+		} else {
+			upCarton(currentState.currentUser)
+		}
+	})
+	
 }
 
 const connect = (username, password) =>
