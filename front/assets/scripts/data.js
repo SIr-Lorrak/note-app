@@ -41,10 +41,10 @@ const matiereList = ["general", "mathematiques", "francais", "EMC", "anglais", "
 
 const currentState = {
 	currentEleve : "all", // les notes de cette eleve seront afficher laisser vide pour afficher tt le monde
-	connected : true,
+	connected : false,
 	currentUser : {
 		username : "Lorrak",
-		role : 1, // 1 for admin display
+		role : 0, // 1 for admin display
 		color : "#faebd7",
 		avatar : {
 			type : "Buffer",

@@ -1,7 +1,7 @@
-//whoami()
-reloadPage()
-upUsers(students)
-upToiles(notes, currentState.currentEleve)
+whoami()
+//reloadPage()
+//upUsers(students)
+//upToiles(notes, currentState.currentEleve)
 document.getElementById('new-note-date').value = today
 document.getElementById('carton-date').value = today
 
