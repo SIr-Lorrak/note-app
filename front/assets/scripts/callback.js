@@ -205,7 +205,7 @@ const getNotes = () => {
 				notes = j
 				upNotes(notes, matiereToInt(currentState.currentMatiere), name)
 				upToiles(notes, name)
-				upUsers(users)
+				upUsers(students)
 			}
 		)
 	})
