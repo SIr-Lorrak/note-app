@@ -61,7 +61,7 @@ newNoteForm.onsubmit = (e) => {
 		date: data.get("new-note-date"),
 		notion: data.get("new-note-notion"),
 		note: Number(data.get("new-note-note")),
-		note2: data.get("new-note-note2"),
+		note2: Number(data.get("new-note-note2")),
 		revision: revision,
 		satisfaction: Number(data.get("new-note-satisfaction")),
 	}
@@ -91,7 +91,7 @@ changeNoteForm.onsubmit = (e) => {
 		date: data.get("change-note-date"),
 		notion: data.get("change-note-notion"),
 		note: Number(data.get("change-note-note")),
-		note2: data.get("change-note-note2"),
+		note2: Number(data.get("change-note-note2")),
 		revision: revision,
 		satisfaction: Number(data.get("change-note-satisfaction")),
 	}
