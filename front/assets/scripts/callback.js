@@ -609,7 +609,7 @@ const observeUser = (user, byclick = true) => { // function only used by admin
 const changeNoteModal = (note) => {//TODO : charger la note et son id dans le formulaire
 	document.getElementById("change-note-id").value = note
 	const n = notes.find(e => e.id === note)
-	document.getElementById("change-note-date").value = n.date
+	document.getElementById("change-note-date").value = n.date.split("T")[0]
 	document.getElementById("change-note-notion").value = n.notion
 	document.getElementById("change-note-note").value = n.note
 	document.getElementById("change-note-" + note2ToString(n.note2)).checked = true
