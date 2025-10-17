@@ -60,7 +60,7 @@ async function postNotesHandler(request, reply) {
 }
 
 async function putNoteHandler(request, reply) {
-  const { id } = request.params.id
+  const { id } = request.params
   const { name, matiere, date, notion, note, note2, revision, satisfaction } = request.body
   
   const results = await request.server.pg.query(
