@@ -203,8 +203,9 @@ const getNotes = () => {
 		}
 		return res.json().then( j => {
 				notes = j
-		  		upNotes(notes, matiereToInt(currentState.currentMatiere), name)
-		  		upToiles(notes, name)
+				upNotes(notes, matiereToInt(currentState.currentMatiere), name)
+				upToiles(notes, name)
+				upUsers(users)
 			}
 		)
 	})
