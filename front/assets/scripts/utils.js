@@ -241,9 +241,45 @@ function moy(notes) {
 }
 
 function moyenne(notes, matiere, eleve) {
-  const n = notes.filter(note => (note.name === eleve || eleve == 'all') && (note.matiere === matiere || matiere === 0))
+  if (matiere === 0) {
+    return moyenneG(notes, eleve)
+  }
+  if (eleve === 'all') {
+    return moyenneClasse(notes, students, matiere)
+  }
+  const n = notes.filter(note => (note.name === eleve) && (note.matiere === matiere))
   const sum = n.reduce((a,b) => a + b.note, 0)
   return n.length === 0 ? "pas de note" : Math.round(sum/n.length*10)/10
+}
+
+function moyenneG(notes, eleve) {
+  if (eleve === 'all') {
+    return moyenneClasse(notes, students)
+  }
+  const total = 0
+  const nbMat = 0
+  const ne = notes.filter(e => e.name === eleve)
+  for (const i = 1; i <= 10; i++) {
+    const n = notes.filter(e => e.matiere === i)
+    if (n.length !== 0) {
+      total += n.reduce((a,b) => a + b.note, 0)
+      nbMat++
+    }
+  }
+  return nbMat === 0 ? "pas de note" : Math.round(total/nbMat*10)/10
+}
+
+function moyenneClasse(notes, eleves, matiere=0) {
+  const total = 0
+  const nbEle = 0
+  for (const eleve of eleves) {
+    const m = matiere === 0 ? moyenneG(notes, eleve) : moyenne(notes, matiere, eleve)
+    if (m !== "pas de note") {
+      total += m
+      nbEle++
+    }
+  }
+  return nbEle === 0 ? "pas de note" : Math.round(total/nbEle*10)/10
 }
 
 function notesToHTML(notes, matiere, eleve) { // eleve can be all
@@ -287,7 +323,7 @@ function usersToHTML(users) {
     (r,user) => r.concat(`
         <tr id="user-${user.username}">
           <td>${user.username}</td>
-          <td>${moyenne(notes,0,user.username)}</td>
+          <td>${moyenneG(notes,user.username)}</td>
           <td>${cartonToEmoji(user.carton)}${user.commentaire}</td>
           <td>
             <span id="observe-user-${user.username}" onclick="observeUser('${user.username}')"><load-file src="/assets/images/oeil.svg" class="tiny-action"></load-file></span>
