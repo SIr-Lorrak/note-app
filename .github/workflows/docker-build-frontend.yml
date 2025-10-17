@@ -29,6 +29,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
+      - name: sed for commit hash
+        run: |
+          sed -i "s/__COMMIT_HASH__/${{ github.sha }}/g" front/index.html
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
