@@ -62,8 +62,6 @@ async function postNotesHandler(request, reply) {
 async function putNoteHandler(request, reply) {
   const { id } = request.params.id
   const { name, matiere, date, notion, note, note2, revision, satisfaction } = request.body
-  const hexColor = toBytea(color)
-  const hexAvatar = toBytea(avatar)
   
   const results = await request.server.pg.query(
     `UPDATE notes 
