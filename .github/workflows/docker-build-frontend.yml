@@ -31,6 +31,7 @@ jobs:
 
       - name: sed for commit hash
         run: |
+          cd ${{ github.workspace }} 
           sed -i "s/__COMMIT_HASH__/${{ github.sha }}/g" front/index.html
 
       - name: Docker meta
