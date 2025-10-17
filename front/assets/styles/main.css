@@ -732,9 +732,6 @@ h1.global {
 		padding-left: 1em;
 	}
 
-	.onglet-content-wrapper {
-		border-radius: 0em 0em 2em 2em;
-	}
 	.onglet {
 		text-align: center;
 		padding-right: 0.2em;

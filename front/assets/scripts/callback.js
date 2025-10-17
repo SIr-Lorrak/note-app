@@ -57,7 +57,7 @@ newNoteForm.onsubmit = (e) => {
 
 	const newNote = {
 		name: (currentState.currentUser.role === 1 && currentState.currentEleve !== "all"? currentState.currentEleve : currentState.currentUser.username),
-		matiere: currentState.currentMatiere,
+		matiere: matiereToInt(currentState.currentMatiere),
 		date: data.get("new-note-date"),
 		notion: data.get("new-note-notion"),
 		note: Number(data.get("new-note-note")),
