@@ -272,7 +272,7 @@ function moyenneClasse(notes, eleves, matiere=0) {
   var total = 0
   var nbEle = 0
   for (let eleve of eleves) {
-    const m = matiere === 0 ? moyenneG(notes, eleve) : moyenne(notes, matiere, eleve)
+    const m = matiere === 0 ? moyenneG(notes, eleve.username) : moyenne(notes, matiere, eleve.username)
     if (m !== "pas de note") {
       total += m
       nbEle++
