@@ -26,9 +26,6 @@ jobs:
       TITLE: Frontend
       GHCR_SLUG: ghcr.io/sir-lorrak/note-frontend
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
-
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
