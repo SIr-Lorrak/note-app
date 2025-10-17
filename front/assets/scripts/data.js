@@ -41,10 +41,10 @@ const matiereList = ["general", "mathematiques", "francais", "EMC", "anglais", "
 
 const currentState = {
 	currentEleve : "all", // les notes de cette eleve seront afficher laisser vide pour afficher tt le monde
-	connected : false,
+	connected : true,
 	currentUser : {
 		username : "Lorrak",
-		role : 0, // 1 for admin display
+		role : 1, // 1 for admin display
 		color : "#faebd7",
 		avatar : {
 			type : "Buffer",
@@ -207,6 +207,36 @@ var notes = [ // note list
 		note2 : 4, // de NA a A+
 		revision : "Maman",
 		satisfaction : 3
+	},{
+		id : 8,
+		name : "Titouan Sèchepine",
+		matiere : 6,
+		date : "2025-12-25",
+		notion : "JEAN SEBSALUT BACH",
+		note : 13, // en pourcentage
+		note2 : 0, // de NA a A+
+		revision : "Maman",
+		satisfaction : 1
+	},{
+		id : 8,
+		name : "Titouan Sèchepine",
+		matiere : 6,
+		date : "2025-12-25",
+		notion : "JEAN SEBSALUT BACH",
+		note : 13, // en pourcentage
+		note2 : 0, // de NA a A+
+		revision : "Maman",
+		satisfaction : 1
+	},{
+		id : 8,
+		name : "Titouan Sèchepine",
+		matiere : 6,
+		date : "2025-12-25",
+		notion : "JEAN SEBSALUT BACH",
+		note : 13, // en pourcentage
+		note2 : 0, // de NA a A+
+		revision : "Maman",
+		satisfaction : 1
 	},{
 		id : 8,
 		name : "Titouan Sèchepine",

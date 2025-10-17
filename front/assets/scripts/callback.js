@@ -66,7 +66,7 @@ newNoteForm.onsubmit = (e) => {
 		satisfaction: Number(data.get("new-note-satisfaction")),
 	}
 
-	postNote(notes)
+	postNote(newNote)
 
 	modalHide("add-note-modal")
 }

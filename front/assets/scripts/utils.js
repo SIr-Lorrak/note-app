@@ -95,6 +95,7 @@ function changePage(tryPage, prec = true) {
 function reloadPage() {
   body.style.background = currentState.currentUser.color
   document.getElementById("change-color").value = currentState.currentUser.color
+  document.getElementById("change-login").value = currentState.currentUser.username
   
   if (currentState.currentUser.role === 1) {
     observeUser(currentState.currentEleve, false)
@@ -299,7 +300,7 @@ function usersToHTML(users) {
     `<table>
     <tr>
       <th>Nom</th>
-      <th>Moyenne Général</th>
+      <th>Moyenne Générale</th>
       <th>Carton</th>
       <th>Action</th>
     </tr>`
@@ -332,7 +333,7 @@ function upNotes(notes, matiere, eleve) {
 }
 
 function upCarton(user) {
-  document.getElementById("avertissement-content").innerHTML = user === undefined? 'pas de punition collective enfin :P' : cartonToHTML(user.carton, user.datecarton, user.commentaire)
+  document.getElementById("avertissement-content").innerHTML = user === undefined? 'Pas de punition collective enfin :P' : cartonToHTML(user.carton, user.datecarton, user.commentaire)
 }
 
 function upToiles(notes, eleve) {
