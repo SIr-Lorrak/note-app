@@ -53,7 +53,7 @@ const getNotesSchema = {
   params: {
     type: "object",
     properties: {
-      username: { type: "string", minLength: 3 },
+      username: { type: "string", minLength: 4 },
     }
   },
   response: {
@@ -84,7 +84,7 @@ const delNoteSchema = {
     type: "object",
     required: ["name"],
     properties: {
-      username: { type:"string", minLength:3}
+      name: { type:"string", minLength:4}
     }
   },
   response: {

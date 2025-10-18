@@ -103,7 +103,9 @@ changeNoteForm.onsubmit = (e) => {
 supprNoteForm.onsubmit = (e) => {
 	e.preventDefault()
 	const data = new FormData(supprNoteForm)
-	delNote(Number(data.get("suppr-note-id")))
+	const id = Number(data.get("suppr-note-id"))
+	const name = notes.find(n => n.id === id).name
+	delNote(id, name)
 	modalHide("delete-note-modal")
 }
 changeUserForm.onsubmit = (e) => {// admin only
@@ -295,13 +297,14 @@ fetch(
 	return e
 })
 
-const delNote = (id) => 
+const delNote = (id, name) => 
 fetch(
 	`/api/note/${encodeURIComponent(id)}`, 
 	{
 		method: "DELETE",
 		mode: "same-origin",
   		credentials: "same-origin",
+  		body: JSON.stringify({name: name})
 	},
 )
 .then(res => {

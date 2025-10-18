@@ -84,11 +84,11 @@ async function putNoteHandler(request, reply) {
 
 async function delNoteHandler(request, reply) {
   const { id } = request.params
-  const { username } = request.body
+  const { name } = request.body
 
   const results = await request.server.pg.query(
     "DELETE FROM notes WHERE id = $1 AND name = $2 RETURNING *;",
-    [id, username],
+    [id, name],
   )
 
   if (results.rowCount !== 1) {
