@@ -304,6 +304,7 @@ fetch(
 		method: "DELETE",
 		mode: "same-origin",
   		credentials: "same-origin",
+		headers: headers,
   		body: JSON.stringify({name: name})
 	},
 )
