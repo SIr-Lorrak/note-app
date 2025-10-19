@@ -688,6 +688,9 @@ function upBox(notes, eleve) {
   const r = notes.reduce((a, b) => {
     const revs = b.revision.split(',')
     for (const rev of revs) {
+      if (rev === "") {
+        continue;
+      }
       if (a.people.includes(rev)) {
         a.data[a.peopleId[rev]]++
       } else {
