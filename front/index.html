@@ -13,6 +13,9 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/fr.min.js" integrity="sha512-RAt2+PIRwJiyjWpzvvhKAG2LEdPpQhTgWfbEkFDCo8wC4rFYh5GQzJBVIFDswwaEDEYX16GEE/4fpeDNr7OIZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
 
 </head>
 <body>
@@ -147,7 +150,20 @@
 						
 						<div id="historique-tab"></div>
 					</div>
-					<div id="statistiques-content" class='onglet-content none'>Les statistiques arrivent très bientôt !</div>
+					<div id="statistiques-content" class='onglet-content none'>
+						<h3 id="stats-fallback"></h3>
+						<div id="stats-content">
+							<h3>L'évolution de tes notes au cour du temps : </h3>
+							<div class="graph"><canvas id="line-note"></canvas></div><br/>
+							<h3>Tes moyennes :</h3>
+							<span id="insert-moyenne"></span><br/><br/>
+							<div class="graph"><canvas id="pie-note2" ></canvas></div><br/>
+							<h3>Avec qui révise tu le plus ? </h3>
+							<div class="graph"><canvas id="box-revision"></canvas></div><br/>
+							<h3>Satisfaction : </h3>
+							<div class="graph"><canvas id="donuts-satisfaction"></canvas></div><br/>
+						</div>
+					</div>
 					<div id="exercices-content" class='onglet-content none'>Les exercices viendront plus tard !</div>
 					<div id="avertissement-content" class='onglet-content none'>
 					</div>
@@ -520,8 +536,8 @@
 		</div>
 	</div>
 
-	<script src="/assets/scripts/data.js?v=__COMMIT_HASH__"></script>
 	<script src="/assets/scripts/utils.js?v=__COMMIT_HASH__"></script>
+	<script src="/assets/scripts/data.js?v=__COMMIT_HASH__"></script>
 	<script src="/assets/scripts/callback.js?v=__COMMIT_HASH__"></script>
 	<script src="/assets/scripts/main.js?v=__COMMIT_HASH__"></script>
 	</div>

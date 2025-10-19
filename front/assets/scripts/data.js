@@ -1,4 +1,6 @@
-//here we'll fetch our data from the api but for now data are mocked
+
+// ~~~~~~~~~~GLOBAL VARIABLES~~~~~~~~~~~~
+
 const top_nav = document.getElementById("top_nav")
 const body = document.getElementById("body")
 const connexion = document.getElementById("connexion")
@@ -37,13 +39,15 @@ const cartonForm = document.getElementById("carton-form")
 const getBackup = document.getElementById("get-backup")
 const sendBackup = document.getElementById("send-backup")
 
+const canvasLine = document.getElementById('line-note');
+
 const matiereList = ["general", "mathematiques", "francais", "EMC", "anglais", "art", "musique", "EPS", "histoire", "geographie", "sciences"]
 
 const currentState = {
 	currentEleve : "all", // les notes de cette eleve seront afficher laisser vide pour afficher tt le monde
 	connected : false,
 	currentUser : {
-		username : "Lorrak",
+		username : "Titouan Sèchepine",
 		role : 0, // 1 for admin display
 		color : "#faebd7",
 		avatar : {
@@ -59,7 +63,10 @@ const currentState = {
 	},
 	currentPage : "loading", //current page to show 
 	currentOnglet : "historique",
-	currentMatiere : "general" // matiere to display on matiere page (0 for general)
+	currentMatiere : "general", // matiere to display on matiere page (0 for general)
+	triFunc : orderByDateInv,
+	tri: 'date',
+	inv: true,
 }
 
 var students = [ // student list used for admin
@@ -155,7 +162,7 @@ var notes = [ // note list
 		notion : "époque féodal",
 		note : 99, // en pourcentage
 		note2 : 6, // de NA a A+
-		revision : "Etude",
+		revision : "Etude,APC",
 		satisfaction : 4
 	},{
 		id : 3,
@@ -165,7 +172,7 @@ var notes = [ // note list
 		notion : "pythagore",
 		note : 45, // en pourcentage
 		note2 : 2, // de NA a A+
-		revision : "Papa",
+		revision : "Papa,APC",
 		satisfaction : 2
 	},{
 		id : 4,
@@ -185,7 +192,7 @@ var notes = [ // note list
 		notion : "skibidi toilet",
 		note : 76, // en pourcentage
 		note2 : 4, // de NA a A+
-		revision : "Maman",
+		revision : "Maman,APC",
 		satisfaction : 3
 	},{
 		id : 6,
@@ -241,7 +248,7 @@ var notes = [ // note list
 		id : 8,
 		name : "Titouan Sèchepine",
 		matiere : 6,
-		date : "2025-12-25",
+		date : "2025-02-25",
 		notion : "JEAN SEBSALUT BACH",
 		note : 13, // en pourcentage
 		note2 : 0, // de NA a A+

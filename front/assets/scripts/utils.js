@@ -149,6 +149,20 @@ function changeOnglet(newOnglet, prec = true) {
   currentState.currentOnglet = newOnglet
 }
 
+const observeUser = (user, byclick = true) => { // function only used by admin
+  // console.log(`eleve ${user}`)
+  currentState.currentEleve = user
+  if (byclick) {
+    changePage('accueil')
+  }
+  const titles = document.getElementsByClassName('global')
+  for (t of titles) {
+    t.innerHTML = user === 'all' ? "Tous les élèves" : `Elève ${user}`
+  }
+  upToiles(notes, user)
+  upCarton(students.find(e => e.username === user))
+}
+
 function alerte(type, msg) {
   let content = ""
   if (type === 'error') {
@@ -199,12 +213,49 @@ const matieresTable = [
   { id:9, value:"geographie"},
   { id:10, value:"sciences"},
 ]
+
 function matiereToInt(matiere) {
   return matieresTable.find(x => x.value === matiere).id
 }
 
 function matiereToString(matiere) {
   return matieresTable.find(x => x.id === matiere).value
+}
+
+const matieresColors = [ 
+  "black",
+  "DodgerBlue",
+  "crimson",
+  "BurlyWood",
+  "DimGray",
+  "RebeccaPurple",
+  "DeepPink",
+  "sienna",
+  "Gold",
+  "Tomato",
+  "Green",
+]
+
+function matiereToColor(matiere) {
+  return matieresColors[matiere]
+}
+
+const matieresColors2 = [ 
+  "white",
+  "LightSkyBlue",
+  "LightCoral",
+  "bisque",
+  "Silver",
+  "MediumOrchid",
+  "HotPink",
+  "Peru",
+  "Yellow",
+  "Orange",
+  "LimeGreen",
+]
+
+function matiereToColor2(matiere) {
+  return matieresColors2[matiere]
 }
 
 const note2Table = [
@@ -281,7 +332,7 @@ function moyenneClasse(notes, eleves, matiere=0) {
   return nbEle === 0 ? "pas de note" : Math.round(total/nbEle*10)/10
 }
 
-function notesToHTML(notes, matiere, eleve) { // eleve can be all
+function notesToHTML(notes, matiere, eleve, allTable=true) { // eleve can be all
   const result = notes
   .reduce(
     (r,note) => r.concat(`
@@ -300,21 +351,23 @@ function notesToHTML(notes, matiere, eleve) { // eleve can be all
           </td>
         </tr>
       `),
-    `<table>
+    allTable?`<table class="table-${matiereToString(matiere)}">
+    <thead id="table-head-notes">
     <tr>
-      ${eleve == "all"?"<th>Elève</th>" : ""}
-      ${matiere == 0?"<th>Matière</th>" : ""}
-      <th>Date</th>
-      <th>Notion</th>
-      <th>Note</th>
-      <th>Note 2</th>
-      <th>Révision</th>
-      <th>Satisfaction</th>
+      ${eleve == "all"?`<th>Elève <span onclick="trierPar('name')"><load-file src="/assets/images/triangle.svg" class="filter infobulle" id="trier-name" aria-label="trier par nom"></load-file></span></th>` : ""}
+      ${matiere == 0?`<th>Matière <span onclick="trierPar('matiere')"><load-file src="/assets/images/triangle.svg" class="filter infobulle" id="trier-matiere" aria-label="trier par matière"></load-file></span></th>` : ""}
+      <th>Date <span onclick="trierPar('date')"><load-file src="/assets/images/triangle.svg" class="filter infobulle down" id="trier-date" aria-label="trier par date"></load-file></span></th>
+      <th>Notion <span onclick="trierPar('notion')"><load-file src="/assets/images/triangle.svg" class="filter infobulle" id="trier-notion" aria-label="trier par notion"></load-file></span></th>
+      <th>Note <span onclick="trierPar('note')"><load-file src="/assets/images/triangle.svg" class="filter infobulle" id="trier-note" aria-label="trier par note"></load-file></span></th>
+      <th>Note 2 <span onclick="trierPar('note2')"><load-file src="/assets/images/triangle.svg" class="filter infobulle" id="trier-note2" aria-label="trier par note2"></load-file></span></th>
+      <th>Révision <span onclick="trierPar('revision')"><load-file src="/assets/images/triangle.svg" class="filter infobulle" id="trier-revision" aria-label="trier par révision"></load-file></span></th>
+      <th>Satisfaction <span onclick="trierPar('satisfaction')"><load-file src="/assets/images/triangle.svg" class="filter infobulle" id="trier-satisfaction" aria-label="trier par satisfaction"></load-file></span></th>
       <th>Action</th>
-    </tr>`
+    </tr>
+    </thead><tbody id="table-body-notes">` : ""
   )
 
-  return result.concat("</table>")
+  return result.concat(allTable?"</tbody></table>":"")
 }
 function usersToHTML(users) {
   const result = users
@@ -358,23 +411,374 @@ function cartonToHTML(lvl, date, text) {
 }
 
 function upStats(notes, matiere, eleve) {
-
+  const content = document.getElementById("stats-content")
+  content.classList.remove("none")
+  const fallback = document.getElementById("stats-fallback")
+  if (notes.length === 0) {
+    fallback.innerHTML = `Tu n'as pas encore de note en ${matiereToString(matiere)}`
+    content.classList.add("none")
+    return
+  }
+  fallback.innerHTML = ""
+  upLine(notes, matiere)
+  document.getElementById("insert-moyenne").innerHTML = `Ton taux de réussite ${matiere === 0? "général" : `en ${matiereToString(matiere)}`} est en moyenne de ${moyenne(notes, matiere, eleve)}%`
+  upPie(notes, matiere)
+  upBox(notes, matiere)
+  upDonuts(notes, matiere)
 }
 
-function upNotes(notes, matiere, eleve) {
-  notes = notes.filter(note => (note.name == eleve || eleve == 'all') && (note.matiere == matiere || matiere == 0))
-  document.getElementById("historique-tab").innerHTML = notesToHTML(notes, matiere, eleve)
-  upStats(notes, matiere, eleve)
+function upNotes(notes, matiere, eleve, allTable = true) {
+  if (allTable) {
+    currentState.triFunc = orderByDateInv
+    currentState.tri = 'date'
+    currentState.inv = true
+  }
+  notes = notes.filter(note => (note.name == eleve || eleve == 'all') && (note.matiere == matiere || matiere == 0)).sort(currentState.triFunc)
+  const html = allTable ? document.getElementById("historique-tab") : document.getElementById("table-body-notes")
+  html.innerHTML = notesToHTML(notes, matiere, eleve, allTable)
+  if (allTable) {
+    upStats(notes, matiere, eleve)
+  }
 }
 
 function upCarton(user) {
   document.getElementById("avertissement-content").innerHTML = user === undefined? 'Pas de punition collective enfin :P' : cartonToHTML(user.carton, user.datecarton, user.commentaire)
 }
 
-function upToiles(notes, eleve) {
-  if (currentState.toile !== undefined) {
-    currentState.toile.destroy()
+function orderByDate(note1, note2) {
+  const date1 = new Date(note1.date)
+  const date2 = new Date(note2.date)
+  return date1-date2
+}
+
+function orderByDateInv(note1, note2) {
+  const date1 = new Date(note1.date)
+  const date2 = new Date(note2.date)
+  return date2-date1
+}
+
+function orderByMatiere(note1, note2) {
+  return note1.matiere-note2.matiere
+}
+
+function orderByMatiereInv(note1, note2) {
+  return note2.matiere-note1.matiere
+}
+
+function orderByNote(note1, note2) {
+  return note1.note-note2.note
+}
+
+function orderByNoteInv(note1, note2) {
+  return note2.note-note1.note
+}
+
+function orderByNote2(note1, note2) {
+  return note1.note2-note2.note2
+}
+
+function orderByNote2Inv(note1, note2) {
+  return note2.note2-note1.note2
+}
+
+function orderBySatisfaction(note1, note2) {
+  return note1.satisfaction-note2.satisfaction
+}
+
+function orderBySatisfactionInv(note1, note2) {
+  return note2.satisfaction-note1.satisfaction
+}
+
+function orderByRevision(note1, note2) {
+  return note1.revision.localeCompare(note2.revision)
+}
+
+function orderByRevisionInv(note1, note2) {
+  return note2.revision.localeCompare(note1.revision)
+}
+
+function orderByName(note1, note2) {
+  return note1.name.localeCompare(note2.name)
+}
+
+function orderByNameInv(note1, note2) {
+  return note2.name.localeCompare(note1.name)
+}
+
+function orderByNotion(note1, note2) {
+  return note1.notion.localeCompare(note2.notion)
+}
+
+function orderByNotionInv(note1, note2) {
+  return note2.notion.localeCompare(note1.notion)
+}
+
+function trierPar(type) {
+  currentState.inv = !(currentState.tri === type && currentState.inv)
+  document.getElementById(`trier-${currentState.tri}`).classList.remove('up')
+  document.getElementById(`trier-${currentState.tri}`).classList.remove('down')
+  currentState.tri = type
+  document.getElementById(`trier-${type}`).classList.add((currentState.inv? 'down':'up'))
+  if (type==='name') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderByName
+    } else {
+      currentState.triFunc = orderByNameInv
+    }
+  } else if (type==='matiere') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderByMatiereInv
+    } else {
+      currentState.triFunc = orderByMatiere
+    }
+  } else if (type==='date') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderByDate
+    } else {
+      currentState.triFunc = orderByDateInv
+    }
+  } else if (type==='note') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderByNote
+    } else {
+      currentState.triFunc = orderByNoteInv
+    }
+  } else if (type==='note2') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderByNote2
+    } else {
+      currentState.triFunc = orderByNote2Inv
+    }
+  } else if (type==='revision') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderByRevisionInv
+    } else {
+      currentState.triFunc = orderByRevision
+    }
+  } else if (type==='satisfaction') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderBySatisfaction
+    } else {
+      currentState.triFunc = orderBySatisfactionInv
+    }
+  } else if (type==='notion') {
+    if (!currentState.inv) {
+      currentState.triFunc = orderByNotionInv
+    } else {
+      currentState.triFunc = orderByNotion
+    }
   }
+  upNotes(notes, matiereToInt(currentState.currentMatiere), currentState.currentEleve, false)
+}
+
+function upLine(notes, matiere) {
+  if (notes.length === 0) {
+    return
+  }
+
+  notes = notes.sort(orderByDate)
+  const n = notes.reduce((a,b) => ({
+    data: a.data.concat({x:new Date(b.date), y:b.note }),
+    color1: a.color1.concat(matiereToColor(b.matiere)),
+    color2 :a.color2.concat(matiereToColor2(b.matiere)),
+  }), ({color1:[], color2:[], data:[]}))
+  const dateMin = new Date(notes.reduce((a, b) => a.date < b.date ? a : b).date)
+
+  if (currentState.line !== undefined) {
+    currentState.line.data.datasets[0].data = n.data
+    currentState.line.data.datasets[0].pointBackgroundColor = n.color2
+    currentState.line.data.datasets[0].pointBorderColor = n.color1
+    currentState.line.config.options.scales.x.min = dateMin
+    currentState.line.data.datasets[0].borderColor= matiereToColor(matiere)
+    currentState.line.update()
+    return
+  }
+
+
+  const data = {
+    datasets: [{
+      label: "note",
+      data: n.data,
+      pointBackgroundColor: n.color2,
+      pointBorderColor: n.color1,
+      fill: false,
+      pointRadius: 10,
+      borderColor: matiereToColor(matiere),
+      tension: 0.1,
+    }]
+  }
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+          display: false,
+      } 
+    },
+    scales: {
+      x: {
+        min: dateMin,
+        type: 'time',
+        time: {
+          unit: 'month',
+          displayFormats: {
+            month: 'MMM YYYY'
+          }
+        }
+      },
+      y: {
+        min: 0,
+        max: 100,
+      }
+    }
+  }
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: options,
+  };
+
+  currentState.line = new Chart(canvasLine, config)
+}
+
+function upPie(notes, eleve) {
+  if (notes.length === 0) {
+    return
+  }
+
+  const n = notes.reduce((a, b) => {
+    a.data[b.satisfaction-1]++
+    return a
+  }
+  , {data: [0,0,0,0,0]})
+
+  if (currentState.pie !== undefined) {
+    currentState.pie.data.datasets[0].data = n.data
+    currentState.pie.update()
+    return
+  }
+
+  const data = {
+    labels: ["💀","😣","🤔","😊","🤩"],
+    datasets: [{
+      data: n.data,
+    }]
+  }
+
+  const config = {
+    type: 'pie',
+    data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  }
+
+  const canvas = document.getElementById("donuts-satisfaction")
+  currentState.pie = new Chart(canvas, config)
+}
+
+function upBox(notes, eleve) {
+  if (notes.length === 0) {
+    return
+  }
+
+  const r = notes.reduce((a, b) => {
+    const revs = b.revision.split(',')
+    for (const rev of revs) {
+      if (a.people.includes(rev)) {
+        a.data[a.peopleId[rev]]++
+      } else {
+        a.peopleId[rev] = a.count
+        a.count++
+        a.people.push(rev)
+        a.data.push(1)
+      }
+    }
+    return a
+  }
+  , {data: [], people: [], peopleId: {}, count:0})
+
+  if (currentState.box !== undefined) {
+    currentState.box.data.datasets[0].data = r.data
+    currentState.box.data.labels = r.people
+    currentState.box.update()
+    return
+  }
+
+  const data = {
+    labels: r.people,
+    datasets: [{
+      data: r.data,
+    }]
+  }
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+            display: false,
+        } 
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+        }
+      }
+    }
+  }
+
+  const canvas = document.getElementById("box-revision")
+  currentState.box = new Chart(canvas, config)
+}
+
+function upDonuts(notes, eleve) {
+  if (notes.length === 0) {
+    return
+  }
+
+  const n = notes.reduce((a, b) => {
+    a.data[b.note2]++
+    return a
+  }
+  , {data: [0,0,0,0,0,0,0]})
+
+  if (currentState.donut !== undefined) {
+    currentState.donut.data.datasets[0].data = n.data
+    currentState.donut.update()
+    return
+  }
+
+  const data = {
+    labels: ["NA","PA-","PA","PA+","A-","A","A+"],
+    datasets: [{
+      data: n.data,
+    }]
+  }
+
+  const config = {
+    type: 'doughnut',
+    data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  }
+
+  const canvas = document.getElementById("pie-note2")
+  currentState.donut = new Chart(canvas, config)
+}
+
+function upToiles(notes, eleve) {
 
   notes = notes.filter(e => e.name === eleve || eleve === 'all')
 
@@ -385,7 +789,13 @@ function upToiles(notes, eleve) {
       moyennes.push(moy(matiereNotes))
     }
   }
-  const ctx = document.getElementById('toile-moyenne');
+
+  if (currentState.toile !== undefined) {
+    currentState.toile.data.datasets[0].data = moyennes
+    currentState.toile.update()
+    return
+  }
+
   const data = {
     labels: [
       '',
@@ -457,7 +867,7 @@ function upToiles(notes, eleve) {
 }
 
 function upUsers(users) {
-  document.getElementById("eleves-tab").innerHTML = usersToHTML(users)
+  document.getElementById("eleves-tab").innerHTML = usersToHTML(users.sort((a,b) => a.username.localeCompare(b.username)))
 }
 
 function modalShow(id) {

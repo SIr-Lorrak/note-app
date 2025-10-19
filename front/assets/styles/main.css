@@ -13,6 +13,46 @@ body {
 	width: 100%;
 	height: auto;
 }
+.infobulle {
+  position: relative;  /* les .infobulle deviennent référents */
+}
+
+/* on génère un élément :after lors du survol et du focus :*/
+
+.infobulle:hover::after,
+.infobulle:focus::after {
+  content: attr(aria-label);  /* on affiche aria-label */
+  position: absolute;
+  top: -2.4em;
+  left: 50%;
+	transform: translateX(-50%); /* on centre horizontalement  */
+  z-index: 1; /* pour s'afficher au dessus des éléments en position relative */
+  white-space: nowrap;  /* on interdit le retour à la ligne*/
+  padding: 5px 14px;
+  background: #413219;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+/* on génère un second élément en :before pour la flèche */
+
+[aria-label]:hover:before,
+[aria-label]:focus:before {
+  content: "▼";
+  position: absolute;
+  top: -1em;
+	left: 50%;
+	transform: translateX(-50%); /* on centre horizontalement  */
+  font-size: 20px;
+  color: #413219;
+}
+
+/* pas de contour durant le :focus */
+[aria-label]:focus {
+  outline: none;
+}
+
 .content{
 	position: absolute;
 	flex-direction: column;
@@ -150,13 +190,17 @@ label {
 	color: Tomato;
 	background-color: Orange;
 }
-
+.table-general {
+	margin-top: 1em;
+}
 .carton1 {
 	border-color: Gainsboro;
 	color: Gray;
 	background-color: Snow;
 }
-
+.graph canvas {
+	height: 20em !important;
+}
 #after-nav{
 	display: flex;
 	width: 10em;
@@ -166,6 +210,26 @@ label {
 	height: 4em;
 	width: 4em;
 	cursor: pointer;
+}
+.filter>* {
+	height: 1em;
+	width: 1em;
+	cursor: pointer;
+}
+.filter:hover>* {
+	transform: scale(1.2);
+}
+.filter.down>* {
+	transform: rotateZ(90deg);
+}
+.filter.down>*:hover {
+	transform: rotateZ(90deg) scale(1.2);
+}
+.filter.up>* {
+	transform: rotateZ(-90deg);
+}
+.filter.up>*:hover {
+	transform: rotateZ(-90deg) scale(1.2);
 }
 .tiny-logo>* {
 	height: 1em;
@@ -490,35 +554,35 @@ label {
 .general {
 	background-color: white;
 }
-.francais {
-	background-color: PaleTurquoise;
+.francais, .line-francais {
+	background-color: PaleTurquoise !important
 }
-.mathematiques {
-	background-color: MistyRose;
+.mathematiques, .line-musique {
+	background-color: MistyRose !important
 }
-.EMC {
-	background-color: bisque;
+.EMC, .line-EMC {
+	background-color: bisque !important
 }
-.anglais {
-	background-color: Gainsboro;
+.anglais, .line-anglais {
+	background-color: Gainsboro !important
 }
-.art {
-	background-color: Thistle;
+.art, .line-art {
+	background-color: Thistle !important
 }
-.musique {
-	background-color: Pink;
+.musique, .line-mathematiques {
+	background-color: Pink !important
 }
-.EPS {
-	background-color: Tan;
+.EPS, .line-EPS {
+	background-color: Tan !important
 }
-.histoire {
-	background-color: LemonChiffon;
+.histoire, .line-histoire {
+	background-color: LemonChiffon !important
 }
-.geographie {
-	background-color: PeachPuff;
+.geographie, .line-geographie {
+	background-color: PeachPuff !important
 }
-.sciences {
-	background-color: PaleGreen;
+.sciences, .line-sciences {
+	background-color: PaleGreen !important
 }
 
 .rating {
@@ -775,7 +839,7 @@ h1.global {
 	--matiere-spacing: 15em;
   }
   body {
-  	font-size: 1.5em !important;
+  	font-size: 1.4em !important;
   }
 }
 
