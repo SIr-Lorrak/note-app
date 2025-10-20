@@ -582,6 +582,7 @@ function upLine(notes, matiere, eleve) {
 
 
   const dateMin = new Date(notes.reduce((a, b) => a.date < b.date ? a : b).date)
+  const dateMax = new Date(notes.reduce((a, b) => a.date > b.date ? a : b).date)
 
   const options = {
     responsive: true,
@@ -635,7 +636,7 @@ function upLine(notes, matiere, eleve) {
         })
         options.plugins.annotation.annotations[student.username] = {
           type: 'label',
-          xValue: n.data[n.data.length-1].x-1456000000,
+          xValue: n.data[n.data.length-1].x-((dateMax-dateMin)/25),
           yValue: n.data[n.data.length-1].y-5,
           backgroundColor: '#ffffff00',
           color: student.color === '#ffffff' ? 'Gainsboro':student.color,
