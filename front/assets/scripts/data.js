@@ -73,6 +73,7 @@ var students = [ // student list used for admin
 	{
 		username : "Léontine Robinson",
 		role : 1, // 1 for admin display
+		color : "#faebd7",
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -87,6 +88,7 @@ var students = [ // student list used for admin
 	{
 		username : "Titouan Sèchepine",
 		role : 0, // 1 for admin display
+		color : "#faebd7",
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -101,6 +103,7 @@ var students = [ // student list used for admin
 	{
 		username : "Martine Du Calpié",
 		role : 0, // 1 for admin display
+		color : "#faebd7",
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -115,6 +118,7 @@ var students = [ // student list used for admin
 	{
 		username : "Joséphine Pélouze",
 		role : 0, // 1 for admin display
+		color : "#ffffff",
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -129,6 +133,7 @@ var students = [ // student list used for admin
 	{
 		username : "Léon Duku",
 		role : 0, // 1 for admin display
+		color : "#faebd7",
 		avatar : {
 			type : "Buffer",
 			data : [
@@ -254,7 +259,37 @@ var notes = [ // note list
 		note2 : 0, // de NA a A+
 		revision : "Maman",
 		satisfaction : 1
-	}
+	},{
+		id : 9,
+		name : "Joséphine Pélouze",
+		matiere : 6,
+		date : "2025-02-14",
+		notion : "JEAN SEBSALUT BACH",
+		note : 13, // en pourcentage
+		note2 : 0, // de NA a A+
+		revision : "Maman",
+		satisfaction : 1
+	},{
+		id : 10,
+		name : "Joséphine Pélouze",
+		matiere : 6,
+		date : "2025-04-20",
+		notion : "JEAN SEBSALUT BACH",
+		note : 40, // en pourcentage
+		note2 : 0, // de NA a A+
+		revision : "Maman",
+		satisfaction : 1
+	},{
+		id : 9,
+		name : "Joséphine Pélouze",
+		matiere : 6,
+		date : "2025-09-26",
+		notion : "JEAN SEBSALUT BACH",
+		note : 25, // en pourcentage
+		note2 : 0, // de NA a A+
+		revision : "Maman",
+		satisfaction : 1
+	},
 ]
 
 var exos = []

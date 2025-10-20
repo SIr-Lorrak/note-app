@@ -420,7 +420,7 @@ function upStats(notes, matiere, eleve) {
     return
   }
   fallback.innerHTML = ""
-  upLine(notes, matiere)
+  upLine(notes, matiere, eleve)
   document.getElementById("insert-moyenne").innerHTML = `Ton taux de réussite ${matiere === 0? "général" : `en ${matiereToString(matiere)}`} est en moyenne de ${moyenne(notes, matiere, eleve)}%`
   upPie(notes, matiere)
   upBox(notes, matiere)
@@ -571,42 +571,17 @@ function trierPar(type) {
   upNotes(notes, matiereToInt(currentState.currentMatiere), currentState.currentEleve, false)
 }
 
-function upLine(notes, matiere) {
+function upLine(notes, matiere, eleve) {
   if (notes.length === 0) {
     return
   }
 
-  notes = notes.sort(orderByDate)
-  const n = notes.reduce((a,b) => ({
-    data: a.data.concat({x:new Date(b.date), y:b.note }),
-    color1: a.color1.concat(matiereToColor(b.matiere)),
-    color2 :a.color2.concat(matiereToColor2(b.matiere)),
-  }), ({color1:[], color2:[], data:[]}))
-  const dateMin = new Date(notes.reduce((a, b) => a.date < b.date ? a : b).date)
-
-  if (currentState.line !== undefined) {
-    currentState.line.data.datasets[0].data = n.data
-    currentState.line.data.datasets[0].pointBackgroundColor = n.color2
-    currentState.line.data.datasets[0].pointBorderColor = n.color1
-    currentState.line.config.options.scales.x.min = dateMin
-    currentState.line.data.datasets[0].borderColor= matiereToColor(matiere)
-    currentState.line.update()
-    return
-  }
-
-
   const data = {
-    datasets: [{
-      label: "note",
-      data: n.data,
-      pointBackgroundColor: n.color2,
-      pointBorderColor: n.color1,
-      fill: false,
-      pointRadius: 10,
-      borderColor: matiereToColor(matiere),
-      tension: 0.1,
-    }]
+    datasets: [],
   }
+
+
+  const dateMin = new Date(notes.reduce((a, b) => a.date < b.date ? a : b).date)
 
   const options = {
     responsive: true,
@@ -614,7 +589,11 @@ function upLine(notes, matiere) {
     plugins: {
       legend: {
           display: false,
-      } 
+      },
+      annotation: {
+        clip: false,
+        annotations: {}
+      }
     },
     scales: {
       x: {
@@ -632,6 +611,65 @@ function upLine(notes, matiere) {
         max: 100,
       }
     }
+  }
+
+  notes = notes.sort(orderByDate)
+  if (eleve === 'all') {
+    for (const student of students) {
+      const n = notes.filter(note => note.name === student.username).reduce((a,b) => ({
+        data: a.data.concat({x:new Date(b.date), y:b.note }),
+        color1: a.color1.concat(matiereToColor(b.matiere)),
+        color2 :a.color2.concat(matiereToColor2(b.matiere)),
+      }), ({color1:[], color2:[], data:[]}))
+
+      data.datasets.push({
+        label: student.username,
+        data: n.data,
+        pointBackgroundColor: n.color2,
+        pointBorderColor: n.color1,
+        fill: false,
+        pointRadius: 10,
+        borderColor: student.color === '#ffffff' ? 'Gainsboro':student.color,
+        tension: 0.1,
+      })
+      if (n.data.length > 0) {
+        options.plugins.annotation.annotations[student.username] = {
+          type: 'label',
+          xValue: n.data[n.data.length-1].x-1456000000,
+          yValue: n.data[n.data.length-1].y-5,
+          backgroundColor: '#ffffff00',
+          color: student.color === '#ffffff' ? 'Gainsboro':student.color,
+          content: [student.username],
+          textAlign: 'start'
+        }
+      }
+    }
+    console.log(options)
+  } else {
+    const n = notes.reduce((a,b) => ({
+      data: a.data.concat({x:new Date(b.date), y:b.note }),
+      color1: a.color1.concat(matiereToColor(b.matiere)),
+      color2 :a.color2.concat(matiereToColor2(b.matiere)),
+    }), ({color1:[], color2:[], data:[]}))
+
+    data.datasets.push({
+      label: "note",
+      data: n.data,
+      pointBackgroundColor: n.color2,
+      pointBorderColor: n.color1,
+      fill: false,
+      pointRadius: 10,
+      borderColor: students.find(s => s.username === eleve).color,
+      tension: 0.1,
+    })
+  }
+
+  
+  if (currentState.line !== undefined) {
+    currentState.line.data = data
+    currentState.line.config.options = options
+    currentState.line.update()
+    return
   }
 
   const config = {
@@ -664,6 +702,13 @@ function upPie(notes, eleve) {
     labels: ["💀","😣","🤔","😊","🤩"],
     datasets: [{
       data: n.data,
+      backgroundColor: [
+        'IndianRed',
+        'LightSalmon',
+        'Gold',
+        'LightGreen',
+        'DeepSkyBlue'
+      ]
     }]
   }
 
