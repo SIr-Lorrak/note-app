@@ -622,17 +622,17 @@ function upLine(notes, matiere, eleve) {
         color2 :a.color2.concat(matiereToColor2(b.matiere)),
       }), ({color1:[], color2:[], data:[]}))
 
-      data.datasets.push({
-        label: student.username,
-        data: n.data,
-        pointBackgroundColor: n.color2,
-        pointBorderColor: n.color1,
-        fill: false,
-        pointRadius: 10,
-        borderColor: student.color === '#ffffff' ? 'Gainsboro':student.color,
-        tension: 0.1,
-      })
       if (n.data.length > 0) {
+        data.datasets.push({
+          label: student.username,
+          data: n.data,
+          pointBackgroundColor: n.color2,
+          pointBorderColor: n.color1,
+          fill: false,
+          pointRadius: 10,
+          borderColor: student.color === '#ffffff' ? 'Gainsboro':student.color,
+          tension: 0.1,
+        })
         options.plugins.annotation.annotations[student.username] = {
           type: 'label',
           xValue: n.data[n.data.length-1].x-1456000000,

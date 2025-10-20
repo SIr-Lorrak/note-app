@@ -170,7 +170,11 @@ fetch(
 		return res
 	}
 	return res.json().then( j => {
+			const name = currentState.currentUser.role === 1? "all" : currentState.currentUser.username 
 			students = j
+			upUsers(students)
+			upNotes(notes, matiereToInt(currentState.currentMatiere), name)
+			upToiles(notes, name)
 			upUsers(students)
 		}
 	)
