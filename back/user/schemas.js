@@ -89,7 +89,10 @@ const userPass = {
       description: "ta matiere préféré",
       type: "number",
     },
-    color: binary,
+    color: {
+      description: "ta couleur préféré",
+      type: "string"
+    },
     avatar: binary,
     carton: {
       description: "carton recu par l'élève",

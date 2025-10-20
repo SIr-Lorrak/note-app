@@ -644,7 +644,6 @@ function upLine(notes, matiere, eleve) {
         }
       }
     }
-    console.log(options)
   } else {
     const n = notes.reduce((a,b) => ({
       data: a.data.concat({x:new Date(b.date), y:b.note }),
