@@ -659,7 +659,7 @@ function upLine(notes, matiere, eleve) {
       pointBorderColor: n.color1,
       fill: false,
       pointRadius: 10,
-      borderColor: students.find(s => s.username === eleve).color,
+      borderColor: matiereToColor(matiere),
       tension: 0.1,
     })
   }
