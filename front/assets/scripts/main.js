@@ -188,12 +188,12 @@ cartonForm.onsubmit = (e) => {// admin only
 getBackup.onsubmit = (e) => { // put jsons in a file
   e.preventDefault()
   const data = new FormData(getBackup)
-  getNotes().then( () => 
+  getNotes().then(() =>
     getUsers().then(() => {
       var a = window.document.createElement('a');
       a.href = window.URL.createObjectURL(
         new Blob(
-          [`{"notes":${JSON.stringify(notes)}};{"users":${JSON.stringify(students)}}`],
+          [`[{"notes":${JSON.stringify(notes)}},{"users":${JSON.stringify(students)}}]`],
           {type: 'text/plain'}
         )
       );
@@ -213,7 +213,7 @@ sendBackup.onsubmit = (e) => {
   var reader = new FileReader();
 
   reader.onload = () => {
-    const save = reader.result.split(";")
+    const save = JSON.parse(reader.result)
     postNotes(save[0])
     postUsers(save[1])
   }

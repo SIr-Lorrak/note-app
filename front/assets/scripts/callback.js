@@ -84,7 +84,7 @@ fetch(
 		mode: "same-origin",
   		credentials: "same-origin",
 		headers: headers,
-		body: notes
+		body: JSON.stringify(notes)
 	},
 )
 .then(res => {
@@ -194,7 +194,7 @@ fetch(
 		mode: "same-origin",
   		credentials: "same-origin",
 		headers: headers,
-		body: users
+		body: JSON.stringify(users)
 	},
 )
 .then(res => {
