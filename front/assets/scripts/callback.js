@@ -485,3 +485,26 @@ const supprUserModal = (user) => {//TODO : charger l'id du user dans le formulai
 	document.getElementById("suppr-user-id").value = user
 	modalShow("delete-user-modal")
 }
+
+const showPass = (id, shower) => {
+	shower.classList.toggle("show")
+	if (shower.classList.contains("show")) {
+		document.getElementById(id).type = "text"
+		shower.setAttribute('src',"/assets/images/visible.svg")
+	} else {
+		document.getElementById(id).type = "password"
+		shower.setAttribute('src',"/assets/images/invisible.svg")
+	}
+}
+
+const samePass = (id, pass) => {
+	firstPass = document.getElementById(id).value
+	secondPass = pass.value
+	if (firstPass !== secondPass) {
+		pass.setCustomValidity("les mots de passe diffèrent")
+		pass.style.background = "Salmon"
+	} else {
+		pass.setCustomValidity("")
+		pass.style.background = "LightGreen"
+	}
+}

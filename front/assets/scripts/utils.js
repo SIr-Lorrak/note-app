@@ -1,8 +1,20 @@
 customElements.define("load-file", class extends HTMLElement {
-  async connectedCallback(
-    src = this.getAttribute("src"),
-  ) {
-    this.innerHTML = await (await fetch(src)).text()
+
+  static observedAttributes = ['src'];
+
+  constructor() {
+    super();
+  }
+
+  async connectedCallback() {
+    this.innerHTML = await (await fetch(this.src)).text()
+  }
+
+  async attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "src") {
+      this.src = newValue
+      this.innerHTML = await (await fetch(this.src)).text()
+    }
   }
 })
 

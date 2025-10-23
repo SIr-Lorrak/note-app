@@ -1,3 +1,37 @@
+h1,h2,h3,h4 {
+	font-family: "Amatic SC", sans-serif;
+	font-weight: 700 !important;
+}
+.right {
+	display: flex;
+	align-items: flex-end;
+	flex-direction: column;
+}
+.bottom {
+	margin-bottom: 0.5em;
+}
+.form-footer {
+	text-align: center;
+}
+.show-pass {
+	position: absolute;
+	height: 0;
+	width: 0;
+}
+#change-login-form input, #change-password-form input {
+	width: 13.5em;
+}
+.show-pass svg {
+	cursor: pointer;
+	color: slategray;
+	position: relative;
+	height: 1.7em;
+	width: 1.7em;
+	left: -1.7em;
+}
+.show-pass svg:hover {
+	color: DarkSlateGray;
+}
 body {
 	font-size: 1.1em !important;
 	background-color: Cornsilk;
