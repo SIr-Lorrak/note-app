@@ -323,6 +323,10 @@ label {
 	z-index: 42;
 }
 
+#parametre-form {
+	z-index: 42;
+}
+
 .matiere {
 	width: 7em;
 	height: 7em;
@@ -699,6 +703,35 @@ label {
 	background-color: LimeGreen;
 }
 
+.francais ~ #add-note-modal .speech-bubble { background-color: LightSkyBlue;}
+.francais ~ #add-note-modal .speech-bubble:after { border-right-color: LightSkyBlue;}
+
+.mathematiques ~ #add-note-modal .speech-bubble { background-color: LightCoral;}
+.mathematiques ~ #add-note-modal .speech-bubble:after { border-right-color: LightCoral;}
+
+.EMC ~ #add-note-modal .speech-bubble { background-color: bisque;}
+.EMC ~ #add-note-modal .speech-bubble:after { border-right-color: bisque;}
+
+.anglais ~ #add-note-modal .speech-bubble { background-color: Silver;}
+.anglais ~ #add-note-modal .speech-bubble:after { border-right-color: Silver;}
+
+.art ~ #add-note-modal .speech-bubble { background-color: MediumOrchid;}
+.art ~ #add-note-modal .speech-bubble:after { border-right-color: MediumOrchid;}
+
+.musique ~ #add-note-modal .speech-bubble { background-color: HotPink;}
+.musique ~ #add-note-modal .speech-bubble:after { border-right-color: HotPink;}
+
+.EPS ~ #add-note-modal .speech-bubble { background-color: Peru;}
+.EPS ~ #add-note-modal .speech-bubble:after { border-right-color: Peru;}
+
+.histoire ~ #add-note-modal .speech-bubble { background-color: Yellow;}
+.histoire ~ #add-note-modal .speech-bubble:after { border-right-color: Yellow;}
+
+.geographie ~ #add-note-modal .speech-bubble { background-color: Orange;}
+.geographie ~ #add-note-modal .speech-bubble:after { border-right-color: Orange;}
+
+.sciences ~ #add-note-modal .speech-bubble { background-color: LimeGreen;}
+.sciences ~ #add-note-modal .speech-bubble:after { border-right-color: LimeGreen;}
 
 .francais .onglet-content {
 	scrollbar-color: DodgerBlue LightSkyBlue;
@@ -735,6 +768,42 @@ h1.global {
 	top: 0;
 	right: 0;
 	left: 0;
+}
+h1.global.vodka {
+	top: 15%;
+	left: 10%;
+	text-align: left;
+	margin-top: 6em;
+}
+
+.speech-bubble {
+	position: relative;
+	background: white;
+	border-radius: 100%;
+	padding: 1em;
+}
+
+.float {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 7em !important;
+	margin-right: 6em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 1%;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.531em solid transparent;
+	border-right-color: white;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -0.266em;
+	margin-left: -0.531em;
 }
 
 .onglet-wrapper {
@@ -845,6 +914,12 @@ h1.global {
 	width: auto;
 }
 
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 600px !important;
+    }
+}
+
 @media (width < 1200px) {
   .matiere, .matiere-title {
 	--matiere-spacing: 12em;
@@ -893,11 +968,12 @@ h1.global {
 	}
 	h1.global.vodka {
 		position: absolute;
+		text-align: center;
+		margin-top: 3em !important;
+		top: 0;
+		left: 0;
 	}
 }
-
-
-
 
 @media (width > 2000px) {
   .matiere, .matiere-title {

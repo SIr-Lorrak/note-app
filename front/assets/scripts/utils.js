@@ -213,16 +213,16 @@ function info(msg) {
 
 
 const matieresTable = [ 
-  { id:0, value:"general"},
-  { id:1, value:"francais"},
-  { id:2, value:"mathematiques"},
-  { id:3, value:"EMC"},
-  { id:4, value:"anglais"},
-  { id:5, value:"art"},
-  { id:6, value:"musique"},
-  { id:7, value:"EPS"},
-  { id:8, value:"histoire"},
-  { id:9, value:"geographie"},
+  { id:0, value: "general"},
+  { id:1, value: "francais"},
+  { id:2, value: "mathematiques"},
+  { id:3, value: "EMC"},
+  { id:4, value: "anglais"},
+  { id:5, value: "art"},
+  { id:6, value: "musique"},
+  { id:7, value: "EPS"},
+  { id:8, value: "histoire"},
+  { id:9, value: "geographie"},
   { id:10, value:"sciences"},
 ]
 
