@@ -733,6 +733,9 @@ label {
 .sciences ~ #add-note-modal .speech-bubble { background-color: LimeGreen;}
 .sciences ~ #add-note-modal .speech-bubble:after { border-right-color: LimeGreen;}
 
+.general .speech-bubble { background-color: gainsboro; }
+.general .speech-bubble:after { border-right-color: gainsboro; }
+
 .francais .onglet-content {
 	scrollbar-color: DodgerBlue LightSkyBlue;
 }
