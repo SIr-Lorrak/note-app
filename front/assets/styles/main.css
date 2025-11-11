@@ -96,7 +96,7 @@ body {
   bottom: 0;
   right: 0;
 }
-#eleves{
+#eleves, #parametre {
 	overflow: auto;
 }
 #eleves-tab {
@@ -816,6 +816,34 @@ h1.global {
 	display: block;
 }
 
+.avatar-button {
+	height: 4em;
+	width: 4em;
+	margin: 0.1em;
+	border-radius: 1em;
+}
+
+.avatar-button>img {
+	height: 3.5em;
+	width: auto;
+}
+
+.avatar-button:hover {
+	transform: scale(1.2);
+}
+
+.avatar-button.selected {
+	background-color: LightGreen;
+}
+
+.avatar-button:active {
+	transform: scale(0.9);
+}
+
+.avatar-img, .avatar-matiere-img, .avatar-eleve-img {
+	height: 3em;
+	width: auto;
+}
 
 @media (width < 1200px) {
   .matiere, .matiere-title {

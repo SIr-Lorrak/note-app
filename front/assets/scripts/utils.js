@@ -111,11 +111,6 @@ function reloadPage() {
   
   if (currentState.currentUser.role === 1) {
     observeUser(currentState.currentEleve, false)
-  } else {
-    const titles = document.getElementsByClassName('global')
-    for (t of titles) {
-      t.innerHTML = ''
-    }
   }
   // console.log("reload page")
   const page = window.location.pathname.split("/")
@@ -144,6 +139,9 @@ function changeMatiere(newMatiere) {
   matiere.classList.add(newMatiere)
 
   currentState.currentMatiere = newMatiere
+
+  const avatar = currentState.currentEleve === 'all' ? currentState.currentUser.avatar.data[0] : students.find(s => s.username === currentState.currentEleve).avatar.data[0]
+  upAvatar(avatar, newMatiere)
 }
 
 function changeOnglet(newOnglet, prec = true) {
@@ -167,12 +165,14 @@ const observeUser = (user, byclick = true) => { // function only used by admin
   if (byclick) {
     changePage('accueil')
   }
-  const titles = document.getElementsByClassName('global')
+  const titles = document.getElementsByClassName('global-label')
   for (t of titles) {
     t.innerHTML = user === 'all' ? "Tous les élèves" : `Elève ${user}`
   }
   upToiles(notes, user)
-  upCarton(students.find(e => e.username === user))
+  const stud = students.find(e => e.username === user)
+  upCarton(stud)
+  upAvatar(user === 'all' ? currentState.currentUser.avatar.data[0] : stud.avatar.data[0])
 }
 
 function alerte(type, msg) {
@@ -386,7 +386,7 @@ function usersToHTML(users) {
   .reduce(
     (r,user) => r.concat(`
         <tr id="user-${user.username}">
-          <td>${user.username}</td>
+          <td><img class="avatar-eleve-img" src="/assets/images/avatar/${user.avatar.data[0]}.png"/>${user.username}</td>
           <td>${moyenneG(notes,user.username)}</td>
           <td>${cartonToEmoji(user.carton)}${user.commentaire}</td>
           <td>
@@ -431,7 +431,9 @@ function upStats(notes, matiere, eleve) {
     content.classList.add("none")
     return
   }
-  fallback.innerHTML = ""
+  const mean = moyenne(notes, matiere, eleve)
+  const lastNote = notes.reduce((a,b) => a.date > b.date? a : b)
+  fallback.innerHTML = `ta dernière note est ${lastNote.note}%, ce qui a fait ${lastNote.note < mean? "baisser" : "monter"} ta moyenne !`
   upLine(notes, matiere, eleve)
   document.getElementById("insert-moyenne").innerHTML = `Ton taux de réussite ${matiere === 0? "général" : `en ${matiereToString(matiere)}`} est en moyenne de ${moyenne(notes, matiere, eleve)}%`
   upPie(notes, matiere)
@@ -937,4 +939,22 @@ function modalShow(id) {
 
 function modalHide(id) {
   document.getElementById(`${id}-close`).click()
+}
+
+function upAvatarParam(avatar) {
+  document.getElementById('avatar-' + currentState.currentAvatar).classList.remove('selected')
+  document.getElementById('avatar-' + avatar).classList.add('selected')
+  currentState.currentAvatar = Number(avatar)
+}
+
+function upAvatar(avatar, matiere = "none") {
+  const suffix = matiere === 'general' || matiere === 'none'? "" : "-" + matiere
+  for (const e of document.getElementsByClassName('avatar-img')) {
+    e.src = "/assets/images/avatar/" + avatar + ".png"
+  }
+  if (matiere !== 'none') {
+    for (const e of document.getElementsByClassName('avatar-matiere-img')) {
+      e.src = "/assets/images/avatar/" + avatar + suffix + ".png"
+    }
+  }
 }

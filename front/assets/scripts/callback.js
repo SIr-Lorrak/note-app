@@ -419,6 +419,8 @@ fetch(
 		currentState.connected = true
 		currentState.currentUser = j
 		currentState.currentEleve = currentState.currentUser.role === 1? 'all' : currentState.currentUser.username
+		upAvatar(currentState.currentUser.avatar.data[0])
+ 		upAvatarParam(currentState.currentUser.avatar.data[0])
 		reloadPage()
 		getEverything()
 	})

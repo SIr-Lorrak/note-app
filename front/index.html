@@ -121,7 +121,7 @@
 		</div>
 
 		<div id="accueil" class="hidden content">
-			<h1 class="global vodka"></h1>
+			<h1 class="global vodka"><img class="avatar-img" src="/assets/images/avatar/1.png"/> <span class="global-label">Bienvenu vers ton avenir !</span></h1>
 			<canvas id="toile-moyenne"></canvas>
 			<div class="matiere-wheel">
 
@@ -154,7 +154,7 @@
 		<div id="matiere" class="general hidden content">
 			<!--ici la page matière pour rentrer une note voir l'historique ou les statistiques-->
 			<div class="onglet-wrapper">
-			<h1 class="global"></h1>
+			<h1 class="global"><span class="global-label"></span></h1>
 				<div class="onglet-nav">
 					<div id="historique" class="onglet"><load-file src="/assets/images/oeil.svg" class="tiny-logo bigger"></load-file><span> Tes notes</span></div>
 					<div id="statistiques" class="onglet"><load-file src="/assets/images/stat.svg" class="tiny-logo"></load-file><span> Statistiques</span></div>
@@ -172,7 +172,7 @@
 						<div id="historique-tab"></div>
 					</div>
 					<div id="statistiques-content" class='onglet-content none'>
-						<h3 id="stats-fallback"></h3>
+						<h3><img class="avatar-matiere-img" src="/assets/images/avatar/1-sciences.png"/> <span class="last-note" id="stats-fallback"></span></h3><br/>
 						<div id="stats-content">
 							<h3>L'évolution de tes notes au cours du temps : </h3>
 							<div class="graph"><canvas id="line-note"></canvas></div><br/>
@@ -221,6 +221,28 @@
 		<div id="parametre" class="hidden content">
 			<!--ici les parametre de ton profil pour changer de nom, d'avatar, de mot de passe...-->
 			<div id="parametre-form" class="center">
+				<form id="change-avatar-form">
+					<label for="changer-avatar">Changer d'avatar :</label><br/>
+					<div id="changer-avatar">
+						<div>
+							<button type="button" class="avatar-button selected" value=0 id="avatar-0"><img src="/assets/images/avatar/0.png"/></button>
+							<button type="button" class="avatar-button" value=1 id="avatar-1"><img src="/assets/images/avatar/1.png"/></button>
+							<button type="button" class="avatar-button" value=2 id="avatar-2"><img src="/assets/images/avatar/2.png"/></button>
+						</div>
+						<div>
+							<button type="button" class="avatar-button" value=3 id="avatar-3"><img src="/assets/images/avatar/3.png"/></button>
+							<button type="button" class="avatar-button" value=4 id="avatar-4"><img src="/assets/images/avatar/4.png"/></button>
+							<button type="button" class="avatar-button" value=5 id="avatar-5"><img src="/assets/images/avatar/5.png"/></button>
+						</div>
+						<div>
+							<button type="button" class="avatar-button" value=6 id="avatar-6"><img src="/assets/images/avatar/6.png"/></button>
+							<button type="button" class="avatar-button" value=7 id="avatar-7"><img src="/assets/images/avatar/7.png"/></button>
+							<button type="button" class="avatar-button" value=8 id="avatar-8"><img src="/assets/images/avatar/8.png"/></button>
+						</div>
+					</div>
+	  				<button class="btn btn-primary">Appliquer</button><br/>
+				</form>
+  				<br/>
 				<form id="change-login-form">
 					<label for="change-login">Changer de nom :</label><br/>
 					<input 
@@ -295,7 +317,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="add-note-modal">
 		 	<div class="modal-content">
 		      <div class="modal-header">
-		        <h1 class="modal-title" id="add-note-modal">Quelle est ta note du jour ?</h1>
+		        <h1 class="modal-title" id="add-note-modal"><img class="avatar-matiere-img" src="/assets/images/avatar/1-sciences.png"/> Quelle est ta note du jour ?</h1>
 		        <button id="add-note-modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 

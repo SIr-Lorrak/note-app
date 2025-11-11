@@ -64,6 +64,7 @@ const currentState = {
 	currentPage : "loading", //current page to show 
 	currentOnglet : "historique",
 	currentMatiere : "general", // matiere to display on matiere page (0 for general)
+	currentAvatar : 0,
 	triFunc : orderByDateInv,
 	tri: 'date',
 	inv: true,
@@ -77,7 +78,7 @@ var students = [ // student list used for admin
 		avatar : {
 			type : "Buffer",
 			data : [
-				0,
+				6,
 			]
 		},
 		matiere : 6,
@@ -107,7 +108,7 @@ var students = [ // student list used for admin
 		avatar : {
 			type : "Buffer",
 			data : [
-				0,
+				8,
 			]
 		},
 		matiere : 5,
@@ -122,7 +123,7 @@ var students = [ // student list used for admin
 		avatar : {
 			type : "Buffer",
 			data : [
-				0,
+				3,
 			]
 		},
 		matiere : 2,

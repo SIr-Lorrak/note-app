@@ -220,3 +220,13 @@ sendBackup.onsubmit = (e) => {
 
   reader.readAsText(file)
 }
+
+document.getElementById('change-avatar-form').onsubmit = (e) => {
+  e.preventDefault()
+  currentState.currentUser.avatar.data[0] = Number(currentState.currentAvatar)
+  putUser(currentState.currentUser.username,currentState.currentUser)
+}
+
+for (const a of document.getElementsByClassName('avatar-button')) {
+  a.onclick = () => upAvatarParam(a.value)
+}
