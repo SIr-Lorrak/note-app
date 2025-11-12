@@ -427,7 +427,7 @@ function upStats(notes, matiere, eleve) {
   content.classList.remove("none")
   const fallback = document.getElementById("stats-fallback")
   if (notes.length === 0) {
-    fallback.innerHTML = `Tu n'as pas encore de note en ${matiereToString(matiere)}`
+    fallback.innerHTML = `Tu n'as pas encore de notes en ${matiereToString(matiere)}`
     content.classList.add("none")
     return
   }

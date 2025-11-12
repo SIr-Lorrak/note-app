@@ -784,6 +784,16 @@ h1.global.vodka {
 	background: white;
 	border-radius: 100%;
 	padding: 1em;
+	display: inline-block;
+	margin-left: 0.2em;
+}
+
+h1:has(.speech-bubble), h2:has(.speech-bubble), h3:has(.speech-bubble)  {
+	display: inline-flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	right: auto;
+	width: auto;
 }
 
 .float {
@@ -975,6 +985,7 @@ h1.global.vodka {
 		margin-top: 3em !important;
 		top: 0;
 		left: 0;
+		right: 0;
 	}
 }
 
