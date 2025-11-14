@@ -329,9 +329,13 @@ fetch(
 const getEverything = () => {
 	getNotes().then (() => {
 		if (currentState.currentUser.role === 1) {
-		getUsers().then(() => upCarton(students.find(e => e.username === currentState.currentEleve)))
+		getUsers().then(() => {
+			upCarton(students.find(e => e.username === currentState.currentEleve))
+			reloadPage()
+		})
 		} else {
 			upCarton(currentState.currentUser)
+			reloadPage()
 		}
 	})
 }
@@ -421,7 +425,6 @@ fetch(
 		currentState.currentEleve = currentState.currentUser.role === 1? 'all' : currentState.currentUser.username
 		upAvatar(currentState.currentUser.avatar.data[0])
  		upAvatarParam(currentState.currentUser.avatar.data[0])
-		reloadPage()
 		getEverything()
 	})
 })
