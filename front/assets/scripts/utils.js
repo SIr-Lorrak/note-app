@@ -18,6 +18,13 @@ customElements.define("load-file", class extends HTMLElement {
   }
 })
 
+function getInfo() {
+  if (currentState.currentEleve !== 'all' && currentState.currentUser.role === 1) {
+    return "#" + currentState.currentEleve
+  }
+  return ""
+}
+
 Date.prototype.getWeek = function() {
   var onejan = new Date(this.getFullYear(), 0, 1);
   var millisecsInDay = 86400000;
@@ -67,7 +74,8 @@ function changePage(tryPage, prec = true) {
   const newPage = document.getElementById(page)
 
   if (prec) {
-    history.pushState({}, null, "/".concat(page))
+    const info = page === getAccueil()? "" : getInfo()
+    history.pushState({}, null, "/".concat(page, info))
   }
 
   oldPage.classList.add("hidden")
@@ -108,6 +116,8 @@ function reloadPage() {
   document.body.style.background = currentState.currentUser.color
   document.getElementById("change-color").value = currentState.currentUser.color
   document.getElementById("change-login").value = currentState.currentUser.username
+  const info = window.location.hash.split("#")[1]
+  currentState.currentEleve = decodeURI((info === null || info === undefined? "all": info))
   
   if (currentState.currentUser.role === 1) {
     observeUser(currentState.currentEleve, false)
@@ -131,7 +141,7 @@ function reloadPage() {
 function changeMatiere(newMatiere) {
   // console.log(`matiere ${newMatiere}`)
 
-  window.history.replaceState({}, null, "/".concat(newMatiere,"/",currentState.currentOnglet))
+  window.history.replaceState({}, null, "/".concat(newMatiere,"/",currentState.currentOnglet,getInfo()))
 
   upNotes(notes, matiereToInt(newMatiere), currentState.currentEleve)
 
@@ -150,7 +160,7 @@ function changeOnglet(newOnglet, prec = true) {
   document.getElementById(currentState.currentOnglet.concat("-content")).classList.add('none')
 
   if (prec) {
-    history.pushState({}, null, "/".concat(currentState.currentMatiere,"/",newOnglet))
+    history.pushState({}, null, "/".concat(currentState.currentMatiere,"/",newOnglet,getInfo()))
   }
 
   document.getElementById(newOnglet).classList.add('selected')
